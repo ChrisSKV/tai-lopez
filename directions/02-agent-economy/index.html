@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Agent Economy, with Tai Lopez</title>
+<meta name="description" content="AI agents are the biggest leverage shift since the internet. Book a free 1-on-1 AI agent strategy call with Tai Lopez's team.">
+<meta name="theme-color" content="#F7F3EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   THE AGENT ECONOMY: direction 02, warm editorial (light)
+   ========================================================================== */
+:root{
+  color-scheme: light;
+  --paper:#F7F3EC;
+  --paper-2:#EFE8DC;
+  --paper-3:#E6DCCB;
+  --field:#FFFDF9;
+  --ink:#16130F;
+  --ink-2:#3D3731;
+  --muted:#6B6358;
+  --rule:#D9D0C1;
+  --rule-2:#C9BEAC;
+  --ctl:#968A78;             /* form-control borders: 3:1 on paper (WCAG 1.4.11) */
+  --accent:#E2552B;          /* the one accent: burnt terracotta */
+  --accent-text:#B5401C;     /* same hue, darkened for small text (AA on ivory) */
+  --accent-soft:#F5DCCD;
+
+  --serif:"Instrument Serif","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --maxw:1280px;
+  --gutter:clamp(20px,4vw,56px);
+  --r-ctl:10px;
+  --r-pill:999px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --sbw:0px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
+html.lock{overflow:hidden;padding-right:var(--sbw)}
+body{
+  margin:0;min-width:320px;
+  background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .09 0 0 0 0 .07 0 0 0 0 .05 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color:var(--ink);
+  font:400 16px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  overflow-x:clip;
+}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+a{color:inherit}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:-.012em;text-wrap:balance;color:var(--ink)}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:var(--r-pill);font-weight:600;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+
+.wrap{width:100%;max-width:calc(var(--maxw) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+.kicker{font:500 11.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kicker b{font-weight:500;color:var(--accent-text)}
+
+/* ---------- Buttons ---------- */
+.btn{
+  --h:58px;
+  display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
+  height:var(--h);padding:0 9px 0 28px;border:0;border-radius:var(--r-pill);
+  background:var(--ink);color:var(--paper);
+  font:600 16.5px/1 var(--sans);letter-spacing:-.005em;text-decoration:none;white-space:nowrap;
+  cursor:pointer;transition:background-color .25s ease,transform .2s ease,opacity .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn .arr{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--ink);transition:transform .35s var(--ease)}
+.btn .arr svg{width:16px;height:16px}
+.btn:hover{background:#2C2620}
+.btn:hover .arr{transform:translateX(3px)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.38;cursor:not-allowed}
+.btn[disabled]:hover .arr{transform:none}
+.btn-sm{--h:46px;padding-left:20px;gap:12px;font-size:14.5px;padding-right:7px}
+.btn-sm .arr{width:32px;height:32px}
+.btn-sm .arr svg{width:14px;height:14px}
+.btn-block{width:100%}
+.btn-ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;height:58px;padding:0 24px;
+  border:1px solid var(--ink);border-radius:var(--r-pill);background:transparent;color:var(--ink);
+  font:600 15.5px/1 var(--sans);cursor:pointer;transition:background-color .2s;white-space:nowrap;
+}
+.btn-ghost:hover{background:rgba(22,19,15,.05)}
+.btn-ghost svg{width:16px;height:16px}
+
+.trust{display:flex;flex-wrap:wrap;align-items:center;gap:8px 0;margin:16px 0 0 -29px;padding:0;list-style:none;font:500 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);-webkit-clip-path:inset(0 0 0 29px);clip-path:inset(0 0 0 29px)}
+.trust li{display:flex;align-items:center;white-space:nowrap}
+.trust li::before{content:"";flex:none;width:5px;height:5px;margin:0 12px;background:var(--accent);transform:rotate(45deg)}
+.trust.center{justify-content:center;margin-left:0;-webkit-clip-path:none;clip-path:none}
+.trust.center li:first-child::before{display:none}
+
+.pulse{position:relative;width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);animation:pulse 2.4s var(--ease) infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
+
+/* ---------- Nav / masthead ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,243,236,.9);-webkit-backdrop-filter:saturate(1.1) blur(12px);backdrop-filter:saturate(1.1) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--rule)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:66px}
+.brand{display:flex;align-items:center;gap:9px;min-height:44px;color:var(--ink);text-decoration:none;min-width:0}
+.brand-mark{width:24px;height:24px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1;min-width:0}
+.brand-name{font:400 15px/1 var(--serif);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.brand-with{font:italic 400 14px/1 var(--serif);color:var(--muted);margin-top:5px;white-space:nowrap}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-status{display:none;align-items:center;gap:10px}
+.nav .btn{padding:0 18px;transition:background-color .25s ease,opacity .25s ease,visibility .25s}
+.mbar-on .nav .btn{opacity:0;visibility:hidden}
+.nav .btn .arr{display:none}
+
+/* ---------- Hero ---------- */
+.hero{padding-top:8px}
+.dateline{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+.dateline .mid,.dateline .end,.dateline .dl-l{display:none}
+.dateline .end{align-items:center;gap:10px}
+.hero-grid{display:grid;gap:52px;padding:34px 0 56px}
+.hero h1{font-size:clamp(48px,13.2vw,66px);line-height:.93;letter-spacing:-.02em}
+.hero h1 .line{display:block}
+.hero h1 em{padding-right:.04em}
+.lede{margin-top:24px;font-size:17.5px;line-height:1.55;color:var(--ink-2);max-width:35em}
+.lede strong{font-weight:600;color:var(--ink)}
+.cta-block{margin-top:30px}
+
+/* Portrait / VSL figure */
+.figure{margin:0;position:relative}
+.frame-wrap{position:relative}
+.crop{position:absolute;inset:-16px;pointer-events:none;
+  background:
+    linear-gradient(var(--ink),var(--ink)) 0 16px/10px 1px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) 16px 0/1px 10px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) 100% 16px/10px 1px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) calc(100% - 16px) 0/1px 10px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) 0 calc(100% - 16px)/10px 1px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) 16px 100%/1px 10px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) 100% calc(100% - 16px)/10px 1px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) calc(100% - 16px) 100%/1px 10px no-repeat;
+  opacity:.55}
+.frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(180deg,#EDE5D7 0%,#E5DBCA 100%);isolation:isolate}
+.frame .sun{position:absolute;left:50%;top:var(--horizon,64%);width:var(--sun,100%);aspect-ratio:1;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);z-index:0}
+.frame .ground{position:absolute;left:0;right:0;bottom:0;top:var(--horizon,64%);background:#D8CCB7;border-top:1px solid var(--ink);z-index:1}
+.frame .ground::after{content:"";position:absolute;left:0;right:0;top:12px;height:1px;background:rgba(22,19,15,.35);box-shadow:0 10px 0 rgba(22,19,15,.18),0 22px 0 rgba(22,19,15,.1)}
+.frame .ht{position:absolute;inset:0;z-index:2;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cpath d='M200 74c54 0 88 43 88 104 0 50-21 89-48 109l2 42c70 14 118 42 136 92l14 79H8l14-79c18-50 66-78 136-92l2-42c-27-20-48-59-48-109 0-61 34-104 88-104z'/%3E%3C/svg%3E") 50% 100%/100% auto no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cpath d='M200 74c54 0 88 43 88 104 0 50-21 89-48 109l2 42c70 14 118 42 136 92l14 79H8l14-79c18-50 66-78 136-92l2-42c-27-20-48-59-48-109 0-61 34-104 88-104z'/%3E%3C/svg%3E") 50% 100%/100% auto no-repeat}
+.frame .ht::before,.frame .ht::after{content:"";position:absolute;inset:0}
+.frame .ht::before{background:radial-gradient(circle,var(--ink) 1.35px,transparent 1.75px) 0 0/6px 6px;opacity:.9}
+.frame .ht::after{background:radial-gradient(circle,var(--ink) 2.3px,transparent 2.7px) 3px 3px/6px 6px;
+  -webkit-mask:linear-gradient(105deg,transparent 42%,#000 82%);mask:linear-gradient(105deg,transparent 42%,#000 82%)}
+.frame .tag{position:absolute;z-index:3;top:14px;left:14px;display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--paper);border:1px solid var(--rule-2);font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.frame .fig{position:absolute;z-index:3;top:14px;right:16px;font:italic 400 18px/1 var(--serif);color:var(--ink)}
+.vsl-btn{position:absolute;z-index:3;left:14px;bottom:14px;display:flex;align-items:center;gap:12px;padding:7px 18px 7px 7px;border:0;border-radius:var(--r-pill);background:var(--paper);color:var(--ink);cursor:pointer;text-align:left;box-shadow:0 12px 30px -12px rgba(22,19,15,.45);transition:transform .25s var(--ease)}
+.vsl-btn:hover{transform:translateY(-2px)}
+.vsl-btn .play{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex:none;position:relative}
+.vsl-btn .play::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent);opacity:.9}
+.vsl-btn .play svg{width:14px;height:14px;margin-left:2px}
+.vsl-btn b{display:block;font:600 14.5px/1.2 var(--sans)}
+.vsl-btn small{display:block;margin-top:3px;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.figcap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule)}
+.figcap p{font:italic 400 16px/1.35 var(--serif);color:var(--ink-2)}
+.figcap span{flex:none;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Agent wire (ticker) ---------- */
+.wire{display:flex;align-items:stretch;height:48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden}
+.wire-label{flex:none;display:flex;align-items:center;gap:10px;padding:0 16px 0 var(--gutter);background:var(--ink);color:var(--paper);font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.wire-label .pulse{width:7px;height:7px}
+.wire-view{flex:1;min-width:0;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent);mask:linear-gradient(90deg,transparent,#000 32px,#000 calc(100% - 32px),transparent)}
+.wire-track{display:flex;width:max-content;height:100%;animation:wire 80s linear infinite}
+.wire-group{display:flex;margin:0;padding:0;list-style:none}
+.wire-group li{display:flex;align-items:center;gap:10px;padding:0 26px;height:100%;white-space:nowrap;font:400 12.5px/1 var(--mono);color:var(--ink-2);border-right:1px solid var(--rule)}
+.wire-group time{color:var(--accent-text);font-weight:500}
+@keyframes wire{to{transform:translateX(-50%)}}
+.wire:hover .wire-track{animation-play-state:paused}
+
+/* ---------- Sections ---------- */
+.section{padding:64px 0}
+.sec-head{display:flex;justify-content:space-between;gap:16px;padding-top:12px;border-top:1px solid var(--ink)}
+.sec-head .folio{display:none}
+.h2{font-size:clamp(42px,11vw,56px);line-height:.98;letter-spacing:-.018em}
+
+/* Proof strip */
+.proof{padding:44px 0 8px}
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px 0}
+.proof-intro{grid-column:1/-1}
+.proof-intro p{margin-top:8px;font:italic 400 21px/1.25 var(--serif);color:var(--ink);max-width:16em}
+.stat{padding:0 16px;border-left:1px solid var(--rule)}
+.stat:nth-child(even){padding-left:0;border-left:0}
+.stat b{display:block;font:400 54px/1 var(--serif);letter-spacing:-.02em;font-weight:400}
+.stat b sup{font-size:.45em;vertical-align:top;position:relative;top:.25em;margin-left:2px;color:var(--accent)}
+.stat span{display:block;margin-top:10px;font-size:13.5px;line-height:1.45;color:var(--muted);max-width:21ch}
+
+/* Pillars */
+.pillars-top{display:grid;gap:28px;margin-top:32px}
+.dropcap{font-size:17.5px;line-height:1.62;color:var(--ink-2);max-width:34em}
+.dropcap::first-letter{float:left;font:400 6.1em/.74 var(--serif);color:var(--accent);margin:.1em .1em 0 -.03em}
+.pillar-grid{display:grid;margin-top:40px;border-top:1px solid var(--ink)}
+.pillar{padding:30px 0 30px;border-bottom:1px solid var(--rule)}
+.pillar:last-child{border-bottom:0;padding-bottom:0}
+.p-head{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}
+.pillar .num{flex:none;width:58px;font:italic 400 46px/.9 var(--serif);color:var(--accent)}
+.pillar h3{font-size:31px;line-height:1.04}
+.pillar p{font-size:16.5px;color:var(--ink-2)}
+
+/* The call */
+.call{background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.call-grid{display:grid;gap:56px;margin-top:32px}
+.steps{list-style:none;margin:36px 0 0;padding:0;border-bottom:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:44px 1fr;gap:0 12px;padding:24px 0;border-top:1px solid var(--rule)}
+.step .n{font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--accent-text);padding-top:12px}
+.step h3{font-size:31px;line-height:1.08}
+.step p{grid-column:2;margin-top:6px;color:var(--ink-2);max-width:50ch}
+.step .meta{grid-column:2;margin-top:12px;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.take{position:relative;background:var(--paper);border:1px solid var(--ink);padding:30px 22px 26px}
+.take .stamp{position:absolute;top:-34px;right:-8px;width:96px;height:96px}
+.take h3{font-size:34px;line-height:1.05;margin-top:14px;max-width:9em}
+.take-list{list-style:none;margin:22px 0 26px;padding:0}
+.take-list li{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--rule);font-size:16px;line-height:1.5;color:var(--ink-2)}
+.take-list li:last-child{border-bottom:1px solid var(--rule)}
+.take-list li strong{color:var(--ink);font-weight:600}
+.check{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center}
+.check svg{width:14px;height:14px}
+
+.stamp .ring{transform-origin:60px 60px;animation:spin 36s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Author */
+.quote{margin:36px 0 0;display:grid;gap:0}
+.qmark{font:400 120px/.62 var(--serif);color:var(--accent);height:44px;user-select:none}
+.quote blockquote{margin:0;font:italic 400 clamp(32px,8.4vw,40px)/1.1 var(--serif);letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.quote blockquote span{color:var(--accent);}
+.quote figcaption{margin-top:22px;display:flex;align-items:center;gap:14px;font:500 11.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.quote figcaption::before{content:"";width:36px;height:1px;background:var(--ink)}
+.author-grid{display:grid;gap:32px;margin-top:40px;padding-top:32px;border-top:1px solid var(--rule)}
+.author-id{display:grid;grid-template-columns:116px 1fr;gap:18px;align-items:end}
+.author-id .frame{aspect-ratio:4/5}
+.author-id .frame .ht::before{background-size:4px 4px;background-image:radial-gradient(circle,var(--ink) .95px,transparent 1.25px)}
+.author-id .frame .ht::after{background-size:4px 4px;background-position:2px 2px;background-image:radial-gradient(circle,var(--ink) 1.5px,transparent 1.8px)}
+.author-id .frame .ground::after{display:none}
+.author-id .name{font:400 30px/1 var(--serif)}
+.author-id .role{margin-top:8px}
+.author-bio .bio-title{font-size:30px;line-height:1.1;margin-bottom:12px}
+.author-bio p{color:var(--ink-2);font-size:16.5px}
+.author-bio p+p{margin-top:12px}
+.fit{display:grid;gap:24px}
+.fit h4{margin:0 0 4px;font:500 11.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fit ul{list-style:none;margin:0;padding:0}
+.fit li{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--rule);font-size:15.5px}
+.fit li svg{flex:none;width:14px;height:14px;transform:translateY(2px)}
+.fit .yes svg{color:var(--accent-text)}
+.fit .no li{color:var(--muted)}
+
+/* Letters */
+.letters-head{display:grid;gap:14px;margin-top:32px}
+.letters-head p{color:var(--ink-2);max-width:30em}
+.letters-grid{display:grid;margin-top:40px;border-top:1px solid var(--ink)}
+.letter{margin:0;padding:28px 0;border-bottom:1px solid var(--rule);display:flex;flex-direction:column}
+.letter:last-child{border-bottom:0;padding-bottom:0}
+.letter blockquote{margin:14px 0 24px;font:400 23px/1.3 var(--serif);color:var(--ink);flex:1}
+.sig{display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--paper-3);display:grid;place-items:center;font:italic 400 18px/1 var(--serif);color:var(--ink);flex:none;border:1px solid var(--rule-2)}
+.sig b{display:block;font:600 15px/1.25 var(--sans)}
+.sig small{display:block;margin-top:3px;font:500 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* FAQ / interview */
+.faq-grid{display:grid;gap:32px;margin-top:32px}
+.faq-side p{margin-top:16px;color:var(--ink-2);max-width:26em}
+.faq-side .btn{margin-top:26px}
+.qa{border-top:1px solid var(--ink)}
+.qa-item{border-bottom:1px solid var(--rule)}
+.qa-q{width:100%;display:grid;grid-template-columns:34px 1fr 32px;gap:6px;align-items:start;padding:20px 0;background:none;border:0;text-align:left;cursor:pointer;font:400 24px/1.18 var(--serif);color:var(--ink);-webkit-tap-highlight-color:transparent}
+.qa-q .q{font-style:italic;color:var(--accent)}
+.qa-q .pm{width:32px;height:32px;border:1px solid var(--rule-2);border-radius:50%;display:grid;place-items:center;transition:transform .35s var(--ease),background-color .2s,border-color .2s;margin-top:-2px}
+.qa-q .pm svg{width:12px;height:12px}
+.qa-q .pm .v{transition:transform .35s var(--ease);transform-origin:center}
+.qa-q:hover .pm{border-color:var(--ink)}
+.qa-item.open .pm{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.qa-item.open .pm .v{transform:scaleY(0)}
+.qa-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.qa-item.open .qa-a{grid-template-rows:1fr}
+.qa-a>div{overflow:hidden;visibility:hidden;transition:visibility 0s .4s}
+.qa-item.open .qa-a>div{visibility:visible;transition-delay:0s}
+.qa-a .inner{display:grid;grid-template-columns:34px 1fr 32px;gap:6px;padding:0 0 24px}
+.qa-a .a{font:italic 400 24px/1 var(--serif);color:var(--muted)}
+.qa-a p{color:var(--ink-2);font-size:16.5px;padding-top:2px}
+
+/* Final CTA */
+.final{position:relative;overflow:hidden;background:var(--accent);color:var(--ink);padding:64px 0 72px}
+.final .sec-head{border-top-color:var(--ink)}
+.final .kicker{color:var(--ink)}
+.final h2{margin-top:32px;font-size:clamp(46px,12.4vw,64px);line-height:.95;letter-spacing:-.02em;max-width:12em}
+.final h2 em{color:var(--paper);display:block}
+.final p.sub{margin-top:24px;font-size:17.5px;max-width:31em;color:var(--ink)}
+.final .cta-block{position:relative;z-index:1}
+.final .btn .arr{background:var(--paper)}
+.final .trust{color:var(--ink)}
+.final .trust li::before{background:var(--ink)}
+.final .sunset{position:absolute;right:-18%;bottom:-36%;width:min(760px,120vw);aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0 22px,rgba(22,19,15,.16) 22px 23px);
+  -webkit-mask:radial-gradient(circle,#000 0 70%,transparent 71%);mask:radial-gradient(circle,#000 0 70%,transparent 71%);opacity:.9}
+.final .wrap{position:relative}
+.final :focus-visible{outline-color:var(--ink)}
+
+/* Footer */
+.foot{padding:48px 0 calc(56px + env(safe-area-inset-bottom));font-size:13px;color:var(--muted)}
+.foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;padding-bottom:26px;border-bottom:1px solid var(--rule)}
+.foot-links{display:flex;flex-wrap:wrap;gap:4px 22px;margin:0;padding:0;list-style:none}
+.foot-links a{display:inline-block;padding:12px 0;color:var(--ink-2);text-decoration:none;font-size:14px}
+.foot-links a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.disclaimer{margin-top:24px;max-width:96ch;line-height:1.65;font-size:12.5px}
+.disclaimer strong{color:var(--ink-2);font-weight:600}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-top:22px}
+
+/* Mobile sticky CTA */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(247,243,236,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--rule);transform:translateY(110%);transition:transform .4s var(--ease)}
+.mbar.show{transform:none}
+.mbar-txt b{display:block;font:400 18px/1.1 var(--serif)}
+.mbar-txt small{display:block;margin-top:3px;font:500 9.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Reveal ---------- */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .hero .sun{transition:transform 1.4s var(--ease) .2s}
+.js .hero:not(.go) .frame .sun{transform:translate(-50%,-12%)}
+.js .hero .ht{transition:opacity 1.2s ease .35s}
+.js .hero:not(.go) .ht{opacity:0}
+
+/* ---------- Dialogs ---------- */
+.dlg{position:fixed;inset:0;z-index:100;display:grid;place-items:end stretch}
+.dlg[hidden]{display:none}
+.dlg-scrim{position:absolute;inset:0;background:rgba(22,19,15,.52);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease}
+.dlg-panel{position:relative;width:100%;max-height:calc(100dvh - 10px);overflow:auto;overscroll-behavior:contain;background:var(--paper);border-radius:16px 16px 0 0;box-shadow:0 -20px 60px -20px rgba(22,19,15,.4);transform:translateY(40px);opacity:0;transition:transform .45s var(--ease),opacity .3s ease}
+.dlg.open .dlg-scrim{opacity:1}
+.dlg.open .dlg-panel{transform:none;opacity:1}
+.dlg-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 0 20px}
+.x{width:44px;height:44px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:background-color .2s}
+.x:hover{background:var(--paper-2)}
+.x svg{width:18px;height:18px}
+.prog{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 20px 0;padding:0;list-style:none}
+.prog li{padding-top:10px;border-top:2px solid var(--rule);font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:border-color .3s,color .3s}
+.prog li span{color:inherit;margin-right:4px}
+.prog li.done{border-top-color:var(--ink);color:var(--ink-2)}
+.prog li.active{border-top-color:var(--accent);color:var(--ink)}
+.prog li.active span{color:var(--accent-text)}
+.dlg-body{padding:24px 20px 28px}
+.pane{animation:paneIn .45s var(--ease)}
+@keyframes paneIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pane-title{font:400 34px/1.04 var(--serif);letter-spacing:-.012em;outline:none}
+.pane-title em{font-style:italic;color:var(--accent)}
+.pane-sub{margin-top:8px;color:var(--ink-2);font-size:15.5px}
+
+.fields{display:grid;gap:14px;margin-top:22px}
+.field label,.field legend{display:block;padding:0;margin-bottom:6px;font:500 13.5px/1.3 var(--sans);color:var(--ink)}
+.field input{width:100%;height:52px;padding:0 16px;border:1px solid var(--ctl);border-radius:var(--r-ctl);background:var(--field);color:var(--ink);font:400 16px/1 var(--sans);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.field input::placeholder{color:#9A9083}
+.field input:hover{border-color:var(--muted)}
+.field input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(226,85,43,.28)}
+.field input[aria-invalid="true"]{border-color:var(--accent-text)}
+.err{display:none;align-items:center;gap:6px;margin-top:6px;font-size:13px;color:var(--accent-text)}
+.err.show{display:flex}
+.err svg{width:14px;height:14px;flex:none}
+fieldset.field{margin:4px 0 0;padding:0;border:0;min-width:0}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chip,.field .chip{position:relative;display:flex;margin:0;cursor:pointer}
+.chip input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.chip span{flex:1;display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 12px;border:1px solid var(--ctl);border-radius:var(--r-ctl);background:var(--field);font:500 14.5px/1.25 var(--sans);transition:border-color .2s,background-color .2s,color .2s}
+.chip span::before{content:"";flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--ctl);background:var(--field);transition:box-shadow .2s,border-color .2s,background-color .2s}
+.chip:hover span{border-color:var(--muted)}
+.chip input:checked+span{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.chip input:checked+span::before{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px var(--ink)}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.form-foot{margin-top:22px}
+.fine{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:12.5px;color:var(--muted);text-align:center}
+.fine svg{width:13px;height:13px;flex:none}
+
+.cal-label{margin-top:22px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.day{display:grid;gap:4px;justify-items:center;padding:10px 2px;min-height:76px;border:1px solid var(--ctl);border-radius:var(--r-ctl);background:var(--field);cursor:pointer;transition:border-color .2s,background-color .2s,color .2s}
+.day small{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.day b{font:400 28px/1 var(--serif)}
+.day:hover{border-color:var(--muted)}
+.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.day[aria-pressed="true"] small{color:#CFC6B8}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.slot{height:50px;border:1px solid var(--ctl);border-radius:var(--r-ctl);background:var(--field);font:500 14.5px/1 var(--sans);cursor:pointer;transition:border-color .2s,background-color .2s}
+.slot:hover:not(:disabled){border-color:var(--ink)}
+.slot[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.slot:disabled{background:transparent;border-style:dashed;border-color:var(--rule-2);color:#A0968A;text-decoration:line-through;cursor:not-allowed}
+.tz{margin-top:12px;font:500 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.picked{margin-top:16px;min-height:22px;font:italic 400 19px/1.2 var(--serif);color:var(--ink)}
+.actions{display:flex;gap:10px;margin-top:20px}
+.actions .btn{flex:1;min-width:0}
+.actions .btn-ghost{flex:none}
+
+.done-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.done-top .stamp{width:84px;height:84px;flex:none;margin-top:-4px}
+.ticket{margin-top:22px;border:1px solid var(--ink);background:var(--field)}
+.ticket div{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:13px 16px;border-top:1px dashed var(--rule-2)}
+.ticket div:first-child{border-top:0}
+.ticket dt{font:500 10.5px/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ticket dd{margin:0;font-size:15.5px;line-height:1.4}
+.ticket dd strong{font-weight:600}
+.next{list-style:none;counter-reset:n;margin:22px 0 0;padding:0}
+.next li{counter-increment:n;display:grid;grid-template-columns:30px 1fr;gap:10px;padding:10px 0;font-size:15px;color:var(--ink-2);line-height:1.45}
+.next li::before{content:"0" counter(n);font:500 11px/1.9 var(--mono);color:var(--accent-text)}
+.next li strong{color:var(--ink);font-weight:600}
+
+.video{position:relative;aspect-ratio:16/9;background:var(--ink);display:grid;place-items:center;text-align:center;color:var(--paper);overflow:hidden}
+.video::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(247,243,236,.16) 1.2px,transparent 1.6px) 0 0/7px 7px;-webkit-mask:radial-gradient(ellipse at 50% 60%,#000,transparent 70%);mask:radial-gradient(ellipse at 50% 60%,#000,transparent 70%)}
+.video .vin{position:relative;display:grid;gap:10px;justify-items:center;padding:20px}
+.video .big-play{width:68px;height:68px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center}
+.video .big-play svg{width:22px;height:22px;margin-left:3px}
+.video p{font:500 10.5px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#CFC6B8;max-width:34ch}
+.vsl-meta{display:grid;gap:18px;padding:22px 20px 26px}
+.vsl-meta h2{font-size:30px;line-height:1.08}
+
+/* ==========================================================================
+   ≥ 760px  tablet
+   ========================================================================== */
+@media (min-width:760px){
+  .nav .wrap{height:76px}
+  .brand-mark{width:30px;height:30px}
+  .brand-text{flex-direction:row;align-items:center}
+  .brand-name{font-size:21px;letter-spacing:.08em}
+  .nav .btn{padding:0 7px 0 20px}
+  .nav .btn .arr{display:grid}
+  .brand-with{margin:0 0 0 14px;padding-left:14px;border-left:1px solid var(--rule-2);font-size:18px}
+  .dateline .end{display:flex}
+  .hero h1{font-size:clamp(66px,9.6vw,96px)}
+  .lede{font-size:19px}
+  .hero-grid{padding:44px 0 72px}
+  .figure{max-width:520px}
+  .section{padding:96px 0}
+  .sec-head .folio{display:block}
+  .h2{font-size:clamp(56px,7vw,76px)}
+  .proof{padding:52px 0 12px}
+  .proof-grid{grid-template-columns:repeat(4,1fr)}
+  .stat{padding:0 24px;border-left:1px solid var(--rule)}
+  .stat:nth-child(even){padding-left:24px;border-left:1px solid var(--rule)}
+  .proof-intro + .stat{padding-left:0;border-left:0}
+  .stat b{font-size:64px}
+  .pillar-grid,.letters-grid{grid-template-columns:repeat(3,1fr)}
+  .pillar,.letter{padding:32px 28px 0;border-bottom:0;border-left:1px solid var(--rule)}
+  .pillar:first-child,.letter:first-child{padding-left:0;border-left:0}
+  .pillar:last-child,.letter:last-child{padding-right:0}
+  .p-head{display:block;margin-bottom:14px}
+  .pillar .num{display:block;width:auto;font-size:64px}
+  .pillar h3{font-size:clamp(30px,3.2vw,38px);margin-top:16px}
+  .take{padding:40px 36px 32px}
+  .take .stamp{width:112px;height:112px;top:-46px;right:-30px}
+  .author-id{grid-template-columns:1fr;align-items:start}
+  .author-grid{grid-template-columns:200px 1fr;gap:40px}
+  .fit{grid-column:2;grid-template-columns:1fr 1fr;gap:32px}
+  .quote{grid-template-columns:96px 1fr;gap:0;margin-top:44px}
+  .qmark{grid-row:1/span 2;font-size:200px;height:auto;transform:translateY(.17em)}
+  .quote blockquote,.quote figcaption{grid-column:2}
+  .quote blockquote{font-size:clamp(40px,5.2vw,60px)}
+  .qa-q{font-size:27px;grid-template-columns:44px 1fr 36px;padding:24px 0}
+  .qa-q .pm{width:36px;height:36px}
+  .qa-a .inner{grid-template-columns:44px 1fr 36px}
+  .final{padding:80px 0 88px}
+  .final h2{font-size:clamp(64px,7.4vw,104px)}
+  .final p.sub{font-size:19px}
+  .final .sunset{right:-8%;bottom:-48%}
+  .foot{padding-bottom:56px}
+  .mbar{display:none}
+  .mbar-on .nav .btn{opacity:1;visibility:visible}
+
+  .dlg{place-items:center;padding:24px}
+  .dlg-panel{width:min(600px,100%);max-height:calc(100dvh - 48px);border-radius:4px;box-shadow:0 40px 100px -24px rgba(22,19,15,.5);transform:translateY(14px) scale(.985)}
+  .dlg-head{padding:16px 16px 0 32px}
+  .prog{margin:8px 32px 0}
+  .dlg-body{padding:30px 32px 34px}
+  .pane-title{font-size:40px}
+  .chips{gap:10px}
+  .fields{grid-template-columns:1fr 1fr;column-gap:12px}
+  .fields .field:first-child,.fields fieldset{grid-column:1/-1}
+  .ticket div{grid-template-columns:64px 1fr}
+  .done-top .stamp{width:96px;height:96px}
+  .day{min-height:84px}
+  .slots{gap:8px}
+  .days{gap:8px}
+  #vsl .dlg-panel{width:min(880px,100%)}
+  .vsl-meta{grid-template-columns:1fr auto;align-items:center;padding:24px 32px 28px}
+}
+
+/* ==========================================================================
+   ≥ 960px  desktop
+   ========================================================================== */
+@media (min-width:960px){
+  .hero-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:72px;align-items:start;padding:46px 0 64px}
+  .hero h1{font-size:clamp(88px,7.7vw,118px);margin-top:-6px}
+  .lede{font-size:19.5px;margin-top:30px}
+  .cta-block{margin-top:36px}
+  .figure{max-width:none;padding:0 0 0 8px}
+  .section{padding:80px 0}
+  .proof{padding:56px 0 12px}
+  .proof-grid{grid-template-columns:1.25fr repeat(4,1fr)}
+  .proof-intro{grid-column:auto;padding-right:28px}
+  .proof-intro + .stat{padding-left:24px;border-left:1px solid var(--rule)}
+  .pillars-top{grid-template-columns:1.05fr 1fr;gap:80px;align-items:end}
+  .pillar,.letter{padding:36px 40px 0}
+  .call-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(48px,6vw,88px);align-items:start}
+  .call .h2{font-size:clamp(52px,5.3vw,76px)}
+  .call-grid .take{margin-top:28px}
+  .step{grid-template-columns:56px 1fr;padding:24px 0}
+  .step h3{font-size:34px}
+  .quote{grid-template-columns:120px 1fr}
+  .qmark{font-size:240px}
+  .quote blockquote{font-size:clamp(48px,4.1vw,58px);max-width:22em}
+  .letters-head{grid-template-columns:1fr auto;align-items:end;gap:48px}
+  .letters-head p{text-align:right;max-width:24em}
+  .letter blockquote{font-size:25px}
+  .faq-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:88px}
+  .faq-side{position:sticky;top:120px;align-self:start}
+}
+
+@media (min-width:1180px){
+  .nav-status{display:flex}
+  .dateline .mid{display:block}
+  .dateline .dl-s{display:none}
+  .dateline .dl-l{display:inline}
+  .step{grid-template-columns:64px 1fr auto}
+  .step .meta{grid-column:3;grid-row:1;margin-top:0;padding-top:14px;text-align:right}
+  .author-grid{grid-template-columns:200px minmax(0,1.25fr) minmax(0,1fr);gap:56px}
+  .fit{grid-column:auto;grid-template-columns:1fr;gap:26px}
+}
+
+@media (max-width:759px){
+  .hero .frame{aspect-ratio:1/1}
+  .hero .frame .ht{-webkit-mask-size:86% auto;mask-size:86% auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
+  .js .hero:not(.go) .frame .sun{transform:translate(-50%,-50%)}
+  .js .hero:not(.go) .ht{opacity:1}
+  .wire-track{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV / MASTHEAD ============ -->
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="The Agent Economy, with Tai Lopez, back to top">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 20a11 11 0 0 1 22 0z" fill="#E2552B"/><path d="M1.5 20h29" stroke="#16130F" stroke-width="1.6"/><path d="M6 24.5h20" stroke="#16130F" stroke-width="1.6"/><path d="M10.5 29h11" stroke="#16130F" stroke-width="1.6"/></svg>
+      <span class="brand-text"><span class="brand-name">The Agent Economy</span><span class="brand-with">with Tai Lopez</span></span>
+    </a>
+    <div class="nav-right">
+      <span class="nav-status kicker"><span class="pulse" aria-hidden="true"></span>Free strategy calls open this week</span>
+      <button class="btn btn-sm" type="button" data-book>Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="dateline kicker">
+      <span><b>Vol. 01</b> &mdash; <span class="dl-s">A briefing on AI agents</span><span class="dl-l">The leverage shift</span></span>
+      <span class="mid">A briefing on AI agents, with Tai Lopez</span>
+      <span class="end">Free 1-on-1 calls &middot; By appointment</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title" class="rv">
+          <span class="line">Software used</span>
+          <span class="line">to be a tool.</span>
+          <span class="line">Now it&rsquo;s a</span>
+          <span class="line"><em>workforce.</em></span>
+        </h1>
+        <p class="lede rv" style="--d:120ms">AI agents are the biggest leverage shift since the internet. On a <strong>free <span style="white-space:nowrap">1-on-1</span> strategy call</strong>, Tai Lopez&rsquo;s team will show you exactly where agents can make you money and give you your time back.</p>
+        <div class="cta-block rv" style="--d:220ms">
+          <button class="btn" type="button" id="hero-cta" data-book>Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+          <ul class="trust" aria-label="Call details">
+            <li>Free</li><li>1-on-1</li><li>No obligation</li><li>No tech skills needed</li>
+          </ul>
+        </div>
+      </div>
+
+      <figure class="figure rv" style="--d:160ms">
+        <div class="frame-wrap">
+          <span class="crop" aria-hidden="true"></span>
+          <!-- PLACEHOLDER: replace with real Tai Lopez portrait (4:5, warm duotone or natural light). Keep the sun/horizon behind him if the cut-out allows. -->
+          <div class="frame" role="img" aria-label="Placeholder for a portrait of Tai Lopez">
+            <span class="sun" aria-hidden="true"></span>
+            <span class="ground" aria-hidden="true"></span>
+            <span class="ht" aria-hidden="true"></span>
+            <span class="tag" aria-hidden="true">Tai Lopez portrait</span>
+            <span class="fig" aria-hidden="true">Fig. 1</span>
+          </div>
+          <!-- PLACEHOLDER: VSL. The button opens a video dialog; drop the 3-minute briefing embed into #vsl .video -->
+          <button class="vsl-btn" type="button" data-vsl>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 14 14" fill="currentColor"><path d="M2 1.2v11.6L12.5 7z"/></svg></span>
+            <span><b>Watch the briefing</b><small>3 min &middot; Tai Lopez</small></span>
+          </button>
+        </div>
+        <figcaption class="figcap">
+          <p>Tai Lopez on the leverage shift, and why agents are the new staff.</p>
+          <span>Vol. 01</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Agent wire: illustrative agent tasks, not results -->
+  <div class="wire" role="region" aria-label="Examples of tasks AI agents handle">
+    <div class="wire-label"><span class="pulse" aria-hidden="true"></span>The agent wire</div>
+    <div class="wire-view">
+      <div class="wire-track">
+        <ul class="wire-group">
+          <li><time>06:58</time>Morning brief compiled from 40 sources</li>
+          <li><time>07:14</time>Overnight leads answered and qualified</li>
+          <li><time>08:30</time>Inbox triaged. 6 emails actually need you</li>
+          <li><time>09:45</time>Invoices sent, two late ones chased</li>
+          <li><time>11:20</time>Competitor prices checked</li>
+          <li><time>13:05</time>Support tickets resolved</li>
+          <li><time>15:40</time>Next week&rsquo;s content drafted</li>
+          <li><time>17:00</time>Books reconciled</li>
+          <li><time>21:30</time>Delayed flight rebooked</li>
+        </ul>
+        <ul class="wire-group" aria-hidden="true">
+          <li><time>06:58</time>Morning brief compiled from 40 sources</li>
+          <li><time>07:14</time>Overnight leads answered and qualified</li>
+          <li><time>08:30</time>Inbox triaged. 6 emails actually need you</li>
+          <li><time>09:45</time>Invoices sent, two late ones chased</li>
+          <li><time>11:20</time>Competitor prices checked</li>
+          <li><time>13:05</time>Support tickets resolved</li>
+          <li><time>15:40</time>Next week&rsquo;s content drafted</li>
+          <li><time>17:00</time>Books reconciled</li>
+          <li><time>21:30</time>Delayed flight rebooked</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF STRIP ============ -->
+<section class="proof" aria-label="By the numbers">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div class="proof-intro rv">
+        <span class="kicker">In figures</span>
+        <p>The briefing, by the numbers.</p>
+      </div>
+      <!-- PLACEHOLDER: replace with real, verified Tai Lopez numbers -->
+      <div class="stat rv" style="--d:60ms"><b>15<sup>+</sup></b><span>Years Tai has spent building and backing businesses</span></div>
+      <!-- PLACEHOLDER: replace with real, verified audience figure -->
+      <div class="stat rv" style="--d:120ms"><b>5M<sup>+</sup></b><span>People who follow Tai&rsquo;s business content</span></div>
+      <div class="stat rv" style="--d:180ms"><b>1:1</b><span>A private call with an advisor. Not a webinar.</span></div>
+      <div class="stat rv" style="--d:240ms"><b>0</b><span>Lines of code you&rsquo;ll need to write</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLARS ============ -->
+<section class="section pillars" id="opportunity" aria-labelledby="pillars-title">
+  <div class="wrap">
+    <div class="sec-head kicker"><span><b>&sect; 01</b> &nbsp;The opportunity</span><span class="folio">The Agent Economy &mdash; p. 2</span></div>
+    <div class="pillars-top">
+      <h2 class="h2 rv" id="pillars-title">Three ways agents <em>pay you back.</em></h2>
+      <p class="dropcap rv" style="--d:100ms">Agents aren&rsquo;t chatbots. You give them a goal and they do the work: research, write, follow up, book, sort and sell, around the clock, without a day off. Here&rsquo;s where they earn their keep.</p>
+    </div>
+
+    <div class="pillar-grid">
+      <article class="pillar rv">
+        <div class="p-head"><span class="num" aria-hidden="true">I.</span><h3>Make money with agents</h3></div>
+        <p>New income on top of them: agent services for local businesses, productized offers you can sell, and lean projects that earn without eating your hours.</p>
+      </article>
+      <article class="pillar rv" style="--d:100ms">
+        <div class="p-head"><span class="num" aria-hidden="true">II.</span><h3>Automate your business</h3></div>
+        <p>Hand off the work that eats your week. Leads answered in minutes, follow-ups that never slip, support, content and admin handled around the clock.</p>
+      </article>
+      <article class="pillar rv" style="--d:200ms">
+        <div class="p-head"><span class="num" aria-hidden="true">III.</span><h3>Put your life on autopilot</h3></div>
+        <p>Get your hours back. An inbox triaged before you wake up, a calendar that defends your focus, research on demand and finances kept in order.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CALL ============ -->
+<section class="section call" id="call" aria-labelledby="call-title">
+  <div class="wrap">
+    <div class="sec-head kicker"><span><b>&sect; 02</b> &nbsp;The call</span><span class="folio">The Agent Economy &mdash; p. 3</span></div>
+    <div class="call-grid">
+      <div>
+        <h2 class="h2 rv" id="call-title">One free call.<br><em>A plan you can run.</em></h2>
+        <ol class="steps">
+          <li class="step rv">
+            <span class="n">01</span>
+            <h3>Book your slot</h3>
+            <p>Share a few details and pick a time that suits you.</p>
+            <span class="meta">About a minute</span>
+          </li>
+          <li class="step rv" style="--d:80ms">
+            <span class="n">02</span>
+            <h3>Talk it through</h3>
+            <p>A private 1-on-1 with an advisor from Tai&rsquo;s team: your skills, your goals, where your hours go.</p>
+            <span class="meta">1-on-1 &middot; By phone or video</span>
+          </li>
+          <li class="step rv" style="--d:160ms">
+            <span class="n">03</span>
+            <h3>Leave with a game plan</h3>
+            <p>Your first moves with AI agents, written down and in order. No tech background needed.</p>
+            <span class="meta">Yours to keep</span>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="take rv" style="--d:120ms" aria-labelledby="take-title">
+        <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="stamp-c1" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
+          <circle cx="60" cy="60" r="58" fill="#E2552B"/>
+          <circle cx="60" cy="60" r="34" fill="none" stroke="#16130F" stroke-width="1"/>
+          <g class="ring"><text font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500" letter-spacing="1" fill="#16130F"><textPath href="#stamp-c1" textLength="279" lengthAdjust="spacing">FREE &#183; 1-ON-1 &#183; NO OBLIGATION &#183; FREE &#183; 1-ON-1 &#183; </textPath></text></g>
+          <path d="M44 66a16 16 0 0 1 32 0z" fill="#16130F"/><path d="M40 66h40M45 71h30" stroke="#16130F" stroke-width="1.4"/>
+        </svg>
+        <span class="kicker">The take-away</span>
+        <h3 id="take-title">What you walk away with</h3>
+        <ul class="take-list">
+          <li><span class="check" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7"/></svg></span><span><strong>Your #1 money opportunity</strong> with AI agents, based on your skills and situation.</span></li>
+          <li><span class="check" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7"/></svg></span><span><strong>The first 3 processes</strong> in your business or life to hand to agents.</span></li>
+          <li><span class="check" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7"/></svg></span><span><strong>A clear, step-by-step game plan.</strong> No tech background needed.</span></li>
+        </ul>
+        <button class="btn btn-block" type="button" data-book>Book your free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+        <ul class="trust center"><li>Free</li><li>1-on-1</li><li>No obligation</li></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT TAI ============ -->
+<section class="section author" id="tai" aria-labelledby="author-title">
+  <div class="wrap">
+    <div class="sec-head kicker"><span><b>&sect; 03</b> &nbsp;The author</span><span class="folio">The Agent Economy &mdash; p. 4</span></div>
+
+    <!-- PLACEHOLDER: paraphrased pull-quote. Replace with a real, approved Tai Lopez quote. -->
+    <figure class="quote rv">
+      <div class="qmark" aria-hidden="true">&ldquo;</div>
+      <blockquote><p>The internet gave everyone a storefront. AI agents give everyone <span>a team.</span> The people who learn to run that team first will own the next decade.</p></blockquote>
+      <figcaption>Tai Lopez</figcaption>
+    </figure>
+
+    <div class="author-grid">
+      <div class="author-id rv">
+        <!-- PLACEHOLDER: replace with real Tai Lopez headshot (4:5) -->
+        <div class="frame" role="img" aria-label="Placeholder for a headshot of Tai Lopez" style="--horizon:66%">
+          <span class="sun" aria-hidden="true"></span>
+          <span class="ground" aria-hidden="true"></span>
+          <span class="ht" aria-hidden="true"></span>
+        </div>
+        <div>
+          <div class="name">Tai Lopez</div>
+          <div class="kicker role">Entrepreneur &amp; investor</div>
+        </div>
+      </div>
+      <div class="author-bio rv" style="--d:80ms">
+        <h2 id="author-title" class="bio-title">About Tai</h2>
+        <!-- PLACEHOLDER: bio facts to be confirmed by Tai's team -->
+        <p>Tai Lopez is an entrepreneur, investor and one of the internet&rsquo;s best-known business teachers. For more than 15 years he has built and backed companies, and taught millions of people how to think about leverage.</p>
+        <p>The Agent Economy is his team&rsquo;s field guide to the biggest lever yet, delivered one call at a time.</p>
+      </div>
+      <div class="fit rv" style="--d:160ms">
+        <div class="yes">
+          <h4>Built for</h4>
+          <ul>
+            <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7"/></svg>Entrepreneurs and business owners</li>
+            <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7"/></svg>Operators and freelancers</li>
+            <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7"/></svg>Career-builders who want leverage</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h4>Not for</h4>
+          <ul>
+            <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg>Get-rich-quick seekers</li>
+            <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg>Anyone who won&rsquo;t act on a plan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LETTERS (TESTIMONIALS) ============ -->
+<section class="section letters" aria-labelledby="letters-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head kicker"><span><b>&sect; 04</b> &nbsp;Correspondence</span><span class="folio">The Agent Economy &mdash; p. 5</span></div>
+    <div class="letters-head">
+      <h2 class="h2 rv" id="letters-title">Letters <em>from the field.</em></h2>
+      <p class="rv" style="--d:80ms">Notes from people who booked a call and put the plan to work.</p>
+    </div>
+    <div class="letters-grid">
+      <!-- PLACEHOLDER: replace with real testimonial (name, role, city, with written consent) -->
+      <figure class="letter rv">
+        <span class="kicker">Letter No. 01</span>
+        <blockquote>&ldquo;I expected AI hype. I got a plan for my clinic. We handed lead follow-up to an agent that same week, and my front desk can finally breathe.&rdquo;</blockquote>
+        <figcaption class="sig"><span class="avatar" aria-hidden="true">D</span><span><b>Dana R.</b><small>Clinic owner &middot; Austin, TX</small></span></figcaption>
+      </figure>
+      <!-- PLACEHOLDER: replace with real testimonial -->
+      <figure class="letter rv" style="--d:100ms">
+        <span class="kicker">Letter No. 02</span>
+        <blockquote>&ldquo;Zero jargon. They looked at how I actually work and showed me three places an agent fits. Two of them are already running.&rdquo;</blockquote>
+        <figcaption class="sig"><span class="avatar" aria-hidden="true">M</span><span><b>Marcus T.</b><small>Freelance designer &middot; Denver, CO</small></span></figcaption>
+      </figure>
+      <!-- PLACEHOLDER: replace with real testimonial -->
+      <figure class="letter rv" style="--d:200ms">
+        <span class="kicker">Letter No. 03</span>
+        <blockquote>&ldquo;I&rsquo;m not technical at all. The plan was so clear I started on it the next morning, without hiring anyone.&rdquo;</blockquote>
+        <figcaption class="sig"><span class="avatar" aria-hidden="true">P</span><span><b>Priya S.</b><small>E-commerce operator &middot; Tampa, FL</small></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ (INTERVIEW) ============ -->
+<section class="section faq" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head kicker"><span><b>&sect; 05</b> &nbsp;The interview</span><span class="folio">The Agent Economy &mdash; p. 6</span></div>
+    <div class="faq-grid">
+      <div class="faq-side">
+        <h2 class="h2 rv" id="faq-title">Before you <em>book.</em></h2>
+        <p class="rv" style="--d:80ms">The five questions people ask most. Anything else, ask your advisor on the call.</p>
+        <button class="btn rv" style="--d:140ms" type="button" data-book>Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+      </div>
+      <div class="qa rv" style="--d:100ms">
+        <div class="qa-item open">
+          <button class="qa-q" type="button" aria-expanded="true" aria-controls="qa1" id="qa1-q"><span class="q" aria-hidden="true">Q.</span><span>Is the call really free?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 6h10"/><path class="v" d="M6 1v10"/></svg></span></button>
+          <div class="qa-a" id="qa1" role="region" aria-labelledby="qa1-q"><div><div class="inner"><span class="a" aria-hidden="true">A.</span><p>Yes. It&rsquo;s a free 1-on-1 strategy call with no cost and no obligation. You leave with your game plan either way.</p></div></div></div>
+        </div>
+        <div class="qa-item">
+          <button class="qa-q" type="button" aria-expanded="false" aria-controls="qa2" id="qa2-q"><span class="q" aria-hidden="true">Q.</span><span>Do I need to be technical?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 6h10"/><path class="v" d="M6 1v10"/></svg></span></button>
+          <div class="qa-a" id="qa2" role="region" aria-labelledby="qa2-q"><div><div class="inner"><span class="a" aria-hidden="true">A.</span><p>No. If you can write an email, you can put agents to work. Your plan is written for non-technical people, step by step.</p></div></div></div>
+        </div>
+        <div class="qa-item">
+          <button class="qa-q" type="button" aria-expanded="false" aria-controls="qa3" id="qa3-q"><span class="q" aria-hidden="true">Q.</span><span>Who will I speak with?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 6h10"/><path class="v" d="M6 1v10"/></svg></span></button>
+          <div class="qa-a" id="qa3" role="region" aria-labelledby="qa3-q"><div><div class="inner"><span class="a" aria-hidden="true">A.</span><p>An advisor from Tai Lopez&rsquo;s team who specializes in AI agent strategy. The whole call is built around your situation and your goals.</p></div></div></div>
+        </div>
+        <div class="qa-item">
+          <button class="qa-q" type="button" aria-expanded="false" aria-controls="qa4" id="qa4-q"><span class="q" aria-hidden="true">Q.</span><span>What should I prepare?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 6h10"/><path class="v" d="M6 1v10"/></svg></span></button>
+          <div class="qa-a" id="qa4" role="region" aria-labelledby="qa4-q"><div><div class="inner"><span class="a" aria-hidden="true">A.</span><p>Nothing formal. Know roughly what you want (more income, more time, or both) and where your week goes today.</p></div></div></div>
+        </div>
+        <div class="qa-item">
+          <button class="qa-q" type="button" aria-expanded="false" aria-controls="qa5" id="qa5-q"><span class="q" aria-hidden="true">Q.</span><span>I don&rsquo;t have a business yet. Is this for me?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 6h10"/><path class="v" d="M6 1v10"/></svg></span></button>
+          <div class="qa-a" id="qa5" role="region" aria-labelledby="qa5-q"><div><div class="inner"><span class="a" aria-hidden="true">A.</span><p>Yes, if you want to build income with AI agents and you&rsquo;re ready to act on a plan. It&rsquo;s not for anyone looking for a get-rich-quick shortcut.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" id="final" aria-labelledby="final-title">
+  <span class="sunset" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="sec-head kicker"><span>Last word</span><span class="folio">The Agent Economy &mdash; p. 7</span></div>
+    <h2 id="final-title" class="rv">Every era has its leverage. <em>This one has agents.</em></h2>
+    <p class="sub rv" style="--d:80ms">Book your free strategy call. Leave with your #1 opportunity, your first three automations and a step-by-step plan to put them to work.</p>
+    <div class="cta-block rv" style="--d:160ms">
+      <button class="btn" type="button" data-book>Claim my free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+      <ul class="trust" aria-label="Call details"><li>Free</li><li>1-on-1</li><li>No obligation</li></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand" href="#top" aria-label="The Agent Economy, back to top">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 20a11 11 0 0 1 22 0z" fill="#E2552B"/><path d="M1.5 20h29" stroke="#16130F" stroke-width="1.6"/><path d="M6 24.5h20" stroke="#16130F" stroke-width="1.6"/><path d="M10.5 29h11" stroke="#16130F" stroke-width="1.6"/></svg>
+        <span class="brand-text"><span class="brand-name">The Agent Economy</span><span class="brand-with">with Tai Lopez</span></span>
+      </a>
+      <!-- PLACEHOLDER: point these to the real privacy policy, terms and contact pages -->
+      <ul class="foot-links">
+        <li><a href="#privacy">Privacy policy</a></li>
+        <li><a href="#terms">Terms of service</a></li>
+        <li><a href="#disclaimer">Earnings disclaimer</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <p class="disclaimer" id="disclaimer"><strong>Earnings disclaimer.</strong> Results are not typical. Examples and testimonials on this page are illustrative and are not a promise or guarantee of income. Your results depend on your effort, experience, skills and market conditions, and there is no guarantee you will earn any money using the ideas discussed. The strategy call is free and carries no obligation. This site is not part of, or endorsed by, Meta or Google.</p>
+    <div class="foot-bottom">
+      <span>&copy; <span id="yr">2026</span> The Agent Economy. All rights reserved.</span>
+      <span class="kicker">Vol. 01 &mdash; The leverage shift</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA -->
+<div class="mbar" inert>
+  <div class="mbar-txt"><b>Free strategy call</b><small>1-on-1 &middot; No obligation</small></div>
+  <button class="btn btn-sm" type="button" data-book>Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+</div>
+
+<!-- ============ BOOKING DIALOG ============ -->
+<div class="dlg" id="book" hidden>
+  <div class="dlg-scrim" data-close></div>
+  <div class="dlg-panel" role="dialog" aria-modal="true" aria-labelledby="book-title-1">
+    <div class="dlg-head">
+      <span class="kicker">Reservation &middot; The Agent Economy</span>
+      <button class="x" type="button" data-close aria-label="Close booking"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg></button>
+    </div>
+    <ol class="prog" aria-label="Booking progress">
+      <li class="active" aria-current="step"><span>01</span> About you</li>
+      <li><span>02</span> Pick a time</li>
+      <li><span>03</span> Confirmed</li>
+    </ol>
+    <div class="dlg-body">
+
+      <!-- Step 1: qualification -->
+      <form class="pane" id="step1" novalidate>
+        <h2 class="pane-title" id="book-title-1" tabindex="-1">Reserve your <em>free call.</em></h2>
+        <p class="pane-sub">Takes 30 seconds. You&rsquo;ll pick your time on the next step.</p>
+        <div class="fields">
+          <div class="field">
+            <label for="f-first">First name</label>
+            <input id="f-first" name="first" type="text" autocomplete="given-name" placeholder="Your first name" aria-describedby="e-first" required>
+            <div class="err" id="e-first" role="alert"></div>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" aria-describedby="e-email" required>
+            <div class="err" id="e-email" role="alert"></div>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" aria-describedby="e-phone" required>
+            <div class="err" id="e-phone" role="alert"></div>
+          </div>
+          <fieldset class="field" aria-describedby="e-goal">
+            <legend>What do you want AI agents to do for you first?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="goal" value="Make money"><span>Make money</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Automate my business"><span>Automate my business</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Automate my life"><span>Automate my life</span></label>
+              <label class="chip"><input type="radio" name="goal" value="Not sure yet"><span>Not sure yet</span></label>
+            </div>
+            <div class="err" id="e-goal" role="alert"></div>
+          </fieldset>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-block" type="submit">Continue: pick a time<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+          <p class="fine"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="6" width="9" height="6.5" rx="1"/><path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6"/></svg>Private. No spam. Free, with no obligation.</p>
+        </div>
+      </form>
+
+      <!-- Replace step 2 with the iClosed/Calendly embed -->
+      <div class="pane" id="step2" hidden>
+        <h2 class="pane-title" id="book-title-2" tabindex="-1">Pick a time, <em><span data-first>friend</span>.</em></h2>
+        <p class="pane-sub">Choose a day, then a slot. Your advisor will call you at that time.</p>
+        <div class="cal-label"><span class="kicker" id="days-label">Next 5 weekdays</span></div>
+        <div class="days" role="group" aria-labelledby="days-label"></div>
+        <div class="cal-label"><span class="kicker" id="slots-label">Available times</span></div>
+        <div class="slots" role="group" aria-labelledby="slots-label"></div>
+        <p class="tz"></p>
+        <p class="picked" aria-live="polite"></p>
+        <div class="actions">
+          <button class="btn-ghost" type="button" data-back>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>Back</button>
+          <button class="btn" type="button" data-confirm disabled>Confirm my call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+        </div>
+      </div>
+
+      <!-- Step 3: confirmation -->
+      <div class="pane" id="step3" hidden>
+        <div class="done-top">
+          <h2 class="pane-title" id="book-title-3" tabindex="-1">You&rsquo;re booked, <em><span data-first>friend</span>.</em></h2>
+          <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="stamp-c2" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
+            <circle cx="60" cy="60" r="58" fill="none" stroke="#E2552B" stroke-width="2"/>
+            <circle cx="60" cy="60" r="34" fill="#E2552B"/>
+            <g class="ring"><text font-family="IBM Plex Mono, monospace" font-size="10" font-weight="500" letter-spacing="1" fill="#B5401C"><textPath href="#stamp-c2" textLength="279" lengthAdjust="spacing">CONFIRMED &#183; THE AGENT ECONOMY &#183; VOL. 01 &#183; </textPath></text></g>
+            <path d="M50 61l7 7 14-16" fill="none" stroke="#16130F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="pane-sub">Your free AI agent strategy call is on the calendar.</p>
+        <dl class="ticket">
+          <div><dt>When</dt><dd><strong data-when>&nbsp;</strong><br><span data-tz></span></dd></div>
+          <div><dt>What</dt><dd>Free 1-on-1 AI agent strategy call</dd></div>
+          <div><dt>With</dt><dd>An advisor from Tai Lopez&rsquo;s team</dd></div>
+        </dl>
+        <ol class="next">
+          <li><span><strong>Check your inbox.</strong> Your confirmation is on its way to <span data-email>your email</span>.</span></li>
+          <li><span><strong>Keep your phone close.</strong> We&rsquo;ll text a reminder before the call.</span></li>
+          <li><span><strong>Bring one goal.</strong> More income, more time, or both.</span></li>
+        </ol>
+        <div class="actions">
+          <button class="btn-ghost" type="button" data-ics>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>Add to calendar</button>
+          <button class="btn" type="button" data-close>Done<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VSL DIALOG ============ -->
+<div class="dlg" id="vsl" hidden>
+  <div class="dlg-scrim" data-close></div>
+  <div class="dlg-panel" role="dialog" aria-modal="true" aria-labelledby="vsl-title">
+    <div class="dlg-head">
+      <span class="kicker">Vol. 01 &middot; Video briefing</span>
+      <button class="x" type="button" data-close aria-label="Close video"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg></button>
+    </div>
+    <div style="padding:12px 0 0">
+      <!-- PLACEHOLDER: replace this block with the 3-minute VSL embed (Wistia / Vimeo / YouTube) -->
+      <div class="video">
+        <div class="vin">
+          <span class="big-play" aria-hidden="true"><svg viewBox="0 0 14 14" fill="currentColor"><path d="M2 1.2v11.6L12.5 7z"/></svg></span>
+          <p>Video placeholder. The 3&#8209;minute briefing embed goes here.</p>
+        </div>
+      </div>
+    </div>
+    <div class="vsl-meta">
+      <h2 id="vsl-title">The leverage shift, <em>in three minutes.</em></h2>
+      <button class="btn" type="button" data-book>Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var doc = document, root = doc.documentElement;
+  root.classList.add('js');
+  var $ = function (s, c) { return (c || doc).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
+
+  /* Nav border on scroll */
+  var nav = $('.nav');
+  var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* Hero intro */
+  requestAnimationFrame(function () { requestAnimationFrame(function () { $('.hero').classList.add('go'); }); });
+
+  /* Reveal on scroll */
+  var rv = $$('.rv');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+    rv.forEach(function (el) { io.observe(el); });
+  } else { rv.forEach(function (el) { el.classList.add('in'); }); }
+
+  /* Mobile sticky CTA: visible once the hero CTA has scrolled away, hidden over the final CTA */
+  var mbar = $('.mbar');
+  if ('IntersectionObserver' in window) {
+    var heroCta = $('#hero-cta'), finalSec = $('#final');
+    var heroVis = true, finalVis = false;
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.target === heroCta) heroVis = e.isIntersecting || e.boundingClientRect.top > 0;
+        else finalVis = e.isIntersecting;
+      });
+      var show = !heroVis && !finalVis;
+      mbar.classList.toggle('show', show);
+      root.classList.toggle('mbar-on', show);
+      mbar.inert = !show;
+    });
+    io2.observe(heroCta); io2.observe(finalSec);
+  }
+
+  /* FAQ accordion */
+  $$('.qa-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      btn.parentNode.classList.toggle('open', !open);
+    });
+  });
+
+  /* ---------------- Dialog manager ---------------- */
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  var active = null, returnTo = null, closeTimer = null;
+
+  function visibleFocusables(el) {
+    return $$(FOCUSABLE, el).filter(function (n) { return n.offsetParent !== null || n === doc.activeElement; });
+  }
+  function setInert(on, except) {
+    $$('body > *').forEach(function (el) {
+      if (el === except || el.tagName === 'SCRIPT' || el.classList.contains('dlg')) return;
+      if (el.classList.contains('mbar')) { el.inert = on ? true : !el.classList.contains('show'); return; }
+      el.inert = on;
+    });
+  }
+  function openDlg(dlg, opener) {
+    if (active === dlg) return;
+    if (active) { hideNow(active); } else { returnTo = opener || doc.activeElement; }
+    clearTimeout(closeTimer);
+    root.style.setProperty('--sbw', (window.innerWidth - root.clientWidth) + 'px');
+    root.classList.add('lock');
+    dlg.hidden = false;
+    setInert(true, dlg);
+    active = dlg;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { dlg.classList.add('open'); }); });
+    var target = dlg === book ? currentFocusTarget() : $('.x', dlg);
+    setTimeout(function () { if (target) target.focus({ preventScroll: true }); }, 60);
+  }
+  function hideNow(dlg) { dlg.classList.remove('open'); dlg.hidden = true; }
+  function closeDlg() {
+    if (!active) return;
+    var dlg = active; active = null;
+    dlg.classList.remove('open');
+    setInert(false);
+    closeTimer = setTimeout(function () {
+      dlg.hidden = true;
+      root.classList.remove('lock');
+      root.style.removeProperty('--sbw');
+      if (dlg === book && state.step === 3) resetBooking();
+    }, reduce ? 0 : 320);
+    if (returnTo && doc.contains(returnTo)) returnTo.focus({ preventScroll: true });
+  }
+  doc.addEventListener('keydown', function (e) {
+    if (!active) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeDlg(); return; }
+    if (e.key === 'Tab') {
+      var f = visibleFocusables($('.dlg-panel', active));
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (doc.activeElement === first || !active.contains(doc.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (doc.activeElement === last || !active.contains(doc.activeElement))) { e.preventDefault(); first.focus(); }
+    }
+  });
+  $$('.dlg').forEach(function (d) {
+    $$('[data-close]', d).forEach(function (b) { b.addEventListener('click', closeDlg); });
+  });
+
+  /* ---------------- Booking flow ---------------- */
+  var book = $('#book'), vsl = $('#vsl');
+  var form = $('#step1');
+  var panes = [$('#step1'), $('#step2'), $('#step3')];
+  var progItems = $$('.prog li', book);
+  var bookPanel = $('.dlg-panel', book);
+  var state = { step: 1, first: '', email: '', phone: '', goal: '', day: null, slot: null };
+
+  function currentFocusTarget() {
+    if (state.step === 1 && finePointer) return $('#f-first');
+    return $('.pane-title', panes[state.step - 1]);
+  }
+  function go(n) {
+    state.step = n;
+    panes.forEach(function (p, i) { p.hidden = i !== n - 1; });
+    progItems.forEach(function (li, i) {
+      li.classList.toggle('done', i < n - 1);
+      li.classList.toggle('active', i === n - 1);
+      if (i === n - 1) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    bookPanel.setAttribute('aria-labelledby', 'book-title-' + n);
+    bookPanel.scrollTop = 0;
+    var h = $('.pane-title', panes[n - 1]);
+    if (h) h.focus({ preventScroll: true });
+  }
+  function resetBooking() {
+    form.reset();
+    state = { step: 1, first: '', email: '', phone: '', goal: '', day: null, slot: null };
+    ['first', 'email', 'phone', 'goal'].forEach(function (k) { setErr(k, ''); });
+    renderDays(); go(1);
+  }
+
+  var errIcon = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="6"/><path d="M7 4v3.5M7 9.8v.2" stroke-linecap="round"/></svg>';
+  var rules = {
+    first: function (v) { return v.trim().length > 0 || 'Please enter your first name.'; },
+    email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Please enter a valid email address.'; },
+    phone: function (v) { var d = v.replace(/\D/g, ''); return (d.length >= 7 && d.length <= 15) || 'Please enter a valid phone number.'; }
+  };
+  function setErr(name, msg) {
+    var el = $('#e-' + name);
+    if (el) { el.innerHTML = msg ? errIcon + '<span>' + msg + '</span>' : ''; el.classList.toggle('show', !!msg); }
+    if (name !== 'goal') { var input = form.elements[name]; if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid'); }
+  }
+  var attempted = false;
+  ['first', 'email', 'phone'].forEach(function (k) {
+    form.elements[k].addEventListener('input', function () { if (!attempted) return; var r = rules[k](this.value); setErr(k, r === true ? '' : r); });
+    form.elements[k].addEventListener('blur', function () { if (!this.value) return; var r = rules[k](this.value); setErr(k, r === true ? '' : r); });
+  });
+  $$('input[name="goal"]', form).forEach(function (r) { r.addEventListener('change', function () { setErr('goal', ''); }); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    attempted = true;
+    var firstBad = null;
+    ['first', 'email', 'phone'].forEach(function (k) {
+      var r = rules[k](form.elements[k].value);
+      setErr(k, r === true ? '' : r);
+      if (r !== true && !firstBad) firstBad = form.elements[k];
+    });
+    var goal = $('input[name="goal"]:checked', form);
+    setErr('goal', goal ? '' : 'Please choose one option.');
+    if (!goal && !firstBad) firstBad = $('input[name="goal"]', form);
+    if (firstBad) { firstBad.focus(); return; }
+    state.first = form.elements.first.value.trim().split(/\s+/)[0];
+    state.email = form.elements.email.value.trim();
+    state.phone = form.elements.phone.value.trim();
+    state.goal = goal.value;
+    $$('[data-first]', book).forEach(function (n) { n.textContent = state.first; });
+    go(2);
+  });
+
+  /* Step 2: mock calendar (replace with the iClosed/Calendly embed) */
+  var daysEl = $('.days', book), slotsEl = $('.slots', book), pickedEl = $('.picked', book), confirmBtn = $('[data-confirm]', book);
+  var tz = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; } })();
+  $('.tz', book).textContent = 'Times shown in your time zone' + (tz ? ' (' + tz.replace(/_/g, ' ') + ')' : '');
+  var SLOTS = [[9, 0], [10, 30], [12, 0], [13, 30], [15, 0], [16, 30]];
+  var BUSY = [[1, 4], [0, 3], [2, 5], [1], [0, 4]];
+  function nextWeekdays(n) {
+    var out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+    while (out.length < n) { d.setDate(d.getDate() + 1); var w = d.getDay(); if (w !== 0 && w !== 6) out.push(new Date(d)); }
+    return out;
+  }
+  var days = nextWeekdays(5);
+  function fmtTime(h, m) { return new Date(2000, 0, 1, h, m).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); }
+  function fmtDay(d, long) { return d.toLocaleDateString('en-US', long ? { weekday: 'long', month: 'long', day: 'numeric' } : { weekday: 'short', month: 'short', day: 'numeric' }); }
+  function renderDays() {
+    days = nextWeekdays(5);
+    daysEl.innerHTML = '';
+    days.forEach(function (d, i) {
+      var b = doc.createElement('button');
+      b.type = 'button'; b.className = 'day';
+      b.setAttribute('aria-pressed', 'false');
+      b.setAttribute('aria-label', fmtDay(d, true));
+      b.innerHTML = '<small>' + d.toLocaleDateString('en-US', { weekday: 'short' }) + '</small><b>' + d.getDate() + '</b><small>' + d.toLocaleDateString('en-US', { month: 'short' }) + '</small>';
+      b.addEventListener('click', function () { selectDay(i); });
+      daysEl.appendChild(b);
+    });
+    selectDay(0, true);
+  }
+  function selectDay(i, silent) {
+    state.day = i; state.slot = null;
+    $$('.day', daysEl).forEach(function (b, j) { b.setAttribute('aria-pressed', String(j === i)); });
+    slotsEl.innerHTML = '';
+    SLOTS.forEach(function (s, j) {
+      var b = doc.createElement('button');
+      b.type = 'button'; b.className = 'slot';
+      b.textContent = fmtTime(s[0], s[1]);
+      b.setAttribute('aria-pressed', 'false');
+      if (BUSY[i].indexOf(j) > -1) { b.disabled = true; b.setAttribute('aria-label', fmtTime(s[0], s[1]) + ', unavailable'); }
+      b.addEventListener('click', function () { selectSlot(j); });
+      slotsEl.appendChild(b);
+    });
+    updatePicked();
+  }
+  function selectSlot(j) {
+    state.slot = j;
+    $$('.slot', slotsEl).forEach(function (b, k) { b.setAttribute('aria-pressed', String(k === j)); });
+    updatePicked();
+  }
+  function updatePicked() {
+    if (state.slot === null) { pickedEl.textContent = ''; confirmBtn.disabled = true; return; }
+    var s = SLOTS[state.slot];
+    pickedEl.textContent = fmtDay(days[state.day], true) + ', ' + fmtTime(s[0], s[1]);
+    confirmBtn.disabled = false;
+  }
+  renderDays();
+  $('[data-back]', book).addEventListener('click', function () { go(1); });
+  confirmBtn.addEventListener('click', function () {
+    if (state.slot === null) return;
+    var s = SLOTS[state.slot];
+    var when = $('[data-when]', book), t = doc.createElement('span');
+    t.style.whiteSpace = 'nowrap'; t.textContent = fmtTime(s[0], s[1]);
+    when.textContent = fmtDay(days[state.day], true) + ' at '; when.appendChild(t);
+    $('[data-tz]', book).textContent = tz ? tz.replace(/_/g, ' ') + ' time' : 'Your local time';
+    $('[data-email]', book).textContent = state.email;
+    go(3);
+  });
+
+  /* Step 3: .ics download */
+  function icsDate(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  $('[data-ics]', book).addEventListener('click', function () {
+    if (state.slot === null) return;
+    var s = SLOTS[state.slot], start = new Date(days[state.day]); start.setHours(s[0], s[1], 0, 0);
+    var end = new Date(start.getTime() + 30 * 60000);
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//The Agent Economy//Booking//EN', 'BEGIN:VEVENT',
+      'UID:' + Date.now() + '@agent-economy', 'DTSTAMP:' + icsDate(new Date()), 'DTSTART:' + icsDate(start), 'DTEND:' + icsDate(end),
+      'SUMMARY:Free AI agent strategy call (The Agent Economy)',
+      'DESCRIPTION:Your free 1-on-1 call with an advisor from Tai Lopez\'s team.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = doc.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    a.download = 'agent-economy-call.ics';
+    doc.body.appendChild(a); a.click(); a.remove();
+  });
+
+  /* Openers */
+  doc.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-book],[data-vsl]');
+    if (!t) return;
+    e.preventDefault();
+    openDlg(t.hasAttribute('data-vsl') ? vsl : book, t);
+  });
+})();
+</script>
+</body>
+</html>
