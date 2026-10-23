@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tai Lopez · Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F5F5F4;--ink:#0C0C0D;--muted:#6B6B70;--card:#FFFFFF;--line:#E4E4E7}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:56px 16px 80px}
+  @media(min-width:768px){.wrap{padding:72px 32px 96px}}
+  .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:clamp(32px,5vw,56px);letter-spacing:-.03em;line-height:1.02;margin:12px 0 14px;font-weight:700}
+  p.lead{color:var(--muted);font-size:17px;max-width:620px;line-height:1.55;margin:0 0 44px}
+  .grid{display:grid;gap:24px;grid-template-columns:1fr}
+  @media(min-width:860px){.grid{grid-template-columns:1fr 1fr}}
+  a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(0,0,0,.25)}
+  a.card:focus-visible{outline:3px solid #2B4BFF;outline-offset:3px}
+  .shot{aspect-ratio:16/10;background:#ddd center top/cover no-repeat;border-bottom:1px solid var(--line)}
+  .meta{padding:18px 20px 20px;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+  .meta h2{font-size:18px;margin:0 0 4px;letter-spacing:-.01em}
+  .meta p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+  .chips{display:flex;gap:6px;flex-shrink:0}
+  .dot{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.12)}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+  footer{margin-top:48px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="kicker">Tai Lopez · Funnel AI Agents · Book a free call</div>
+  <h1>5 directions créatives</h1>
+  <p class="lead">Trois pages blanches, deux pages noires. Même offre, même tunnel de réservation, cinq identités différentes. Clique sur une direction pour ouvrir la page complète.</p>
+  <div class="grid">
+    <a class="card" href="directions/01-agent-lab/index.html"><div class="shot" style="background-image:url(directions/01-agent-lab/screens/desktop-fold.png)"></div><div class="meta"><div><h2>01 · Agent Lab</h2><p>SaaS de précision, blanc pur, accent cobalt. Linear, Vercel, Stripe.</p></div><div class="chips"><span class="tag">Blanc</span><span class="dot" style="background:#2B4BFF"></span></div></div></a>
+    <a class="card" href="directions/02-agent-economy/index.html"><div class="shot" style="background-image:url(directions/02-agent-economy/screens/desktop-fold.png)"></div><div class="meta"><div><h2>02 · The Agent Economy</h2><p>Éditorial chaud, ivoire et serif, accent terracotta. Monocle, Stripe Press.</p></div><div class="chips"><span class="tag">Blanc</span><span class="dot" style="background:#E2552B"></span></div></div></a>
+    <a class="card" href="directions/03-autopilot/index.html"><div class="shot" style="background-image:url(directions/03-autopilot/screens/desktop-fold.png)"></div><div class="meta"><div><h2>03 · Autopilot</h2><p>Néo-brutaliste, énergie Tai, accent vert acide. Gumroad, Figma Config.</p></div><div class="chips"><span class="tag">Blanc</span><span class="dot" style="background:#C8FF2E"></span></div></div></a>
+    <a class="card" href="directions/04-agent-os/index.html"><div class="shot" style="background-image:url(directions/04-agent-os/screens/desktop-fold.png)"></div><div class="meta"><div><h2>04 · Agent/OS</h2><p>Dark tech, terminal d'agents en direct, accent violet. Raycast, Warp.</p></div><div class="chips"><span class="tag">Noir</span><span class="dot" style="background:#8B5CF6"></span></div></div></a>
+    <a class="card" href="directions/05-garage-gold/index.html"><div class="shot" style="background-image:url(directions/05-garage-gold/screens/desktop-fold.png)"></div><div class="meta"><div><h2>05 · Black &amp; Gold</h2><p>Luxe cinématique, noir profond et or champagne. Horlogerie, banque privée.</p></div><div class="chips"><span class="tag">Noir</span><span class="dot" style="background:#D4B06A"></span></div></div></a>
+  </div>
+  <footer>Témoignages, logos, chiffres et photo de Tai sont des placeholders, marqués <code>PLACEHOLDER</code> dans le HTML.</footer>
+</main>
+</body>
+</html>
