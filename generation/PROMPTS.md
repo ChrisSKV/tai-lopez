@@ -91,19 +91,32 @@ strong violet (#8B5CF6) rim light from behind on the left edge of his hair and s
 faint violet haze.
 ```
 
-### 05 La scène · Tai sur scène
-Deux formats : 16:9 pour le desktop (3840×2160) et 9:16 pour le mobile (2160×3840).
+### 05 La scène · modèle movlogs.ai
+Sur movlogs.ai, la scène est faite de deux images : un mur d'écrans incurvé en fond, et le
+créateur détouré debout devant. On génère les deux.
+
+**Tai debout, en buste.** Format 1:2 (1400×2800), destiné au détourage.
 ```
-[identity block] Tai Lopez speaking on a huge keynote stage, waist-up, holding a black
-handheld microphone, one hand open toward the audience, confident smile. Behind him a giant
-LED wall glowing deep red (#FF3B30), blank (no text, we add the title in HTML). Volumetric
-stage light beams from above through light haze, warm white key light on his face, cool
-rim light. Foreground: dark silhouettes of the crowd, slightly out of focus, a few raised
-phones with glowing screens. Shot from the audience at eye level, 50mm lens, shallow depth
-of field, cinematic color grade. Keep the upper third of the LED wall clear for a headline.
+[identity block] Waist-up standing portrait, facing the camera, shoulders square, calm
+confident half-smile, arms relaxed at his sides. Navy blazer over a plain black t-shirt.
+Plain solid mid-grey seamless studio background, soft frontal key light, gentle rim light
+on hair and shoulders. Framing: top of the hair 4% below the top edge, crop just below the
+belt, arms fully inside the frame. 70mm lens, f/5.6.
 ```
-Avec cette photo, la scène CSS de la direction 5 devient une vraie photo en fond de héros.
-Le titre reste en HTML sur l'écran LED.
+
+**Le mur d'écrans.** Format 5:2 (3000×1200). Il remplace l'image composée en HTML.
+```
+A dark room with a huge concave curved wall made of rows of large flat screens, seen from
+the center at eye level. Each screen shows a different bright, friendly, modern app or
+website: a calendar full of booked calls, an inbox with replied emails, an online store
+with new orders, a social media planner with colorful posts, a chat assistant, a travel
+itinerary, a meal plan, a restaurant booking page. No readable brand names, no prices.
+Three rows of screens, the top row partly cropped by the frame, the wall bending toward the
+camera on both sides. Sides and bottom fall off into deep black, soft glow from the screens,
+cinematic, photorealistic, sharp center, slight blur on the far edges.
+```
+Intégration : le mur remplace `assets/scene/agent-wall.jpg`, et sa version 9:8 recadrée
+remplace `agent-wall-mobile.jpg`. Le portrait est détouré avec `tools/cutout.py`.
 
 ### Bloc « Meet Tai » commun · bibliothèque
 Format 4:5.
