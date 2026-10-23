@@ -3,6 +3,8 @@
 ## What changed after client feedback (read first)
 1. **Tai is the brand.** Tai must be the hero visual of every page: big, above the fold on
    desktop AND mobile. Nothing matters more. Use the real cutouts in `assets/tai/`.
+   **Tai appears big ONLY in the hero** (round 3). Elsewhere, at most a small round avatar
+   (≤ 48px) in a pill, the modal header or the sticky bar.
 2. **Simple, not technical.** The pages looked like SaaS product pages. Remove every technical
    visual: no workflow canvases, terminals, run logs, code, node graphs, dashboards, keyboard
    shortcuts (⌘K / Ctrl K), command palettes, "agent.sales" style labels, latency numbers.
@@ -30,8 +32,11 @@
 3. **Proof bar:** "As seen on" official logos + Tai's follower counts with platform icons.
 4. **3 simple outcomes** (icon + 4–6 word title + one short line each):
    Make money with AI agents / Automate your business / Put your life on autopilot.
-5. **Tai authority block:** second big Tai photo, 2–3 lines max about Tai, follower stats.
-   Can be merged with the proof bar if it reads better.
+5. **AI agents illustration section** (client feedback round 3): instead of a second big photo
+   of Tai, one illustrated and gently animated visual of "AI agents working for you", drawn in
+   the page's own style (friendly, characterful, non-technical: no dashboards, terminals,
+   node graphs or code). Tai's proof (follower counts, "As seen on", "Here in my garage")
+   stays, but as text, stats and logos, not as another big photo.
 6. **Testimonials:** 2–3 short quotes (placeholders, marked).
 7. **FAQ (optional, max 3 questions)**, then **final CTA** block, then footer with disclaimer.
    "How the call works" can be a single line of 3 tiny steps (Book → Talk → Get your plan)
