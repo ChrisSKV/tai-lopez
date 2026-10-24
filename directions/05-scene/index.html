@@ -62,22 +62,26 @@ button,input{font:inherit;color:inherit}
 .wall{position:absolute;inset:0;z-index:0;display:block;pointer-events:none}
 .wall img{position:absolute;z-index:0;top:0;left:50%;width:var(--wall-w);max-width:none;height:auto;transform:translateX(-50%);
   -webkit-mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 5%,#000 95%,transparent 100%);
-  filter:saturate(.84) brightness(.95);
+  filter:saturate(.8) brightness(.84);
   animation:wallIn 1.4s ease-out both}
-/* side falloff: the outer screens sink into the dark, so the eye lands on Tai */
+/* falloff: the top row stays lit, lower rows and outer screens sink into the dark (as in the reference),
+   so Tai's chest melts into black instead of into bright screens */
 .wall::after{content:"";position:absolute;z-index:1;top:0;left:50%;width:var(--wall-w);height:calc(var(--wall-w) * .4);transform:translateX(-50%);
-  background:linear-gradient(90deg,rgba(10,10,12,.86) 0%,rgba(10,10,12,.55) 12%,rgba(10,10,12,.12) 27%,transparent 36%,transparent 64%,rgba(10,10,12,.12) 73%,rgba(10,10,12,.55) 88%,rgba(10,10,12,.86) 100%)}
+  background:
+    linear-gradient(180deg,transparent 0%,transparent 25%,rgba(10,10,12,.3) 37%,rgba(10,10,12,.58) 49%,rgba(10,10,12,.84) 60%,#0A0A0C 70%),
+    linear-gradient(90deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.6) 12%,rgba(10,10,12,.16) 27%,transparent 36%,transparent 64%,rgba(10,10,12,.16) 73%,rgba(10,10,12,.6) 88%,rgba(10,10,12,.9) 100%)}
 @keyframes wallIn{from{opacity:0;transform:translateX(-50%) scale(1.03)}}
-/* soft shadow that seats Tai in front of the wall: low and wide, only behind the shoulders */
-.stage::before{content:"";position:absolute;z-index:1;left:50%;bottom:-14%;width:calc(var(--tai-h) * 1.75);height:calc(var(--tai-h) * .95);transform:translateX(-50%);
-  background:radial-gradient(closest-side,rgba(10,10,11,.72),rgba(10,10,11,.3) 58%,transparent)}
+/* dark seat behind his shoulders: the cut edges of the cutout fade into black, never into a lit screen */
+.stage::before{content:"";position:absolute;z-index:1;left:50%;bottom:calc(var(--tai-h) * -.42);width:calc(var(--tai-h) * 2.1);height:calc(var(--tai-h) * 1.05);transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(10,10,12,.95),rgba(10,10,12,.82) 42%,rgba(10,10,12,.42) 72%,transparent)}
 /* warm key light behind his head */
 .stage::after{content:"";position:absolute;z-index:1;left:50%;top:4%;width:calc(var(--tai-h) * 1.1);height:calc(var(--tai-h) * .8);transform:translateX(-50%);
   background:radial-gradient(closest-side,rgba(247,200,110,.16),transparent);pointer-events:none}
 .tai{position:absolute;z-index:2;left:50%;bottom:0;height:var(--tai-h);width:auto;max-width:none;transform:translateX(-46%);
-  -webkit-mask-image:linear-gradient(to bottom,#000 68%,transparent 98%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);
+  /* head and chest stay solid; the straight-cut shoulder corners and the bottom edge fall off in an ellipse */
+  -webkit-mask-image:radial-gradient(62% 80% at 50% 34%,#000 68%,transparent 100%),linear-gradient(to bottom,#000 70%,transparent 97%);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to bottom,#000 68%,transparent 98%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:radial-gradient(62% 80% at 50% 34%,#000 68%,transparent 100%),linear-gradient(to bottom,#000 70%,transparent 97%);
   mask-composite:intersect;
   filter:drop-shadow(0 0 1px rgba(255,226,170,.35)) drop-shadow(0 24px 40px rgba(0,0,0,.55));
   animation:rise 1.1s .15s cubic-bezier(.2,.8,.2,1) both}
@@ -95,11 +99,11 @@ button,input{font:inherit;color:inherit}
 
 /* headline block */
 .copy{position:relative;z-index:3;max-width:860px;margin:0 auto}
-.h1{margin-top:28px;font:800 54px/1.04 var(--display);letter-spacing:-.042em;text-wrap:balance}
+.h1{margin-top:28px;font:700 56px/1.04 var(--display);letter-spacing:-.04em;text-wrap:balance}
 .h1 .ln{display:block}
 .h1 .gold{color:var(--gold);text-shadow:0 0 28px rgba(237,190,82,.38),0 0 64px rgba(237,190,82,.18)}
 .sub{max-width:640px;margin:18px auto 0;font-size:20px;line-height:1.55;color:rgba(255,255,255,.88);text-wrap:balance}
-.sub em{font-style:normal;font-weight:600;color:var(--gold)}
+.sub em{font-style:normal;font-weight:600;color:var(--gold);white-space:nowrap}
 
 /* gold CTA */
 .cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:62px;padding:0 40px;border:0;border-radius:999px;cursor:pointer;
@@ -126,7 +130,7 @@ button,input{font:inherit;color:inherit}
 .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px 48px;margin-top:20px}
 .logos img{width:auto;opacity:.5;transition:opacity .2s}
 .logos li:hover img{opacity:.8}
-.lg-forbes{height:25px}.lg-lbs{height:34px}.lg-nbc{height:36px}.lg-bravo{height:31px}.lg-tedx{height:24px}.lg-usc{height:27px}
+.lg-forbes{height:25px}.lg-lbs{height:40px}.lg-nbc{height:36px}.lg-bravo{height:31px}.lg-tedx{height:24px}.lg-usc{height:27px}
 
 /* ---------- Feature card ---------- */
 .feature{padding:56px 16px 0}
@@ -146,16 +150,12 @@ button,input{font:inherit;color:inherit}
 .spk{position:absolute;z-index:0;width:3px;height:3px;border-radius:50%;background:#F6CF70;box-shadow:0 0 6px 1px rgba(246,207,112,.7);opacity:.75;animation:tw 4.5s ease-in-out infinite;animation-delay:var(--d,0s)}
 .spk.s{width:2px;height:2px;opacity:.5}
 @keyframes tw{0%,100%{opacity:.15}50%{opacity:.9}}
-.kick{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(222,176,82,.16);box-shadow:inset 0 0 0 1px rgba(222,176,82,.18);
+.kick{position:relative;z-index:2;display:inline-block;padding:8px 15px;border-radius:999px;background:linear-gradient(rgba(222,176,82,.16),rgba(222,176,82,.16)),#1E180C;box-shadow:inset 0 0 0 1px rgba(222,176,82,.18);
   font:700 12.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-hi)}
 .g-left{position:relative;z-index:1}
-/* 3D gold statement */
-.gold3d{position:relative;display:inline-block;margin-top:26px;font:900 104px/.9 var(--display);letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap}
-.gold3d .face{position:relative;z-index:1;display:block;padding-bottom:.08em;
-  background:linear-gradient(178deg,#FFF7D6 0%,#FFE496 18%,#F4C556 38%,#D99A2B 52%,#B9781A 56%,#E8B044 68%,#FFD978 84%,#C48A2A 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.gold3d .depth{position:absolute;z-index:0;inset:0;display:block;padding-bottom:.08em;color:#8A5A12;
-  text-shadow:.5px 1px 0 #C88E2A,1px 2px 0 #BC8425,1.5px 3px 0 #AE7920,2px 4px 0 #A06E1C,2.5px 5px 0 #926318,3px 6px 0 #835714,3.5px 7px 0 #744C10,4px 8px 0 #66410D,4.5px 9px 0 #57370A,5px 10px 0 #4A2E08,8px 18px 22px rgba(0,0,0,.65),0 0 60px rgba(240,186,80,.3)}
+/* 3D gold statement: SVG text with a lit bevel (specular + diffuse lighting), a smooth extrusion and a cast shadow */
+.gold3d{position:relative;display:block;width:min(100%,490px);margin-top:26px;line-height:0}
+.g3{display:block;width:100%;height:auto;overflow:visible}
 .star{position:absolute;z-index:2;width:22px;height:22px;fill:#FFF8E4;filter:drop-shadow(0 0 6px rgba(255,236,180,.95));animation:tw 3.6s ease-in-out infinite}
 .g-line{max-width:430px;margin-top:22px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.82)}
 .g-line b{font-weight:600;color:#fff}
@@ -164,12 +164,13 @@ button,input{font:inherit;color:inherit}
 /* agent deck */
 .g-right{position:relative;z-index:1;min-height:360px;display:grid;place-items:center}
 .glow{position:absolute;inset:6% 4%;border-radius:50%;background:radial-gradient(closest-side,rgba(240,186,80,.28),rgba(240,186,80,.08) 60%,transparent);filter:blur(8px)}
-.deck{position:relative;display:grid;gap:14px;width:100%;max-width:410px;transform:perspective(1100px) rotateY(-16deg) rotateX(7deg) rotateZ(1deg);transform-style:preserve-3d}
+.deck{position:relative;display:grid;gap:18px;width:100%;max-width:410px;transform:perspective(1100px) rotateY(-14deg) rotateX(8deg) rotateZ(1deg);transform-style:preserve-3d}
 .agent{position:relative;display:flex;align-items:center;gap:14px;padding:15px 16px 15px 15px;border-radius:20px;
   border:1.5px solid transparent;
   background:linear-gradient(160deg,#2A2213 0%,#17130B 46%,#0E0C08 100%) padding-box,
     linear-gradient(135deg,#FFEAB0 0%,#C8902C 26%,#6E4A12 50%,#E8B850 76%,#8A5C14 100%) border-box;
-  box-shadow:inset 0 1px 0 rgba(255,236,190,.22),0 28px 50px -22px rgba(0,0,0,.95),0 0 36px -14px rgba(240,186,80,.4);
+  /* gold slab edge underneath gives each tile physical thickness */
+  box-shadow:inset 0 1px 0 rgba(255,236,190,.22),0 4px 0 -1px #8A5C16,0 6px 0 -1px #4A3008,0 30px 50px -20px rgba(0,0,0,.95),0 0 40px -12px rgba(240,186,80,.45);
   animation:float 6s ease-in-out infinite;animation-delay:var(--d,0s)}
 .agent::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,0) 38%)}
 .agent:nth-child(1){margin-right:56px}
@@ -223,7 +224,7 @@ button,input{font:inherit;color:inherit}
 @media(max-width:1100px) and (min-width:700px){
   .h1{font-size:48px}
   .gcard{grid-template-columns:minmax(0,1fr);text-align:center;padding:52px 40px 60px;gap:40px}
-  .g-line{margin-left:auto;margin-right:auto}
+  .g-line,.gold3d{margin-left:auto;margin-right:auto}
 }
 
 /* ---------- Mobile ---------- */
@@ -231,11 +232,13 @@ button,input{font:inherit;color:inherit}
   .bar{height:44px;font-size:13.5px}
   .hero{--wall-w:100vw;--stage-h:calc(var(--wall-w) * .7);--tai-h:calc(var(--wall-w) * .6);padding-bottom:26px}
   .wall img{width:100%;-webkit-mask-image:none;mask-image:none}
-  .wall::after{height:calc(var(--wall-w) * .92);background:linear-gradient(90deg,rgba(10,10,12,.7) 0%,rgba(10,10,12,.2) 16%,transparent 30%,transparent 70%,rgba(10,10,12,.2) 84%,rgba(10,10,12,.7) 100%)}
-  .stage::before{width:calc(var(--tai-h) * 1.7);bottom:-16%}
+  .wall::after{height:calc(var(--wall-w) * .92);background:
+    linear-gradient(180deg,transparent 0%,transparent 28%,rgba(10,10,12,.3) 44%,rgba(10,10,12,.62) 57%,rgba(10,10,12,.88) 69%,#0A0A0C 80%),
+    linear-gradient(90deg,rgba(10,10,12,.78) 0%,rgba(10,10,12,.28) 16%,transparent 30%,transparent 70%,rgba(10,10,12,.28) 84%,rgba(10,10,12,.78) 100%)}
+  .stage::before{width:calc(var(--tai-h) * 1.95)}
   .creator{margin-top:-30px;gap:11px;padding:6px 20px 6px 6px}
   .creator .av{width:44px;height:44px}
-  .h1{margin-top:22px;font-size:min(8.15vw,38px);letter-spacing:-.045em;word-spacing:.03em;line-height:1.06}
+  .h1{margin-top:22px;font-size:min(8vw,40px);letter-spacing:-.04em;word-spacing:.02em;line-height:1.06}
   .sub{margin-top:16px;font-size:17px;line-height:1.55;max-width:350px}
   .hero .cta{width:100%;height:60px;margin-top:26px;font-size:17.5px}
   .checks{flex-direction:column;align-items:center;gap:10px;margin-top:22px;font-size:16px}
@@ -243,10 +246,10 @@ button,input{font:inherit;color:inherit}
   .press{margin-top:44px}
   .logos{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-evenly;gap:22px 18px;margin-top:18px}
   .logos li{display:flex;justify-content:center}
-  .lg-forbes{height:21px}.lg-lbs{height:32px}.lg-nbc{height:31px}.lg-bravo{height:27px}.lg-tedx{height:21px}.lg-usc{height:23px}
+  .lg-forbes{height:21px}.lg-lbs{height:36px}.lg-nbc{height:31px}.lg-bravo{height:27px}.lg-tedx{height:21px}.lg-usc{height:23px}
   .feature{padding-top:44px}
   .gcard{grid-template-columns:minmax(0,1fr);text-align:center;gap:34px;min-height:0;padding:44px 20px 40px;border-radius:30px}
-  .gold3d{margin-top:22px;font-size:min(15.4vw,72px)}
+  .gold3d{margin:22px auto 0;width:min(100%,340px)}
   .g-line{margin:18px auto 0;font-size:17px}
   .gcard .cta{width:100%;max-width:340px}
   .g-right{min-height:0;padding-bottom:40px}
@@ -436,10 +439,34 @@ legend{padding:0;font-size:15px;font-weight:600;color:var(--ink)}
       <div class="g-left">
         <span class="kick">On your free call</span>
         <h2 class="gold3d" id="plan-title">
-          <span class="depth" aria-hidden="true">3 Agents</span>
-          <span class="face">3 Agents</span>
-          <svg class="star" style="left:-8px;top:-10px" aria-hidden="true"><use href="#i-star"/></svg>
-          <svg class="star" style="right:12%;bottom:4px;width:16px;height:16px;animation-delay:1.4s" aria-hidden="true"><use href="#i-star"/></svg>
+          <span class="sr-only">3 Agents</span>
+          <svg class="g3" viewBox="0 0 520 98" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="g3-face" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFF4C8"/><stop offset=".2" stop-color="#FFE08A"/><stop offset=".46" stop-color="#F0BA4C"/>
+                <stop offset=".54" stop-color="#C7861F"/><stop offset=".68" stop-color="#E3A93C"/><stop offset=".88" stop-color="#FFD978"/><stop offset="1" stop-color="#E2A940"/>
+              </linearGradient>
+              <linearGradient id="g3-side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B07519"/><stop offset=".6" stop-color="#7A4C0D"/><stop offset="1" stop-color="#4A2D06"/></linearGradient>
+              <filter id="g3-bevel" x="-4%" y="-12%" width="108%" height="130%" color-interpolation-filters="sRGB">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="1.15" result="bl"/>
+                <feSpecularLighting in="bl" surfaceScale="2.8" specularConstant="1" specularExponent="24" lighting-color="#FFF7DE" result="sp"><feDistantLight azimuth="235" elevation="42"/></feSpecularLighting>
+                <feComposite in="sp" in2="SourceAlpha" operator="in" result="spi"/>
+                <feDiffuseLighting in="bl" surfaceScale="2.8" diffuseConstant="1.05" lighting-color="#fff" result="df"><feDistantLight azimuth="235" elevation="55"/></feDiffuseLighting>
+                <feComposite in="SourceGraphic" in2="df" operator="arithmetic" k1=".75" k2=".3" k3="0" k4="0" result="lit"/>
+                <feComposite in="lit" in2="spi" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0" result="out"/>
+                <feComposite in="out" in2="SourceAlpha" operator="in"/>
+              </filter>
+              <filter id="g3-soft" x="-15%" y="-40%" width="130%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+              <filter id="g3-glow" x="-20%" y="-60%" width="140%" height="240%"><feGaussianBlur stdDeviation="22"/></filter>
+              <text id="g3-t" x="4" y="81" font-family="Inter Tight, Inter, system-ui, sans-serif" font-weight="900" font-size="100" letter-spacing="2" textLength="505" lengthAdjust="spacingAndGlyphs">3 AGENTS</text>
+            </defs>
+            <use href="#g3-t" fill="#F0BA50" opacity=".3" filter="url(#g3-glow)"/>
+            <use href="#g3-t" x="8" y="18" fill="#000" opacity=".7" filter="url(#g3-soft)"/>
+            <g fill="url(#g3-side)"><use href="#g3-t" x="0.45" y="0.62"/><use href="#g3-t" x="0.90" y="1.24"/><use href="#g3-t" x="1.35" y="1.86"/><use href="#g3-t" x="1.80" y="2.48"/><use href="#g3-t" x="2.25" y="3.10"/><use href="#g3-t" x="2.70" y="3.72"/><use href="#g3-t" x="3.15" y="4.34"/><use href="#g3-t" x="3.60" y="4.96"/><use href="#g3-t" x="4.05" y="5.58"/><use href="#g3-t" x="4.50" y="6.20"/><use href="#g3-t" x="4.95" y="6.82"/><use href="#g3-t" x="5.40" y="7.44"/><use href="#g3-t" x="5.85" y="8.06"/><use href="#g3-t" x="6.30" y="8.68"/><use href="#g3-t" x="6.75" y="9.30"/><use href="#g3-t" x="7.20" y="9.92"/></g>
+            <use href="#g3-t" fill="url(#g3-face)" filter="url(#g3-bevel)"/>
+          </svg>
+          <svg class="star" style="left:-12px;top:-14px" aria-hidden="true"><use href="#i-star"/></svg>
+          <svg class="star" style="right:13%;bottom:-8px;width:16px;height:16px;animation-delay:1.4s" aria-hidden="true"><use href="#i-star"/></svg>
         </h2>
         <p class="g-line">You leave with <b>your first 3 AI agents mapped out</b>: where they make you money, what they take off your plate, and how to start.</p>
         <button class="cta" type="button" id="card-cta" data-book>Book my free call</button>
