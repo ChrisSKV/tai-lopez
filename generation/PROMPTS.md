@@ -21,6 +21,21 @@ Photorealistic editorial photography, natural skin texture, sharp focus on the e
 no text, no logos, no watermark.
 ```
 
+## Priorité 0 · `tai-waist` · Tai jusqu'à la taille (demande client, round 4)
+Utilisé par les héros 04 (violet), 05 (scène), 06 (vidéo) et 07 (conversation), aux
+proportions de Mo sur movlogs.ai. Les pages sont prêtes : il suffit de déposer le fichier
+détouré dans `assets/tai/tai-waist.webp`, puis de suivre le commentaire HTML du héros.
+Format 1:2 (1400×2800).
+```
+[identity block] Waist-up standing portrait, facing the camera, shoulders square, calm
+confident half-smile, arms relaxed at his sides. Dark brown wool coat open over a cream
+zip-neck sweater and dark trousers. Plain solid mid-grey seamless studio background, soft
+frontal key light, gentle rim light on hair and shoulders. Framing: top of the hair 4% below
+the top edge, crop just below the belt, both arms fully inside the frame. 70mm lens, f/5.6.
+```
+Variante pour la violette : même cadrage, overshirt noir, rim light violette (#8B5CF6)
+venant de l'arrière gauche, fond noir uni.
+
 ## Priorité 1 · Les trois poses utilisées par les pages
 
 Elles sont générées sur fond uni pour un détourage propre. Après génération, on lance
