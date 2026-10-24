@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:1000px;overflow:hidden}
+body{font-family:Inter,sans-serif;color:#fff;position:relative;background:#1E3A8A}
+svg.bg{position:absolute;inset:0}
+.top{position:relative;height:100px;display:flex;align-items:center;padding:0 60px;gap:16px}
+.logo{width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.brand{font:800 30px 'Inter Tight';letter-spacing:-.02em}
+.links{margin-left:auto;display:flex;gap:36px;font:600 22px Inter;color:#FFE4D6}
+.left{position:absolute;left:60px;top:190px;width:700px}
+.chip{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);border-radius:999px;padding:10px 22px;font:700 22px Inter}
+h1{font:800 132px/.92 'Inter Tight';letter-spacing:-.05em;margin-top:26px;text-shadow:0 6px 30px rgba(60,20,60,.25)}
+.sub{font:600 29px/1.38 Inter;margin-top:24px;width:540px;color:#FFF1E8;text-shadow:0 2px 12px rgba(60,20,60,.25)}
+.it{position:absolute;right:60px;top:130px;width:600px;background:#fff;color:#1F2340;border-radius:32px;padding:30px 30px 18px;box-shadow:0 40px 70px rgba(30,20,80,.35)}
+.it h3{font:800 34px 'Inter Tight';letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between}
+.it h3 span{font:700 19px Inter;color:#EA580C;background:#FFEDD5;border-radius:999px;padding:8px 14px}
+.d{font:800 17px Inter;letter-spacing:.14em;color:#9AA0BC;margin:24px 0 8px}
+.s{display:flex;align-items:center;gap:18px;padding:13px 0}
+.s .ic{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;font-size:32px;flex:none}
+.s b{font:700 24px Inter;display:block}
+.s small{font:500 19px Inter;color:#6B7194}
+.s .ok{margin-left:auto;width:40px;height:40px;border-radius:50%;background:#22C55E;display:grid;place-items:center;flex:none}
+</style></head><body>
+<svg class="bg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B3FB8"/><stop offset=".35" stop-color="#C04BA8"/><stop offset=".62" stop-color="#FF7A59"/><stop offset=".78" stop-color="#FFC170"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F59E6B"/><stop offset=".25" stop-color="#7B5BB5"/><stop offset="1" stop-color="#1E2A6E"/></linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".55" stop-color="#FFD27A"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sk)"/>
+  <circle cx="560" cy="700" r="260" fill="url(#sun)"/>
+  <circle cx="560" cy="700" r="110" fill="#FFF0C2"/>
+  <path d="M0 640 Q120 600 240 630 T520 640 L520 760 L0 760z" fill="#6E3A8E" opacity=".85"/>
+  <path d="M900 700 Q1050 610 1200 650 T1600 620 L1600 760 L900 760z" fill="#5A2F80" opacity=".9"/>
+  <rect y="740" width="1600" height="260" fill="url(#sea)"/>
+  <g fill="#FFE2B0" opacity=".7"><rect x="430" y="770" width="260" height="6" rx="3"/><rect x="470" y="800" width="180" height="5" rx="2.5"/><rect x="500" y="830" width="120" height="5" rx="2.5"/><rect x="520" y="860" width="80" height="4" rx="2"/></g>
+  <g fill="#3B1F5E"><rect x="60" y="660" width="40" height="80"/><rect x="100" y="640" width="54" height="100"/><polygon points="96,640 127,612 158,640"/><rect x="158" y="672" width="44" height="68"/><rect x="210" y="650" width="30" height="90"/><rect x="240" y="690" width="60" height="50"/><rect x="300" y="676" width="36" height="64"/></g>
+  <path d="M1100 900 l40 -110 l40 110z" fill="#2A1E5C" opacity=".6"/>
+  <g fill="none" stroke="#fff" stroke-width="3" opacity=".6"><path d="M1000 300 q12 -10 24 0 q12 -10 24 0"/><path d="M1080 260 q9 -8 18 0 q9 -8 18 0"/></g>
+</svg>
+<div class="top">
+  <div class="logo"><svg width="30" height="30" viewBox="0 0 24 24" fill="#C04BA8"><path d="M21 15.5v-1.8l-8-5V3.5a1.5 1.5 0 0 0-3 0v5.2l-8 5v1.8l8-2.5v5.5l-2 1.5V21l3.5-1 3.5 1v-1.5l-2-1.5V13z"/></svg></div>
+  <div class="brand">Trips</div>
+  <div class="links"><span>Itinerary</span><span>Bookings</span><span>Map</span></div>
+</div>
+<div class="left">
+  <div class="chip">✈️ Fri 14 – Mon 17 · 4 days</div>
+  <h1>Lisbon,<br>all planned.</h1>
+  <p class="sub">Flights, hotel and dinners booked while you packed.</p>
+</div>
+<div class="it">
+  <h3>Your trip <span>All booked</span></h3>
+  <div class="d">FRIDAY</div>
+  <div class="s"><div class="ic" style="background:#E0E7FF">✈️</div><div><b>Flight booked</b><small>Window seat · 9:40 AM</small></div><div class="ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+  <div class="s"><div class="ic" style="background:#FCE7F3">🏨</div><div><b>Hotel confirmed</b><small>Old town · sea view</small></div><div class="ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+  <div class="d">SATURDAY</div>
+  <div class="s"><div class="ic" style="background:#FEF3C7">🚋</div><div><b>Old town tram tour</b><small>Tickets in your wallet</small></div><div class="ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+  <div class="s"><div class="ic" style="background:#FFEDD5">🍤</div><div><b>Dinner for 2, 8 PM</b><small>Table by the water</small></div><div class="ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+  <div class="d">SUNDAY</div>
+  <div class="s"><div class="ic" style="background:#DCFCE7">🏰</div><div><b>Day trip to Sintra</b><small>Pickup at 9:00 AM</small></div><div class="ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+</div>
+</body></html>

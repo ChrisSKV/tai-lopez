@@ -1,0 +1,15 @@
+# row col panel   (row 0 = top row, row 1 = eye level, row 2 = fading row)
+0 -3 inbox
+0 -2 social
+0 -1 calendar
+0  0 travel
+0  1 restaurant
+0  2 newsletter
+0  3 coaching
+1 -3 fitness
+1 -2 meals
+1 -1 chat
+1  0 clips
+1  1 store
+1  2 bills
+1  3 realestate

@@ -1,0 +1,56 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:1000px;overflow:hidden}
+body{font-family:Inter,sans-serif;background:#D9F7E8;color:#06281C;position:relative}
+.top{height:100px;display:flex;align-items:center;padding:0 60px;gap:16px}
+.logo{width:54px;height:54px;border-radius:16px;background:#059669;display:grid;place-items:center}
+.brand{font:800 30px 'Inter Tight';letter-spacing:-.02em}
+.links{margin-left:70px;display:flex;gap:40px;font:600 22px Inter;color:#3C6E5A}
+.links b{color:#06281C}
+.av{margin-left:auto;width:56px;height:56px;border-radius:50%;background:#7C3AED;color:#fff;font:700 21px Inter;display:grid;place-items:center}
+.left{position:absolute;left:60px;top:170px;width:640px}
+h1{font:800 116px/.94 'Inter Tight';letter-spacing:-.05em}
+h1 em{font-style:normal;color:#059669}
+.sub{font:500 28px/1.38 Inter;color:#2E5D4B;margin-top:26px;width:520px}
+.seal{position:absolute;left:70px;bottom:60px;display:flex;align-items:center;gap:24px}
+.seal .ring{width:190px;height:190px;border-radius:50%;background:conic-gradient(#10B981 0 100%);display:grid;place-items:center;box-shadow:0 20px 40px rgba(5,150,105,.3)}
+.seal .ring div{width:150px;height:150px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.seal b{font:800 40px 'Inter Tight';letter-spacing:-.02em;display:block}
+.seal small{font:500 22px Inter;color:#3C6E5A}
+.card{position:absolute;right:60px;top:130px;width:760px;height:830px;background:#fff;border-radius:34px;padding:34px;box-shadow:0 30px 60px rgba(6,40,28,.12)}
+.ch{display:flex;justify-content:space-between;align-items:center}
+.ch b{font:800 36px 'Inter Tight';letter-spacing:-.02em}
+.ch span{background:#06281C;color:#A7F3D0;font:700 19px Inter;border-radius:999px;padding:9px 16px}
+.row{display:flex;align-items:center;gap:20px;padding:17px 0;border-bottom:2px solid #EEF6F2}
+.row:last-child{border:0}
+.ic{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;font-size:38px;flex:none}
+.row .t b{font:700 26px Inter;display:block}
+.row .t small{font:500 19px Inter;color:#6B8A7D}
+.paid{margin-left:auto;display:flex;align-items:center;gap:8px;background:#D1FAE5;color:#047857;font:800 21px Inter;border-radius:999px;padding:10px 18px 10px 12px}
+</style></head><body>
+<div class="top">
+  <div class="logo"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 15l2 2 4-4" stroke-linecap="round"/></svg></div>
+  <div class="brand">Home</div>
+  <div class="links"><b>Bills</b><span>Reminders</span><span>Family</span></div>
+  <div class="av">AR</div>
+</div>
+<div class="left">
+  <h1>All bills paid.<br><em>On time.</em></h1>
+  <p class="sub">Reminders, renewals and payments handled before you even think about them.</p>
+</div>
+<div class="seal">
+  <div class="ring"><div><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+  <div><b>October: done</b><small>Nothing left to do</small></div>
+</div>
+<div class="card">
+  <div class="ch"><b>This month</b><span>6 of 6 paid</span></div>
+  <div id="r" style="margin-top:14px"></div>
+</div>
+<script>
+const R=[['⚡','#FEF3C7','Electricity','Paid Oct 3'],['📶','#DBEAFE','Internet','Paid Oct 5'],['🏠','#EDE9FE','Rent','Paid Oct 1'],['📱','#FCE7F3','Phone plan','Paid Oct 8'],['💧','#CFFAFE','Water','Paid Oct 12'],['🛡️','#FFEDD5','Car insurance','Renewed Oct 14']];
+document.getElementById('r').innerHTML=R.map(r=>`<div class="row"><div class="ic" style="background:${r[1]}">${r[0]}</div><div class="t"><b>${r[2]}</b><small>${r[3]}</small></div><div class="paid"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Paid</div></div>`).join('');
+</script>
+</body></html>

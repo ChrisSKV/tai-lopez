@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:1000px;overflow:hidden}
+body{font-family:Inter,sans-serif;background:#160A2C;color:#fff;position:relative}
+body:before{content:"";position:absolute;inset:0;background:radial-gradient(700px 600px at 85% 30%,rgba(168,85,247,.55),rgba(168,85,247,0) 70%),radial-gradient(600px 500px at 10% 100%,rgba(236,72,153,.35),rgba(236,72,153,0) 70%)}
+.top{position:relative;height:100px;display:flex;align-items:center;padding:0 60px;gap:16px}
+.logo{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#F0ABFC,#A855F7);display:grid;place-items:center}
+.brand{font:700 30px 'Space Grotesk';letter-spacing:-.02em}
+.links{margin-left:auto;display:flex;gap:36px;font:600 22px Inter;color:#C4B5FD}
+.left{position:absolute;left:60px;top:180px;width:690px}
+.ep{display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 22px 10px 10px;font:600 21px Inter}
+.ep i{width:40px;height:40px;border-radius:50%;background:#F0ABFC;display:grid;place-items:center}
+h1{font:700 104px/.95 'Space Grotesk';letter-spacing:-.05em;margin-top:28px}
+h1 em{font-style:normal;background:linear-gradient(90deg,#F0ABFC,#FDE68A);-webkit-background-clip:text;color:transparent}
+.sub{font:500 28px/1.38 Inter;color:#D8CCF6;margin-top:24px;width:520px}
+.wave{position:absolute;left:60px;bottom:70px;width:560px;height:110px;background:rgba(255,255,255,.08);border-radius:28px;display:flex;align-items:center;gap:20px;padding:0 24px}
+.play{width:66px;height:66px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none}
+.bars{display:flex;align-items:center;gap:5px;height:60px}
+.bars i{width:6px;border-radius:3px;background:#C084FC}
+.reel{position:absolute;top:130px;width:250px;height:500px;border-radius:30px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.reel .cap{position:absolute;left:14px;right:14px;bottom:52px;font:700 27px/1.12 'Space Grotesk';letter-spacing:-.02em;text-align:center;text-shadow:0 3px 10px rgba(0,0,0,.4)}
+.reel .cap u{text-decoration:none;background:#FDE047;color:#1A0B2E;padding:0 6px;border-radius:6px}
+.reel .ready{position:absolute;left:16px;top:16px;background:#22C55E;color:#04260F;font:800 17px Inter;border-radius:999px;padding:7px 14px}
+.reel .len{position:absolute;right:16px;top:16px;background:rgba(0,0,0,.5);font:700 17px Inter;border-radius:999px;padding:7px 12px}
+.reel .pr{position:absolute;left:18px;right:18px;bottom:26px;height:6px;border-radius:3px;background:rgba(255,255,255,.3)}
+.reel .pr:after{content:"";position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:3px;background:#fff}
+.more{position:absolute;right:40px;bottom:60px;width:790px;display:flex;gap:16px}
+.more div{flex:1;height:200px;border-radius:24px;position:relative;overflow:hidden}
+.more b{position:absolute;left:16px;bottom:14px;font:700 20px 'Space Grotesk'}
+.more span{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;background:#22C55E;display:grid;place-items:center}
+</style></head><body>
+<div class="top">
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E1065" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+  <div class="brand">Clips Studio</div>
+  <div class="links"><span>Episodes</span><span>Clips</span><span>Schedule</span></div>
+</div>
+<div class="left">
+  <div class="ep"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#2E1065"><path d="M7 4l13 8-13 8z"/></svg></i>From episode 48 · 62 min</div>
+  <h1>12 clips,<br><em>ready to post.</em></h1>
+  <p class="sub">Best moments cut, captioned and sized for every app.</p>
+</div>
+<div class="wave"><div class="play"><svg width="28" height="28" viewBox="0 0 24 24" fill="#7E22CE"><path d="M7 4l13 8-13 8z"/></svg></div><div class="bars" id="w"></div></div>
+<div id="r"></div>
+<script>
+const w=document.getElementById('w');let s='';for(let i=0;i<46;i++){const h=12+Math.abs(Math.sin(i*1.7)*34+Math.cos(i*.6)*14);s+=`<i style="height:${h}px;opacity:${i<20?1:.45}"></i>`}w.innerHTML=s;
+const person=(skin,hair,shirt)=>`<svg width="250" height="500" viewBox="15 0 250 500" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0"><ellipse cx="140" cy="470" rx="150" ry="140" fill="${shirt}"/><rect x="118" y="270" width="44" height="70" rx="20" fill="${skin}"/><ellipse cx="140" cy="215" rx="70" ry="84" fill="${skin}"/><path d="M68 210 C64 120 210 110 212 205 C200 160 150 150 120 160 C96 168 80 190 68 210z" fill="${hair}"/><rect x="198" y="300" width="20" height="120" rx="10" fill="#1B1B1B" transform="rotate(-18 208 360)"/><circle cx="214" cy="292" r="22" fill="#2B2B2B"/><circle cx="116" cy="222" r="7" fill="#2A1A12"/><circle cx="164" cy="222" r="7" fill="#2A1A12"/><path d="M118 252 Q140 270 162 252" fill="none" stroke="#7A3A2A" stroke-width="6" stroke-linecap="round"/><path d="M104 206 q12 -8 24 -2 M152 204 q12 -6 24 2" fill="none" stroke="${hair}" stroke-width="5" stroke-linecap="round"/></svg>`;
+const R=[
+ [800,'linear-gradient(170deg,#F472B6,#7C3AED)','#F1C7A5','#3B2416','#1E1B4B','The <u>one habit</u> that changed my mornings','0:42'],
+ [1070,'linear-gradient(170deg,#FBBF24,#F97316)','#C68863','#1B1210','#0F172A','Stop doing <u>everything</u> yourself','0:31'],
+ [1340,'linear-gradient(170deg,#22D3EE,#6366F1)','#E8B896','#6B3E1F','#3B0764','My <u>favorite</u> question to ask','0:55'],
+];
+document.getElementById('r').innerHTML=R.map(r=>`<div class="reel" style="left:${r[0]-30}px;background:${r[1]}">${person(r[2],r[3],r[4])}<div class="ready">✓ Ready</div><div class="len">${r[6]}</div><div class="cap">${r[5]}</div><div class="pr"></div></div>`).join('')+
+`<div class="more">${[['linear-gradient(150deg,#A855F7,#EC4899)','Clip 4'],['linear-gradient(150deg,#14B8A6,#3B82F6)','Clip 5'],['linear-gradient(150deg,#F59E0B,#EF4444)','Clip 6']].map(m=>`<div style="background:${m[0]}"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${m[1]} · Ready</b></div>`).join('')}</div>`;
+</script>
+</body></html>

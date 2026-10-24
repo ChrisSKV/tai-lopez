@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:1000px;overflow:hidden}
+body{font-family:Inter,sans-serif;background:linear-gradient(135deg,#0F766E 0%,#0B4F4A 100%);color:#fff;position:relative}
+body:before{content:"";position:absolute;left:-200px;bottom:-300px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(94,234,212,.35),rgba(94,234,212,0) 65%)}
+.top{position:relative;height:100px;display:flex;align-items:center;padding:0 60px;gap:16px}
+.logo{width:54px;height:54px;border-radius:50%;background:#5EEAD4;display:grid;place-items:center}
+.brand{font:700 30px 'Inter Tight';letter-spacing:-.02em}
+.links{margin-left:auto;display:flex;gap:36px;font:600 22px Inter;color:#A7F3E4}
+.left{position:absolute;left:60px;top:200px;width:620px}
+.chip{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.12);border-radius:999px;padding:10px 22px 10px 14px;font:600 22px Inter;color:#CCFBF1}
+.chip i{width:14px;height:14px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 6px rgba(74,222,128,.25)}
+h1{font:800 110px/.95 'Inter Tight';letter-spacing:-.045em;margin-top:30px}
+h1 em{font-style:normal;color:#5EEAD4}
+.sub{font:500 29px/1.38 Inter;color:#C8F5EC;margin-top:28px;width:520px}
+.stats{display:flex;gap:16px;margin-top:40px}
+.stats div{background:#fff;color:#0B4F4A;border-radius:20px;padding:16px 22px;font:700 23px Inter;display:flex;align-items:center;gap:10px}
+.win{position:absolute;right:70px;top:80px;width:700px;height:870px;background:#fff;border-radius:36px;box-shadow:0 40px 80px rgba(0,30,25,.45);overflow:hidden;color:#0F2A27}
+.wh{height:110px;display:flex;align-items:center;gap:18px;padding:0 30px;background:#F0FDFA;border-bottom:2px solid #D5F5EE}
+.wh .a{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#14B8A6,#0EA5E9);display:grid;place-items:center;position:relative}
+.wh .a:after{content:"";position:absolute;right:0;bottom:2px;width:18px;height:18px;border-radius:50%;background:#22C55E;border:3px solid #F0FDFA}
+.wh b{font:700 26px 'Inter Tight';display:block}
+.wh small{font:600 19px Inter;color:#0F9F8C}
+.msgs{padding:30px 30px 0;display:flex;flex-direction:column;gap:18px}
+.m{max-width:500px;padding:20px 24px;border-radius:26px;font:500 24px/1.38 Inter}
+.c{background:#F1F5F4;align-self:flex-end;border-bottom-right-radius:8px}
+.b{background:#0F766E;color:#fff;border-bottom-left-radius:8px}
+.typing{display:flex;gap:8px;background:#F1F5F4;width:100px;padding:20px 24px;border-radius:26px;border-bottom-left-radius:8px}
+.typing i{width:12px;height:12px;border-radius:50%;background:#7AA7A0}
+.inp{position:absolute;left:24px;right:24px;bottom:24px;height:80px;border-radius:999px;background:#F1F5F4;display:flex;align-items:center;padding:0 12px 0 30px;font:500 22px Inter;color:#8BA6A1}
+.inp span{margin-left:auto;width:58px;height:58px;border-radius:50%;background:#0F766E;display:grid;place-items:center}
+.lbl{font:600 16px Inter;color:#7AA7A0;margin:-8px 6px 0}
+</style></head><body>
+<div class="top">
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B4F4A" stroke-width="2.6" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></div>
+  <div class="brand">Help Desk</div>
+  <div class="links"><span>Conversations</span><span>Customers</span><span>Settings</span></div>
+</div>
+<div class="left">
+  <div class="chip"><i></i>Assistant online, day and night</div>
+  <h1>Every customer,<br><em>answered.</em></h1>
+  <p class="sub">Friendly replies in seconds, in your tone of voice.</p>
+  <div class="stats"><div>😊 Happy customers</div><div>⚡ Instant replies</div></div>
+</div>
+<div class="win">
+  <div class="wh"><div class="a"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.4 6.9L21 11l-6.6 2.1L12 20l-2.4-6.9L3 11l6.6-2.1z"/></svg></div><div><b>Your assistant</b><small>● Online · replies instantly</small></div></div>
+  <div class="msgs">
+    <div class="m c">Hi! Can I still change my delivery address?</div>
+    <div class="m b">Of course, Anna! I've updated it to 42 Park Lane. Anything else I can help with? 😊</div>
+    <div class="m c">Do you have it in blue too?</div>
+    <div class="m b">Yes, in stock! I've added the blue one to your cart. It arrives Thursday.</div>
+    <div class="m c">Amazing, thank you so much!</div>
+    <div class="typing"><i></i><i></i><i></i></div>
+  </div>
+  <div class="inp">Type a message…<span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6z"/></svg></span></div>
+</div>
+</body></html>
