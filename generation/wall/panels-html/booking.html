@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(150deg,#F7F3FF 0%,#E9E1FF 100%);color:#1E1B4B}
+body::before{content:"";position:absolute;right:-60px;top:-160px;width:820px;height:820px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0))}
+.left{position:absolute;left:64px;top:64px;width:700px}
+.left b.n{display:block;font:800 60px/1 'Inter Tight';letter-spacing:-.035em}
+.left .live{--pill:#fff;box-shadow:0 6px 18px rgba(80,40,160,.1)}
+.left h1{margin-top:64px}
+.left h1 em{font-style:normal;color:#7C3AED}
+.chat{display:flex;flex-direction:column;gap:16px;margin-top:56px}
+.chat .msg.c{background:#fff;box-shadow:0 10px 24px -10px rgba(60,30,140,.18)}
+.chat .msg-row .msg{--a-bubble:#7C3AED}
+.bot{position:absolute;left:1090px;top:6px;width:400px;height:400px;z-index:2}
+.bot img{width:100%;height:100%}
+.card{left:840px;top:300px;width:696px;height:640px;padding:96px 34px 0}
+.card .hd{display:flex;align-items:baseline;justify-content:space-between;padding:0 6px 16px;border-bottom:2px solid #F0ECFB}
+.card .hd b{font:800 36px/1 'Inter Tight';letter-spacing:-.02em}
+.card .hd span{font:600 23px/1 Inter;color:#7D78A6}
+.slot{display:flex;align-items:center;gap:20px;height:112px;padding:0 6px;border-bottom:2px solid #F5F2FC}
+.slot:last-child{border:0}
+.slot time{width:120px;font:700 24px/1 Inter;color:#7D78A6}
+.slot .ev{flex:1;display:flex;align-items:center;gap:16px;height:80px;padding:0 20px;border-radius:18px;background:#F1ECFF;border-left:8px solid #7C3AED;font:700 25px/1.2 Inter}
+.slot .ev small{display:block;font:500 20px/1.2 Inter;color:#6D6896;margin-top:4px}
+.slot .ev.free{background:transparent;border:3px dashed #DCD4F7;color:#A29DC6;font-weight:600}
+</style></head><body>
+<div class="left">
+  <b class="n">Booking agent</b><span class="live">Filling your calendar</span>
+  <h1>Booked 3 calls<br><em>for tomorrow.</em></h1>
+  <div class="chat">
+    <p class="msg c">Hi! Could we talk tomorrow morning?</p>
+    <div class="msg-row"><p class="msg a">Done! You’re booked for 9:30 AM.</p><div class="face" data-shell="#FFFFFF" data-rim="#7C3AED" data-mood="happy" data-icon="calok" data-shadow="0"></div></div>
+  </div>
+</div>
+<div class="bot"><img src="../../../assets/agents/white-calendar.png" alt=""></div>
+<div class="card">
+  <div class="hd"><b>Tomorrow</b><span>Thursday</span></div>
+  <div class="slot"><time>9:30 AM</time><div class="ev"><span style="flex:1">Call with Sarah K.<small>Invite sent</small></span><span class="ok"></span></div></div>
+  <div class="slot"><time>11:00 AM</time><div class="ev"><span style="flex:1">Call with Leo M.<small>Invite sent</small></span><span class="ok"></span></div></div>
+  <div class="slot"><time>2:30 PM</time><div class="ev"><span style="flex:1">Call with Ana P.<small>Reminder set</small></span><span class="ok"></span></div></div>
+  <div class="slot"><time>4:00 PM</time><div class="ev free">Open, offering it now…</div></div>
+</div>
+<script src="_agent.js"></script>
+</body></html>

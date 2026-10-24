@@ -1,73 +1,39 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1600px;height:1000px;overflow:hidden}
-body{font-family:Inter,sans-serif;background:#EEF3FF;color:#0B1A3F;display:flex}
-.side{width:330px;height:1000px;background:#0B1A3F;color:#C9D5F5;padding:40px 30px;position:relative}
-.brand{display:flex;align-items:center;gap:16px;font:700 30px 'Inter Tight';color:#fff}
-.brand i{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,#60A5FA,#2563EB);display:grid;place-items:center}
-.compose{margin-top:44px;background:#fff;color:#0B1A3F;border-radius:18px;font:700 24px Inter;padding:20px 24px;display:flex;align-items:center;gap:14px}
-.nav{margin-top:34px}
-.nav div{display:flex;align-items:center;gap:16px;font:600 23px Inter;padding:17px 20px;border-radius:14px}
-.nav .on{background:#1D3473;color:#fff}
-.nav .on span{margin-left:auto;background:#22C55E;color:#04260F;font:800 18px Inter;border-radius:999px;padding:3px 12px}
-.nav svg{flex:none}
-.bot{position:absolute;left:30px;right:30px;bottom:40px;background:#13265A;border-radius:20px;padding:22px;display:flex;align-items:center;gap:14px;font:600 21px Inter;color:#fff}
-.tog{margin-left:auto;width:62px;height:36px;border-radius:999px;background:#22C55E;position:relative}
-.tog:after{content:"";position:absolute;right:4px;top:4px;width:28px;height:28px;border-radius:50%;background:#fff}
-.main{flex:1;padding:44px 56px;position:relative}
-.hero{display:flex;align-items:center;gap:30px}
-.ok{width:118px;height:118px;border-radius:50%;background:#22C55E;display:grid;place-items:center;box-shadow:0 0 0 14px rgba(34,197,94,.18)}
-h1{font:800 106px/1 'Inter Tight';letter-spacing:-.045em}
-.sub{font:500 28px Inter;color:#4A5B87;margin-top:12px}
-.env{position:absolute;right:60px;top:40px;width:250px;height:170px}
-.list{margin-top:46px;background:#fff;border-radius:26px;box-shadow:0 18px 40px rgba(11,26,63,.08);overflow:hidden}
-.row{display:flex;align-items:center;gap:22px;padding:0 30px;height:96px;border-bottom:2px solid #EEF2FB}
+body{--bg:linear-gradient(160deg,#F2F5FF 0%,#DFE7FF 100%);color:#0B1A3F}
+body::before{content:"";position:absolute;left:-120px;top:120px;width:880px;height:880px;border-radius:50%;background:radial-gradient(closest-side,#fff,rgba(255,255,255,0))}
+.name{position:absolute;left:64px;top:64px}
+.name b{display:block;font:800 60px/1 'Inter Tight';letter-spacing:-.035em}
+.name .live{--pill:#fff;color:#0B1A3F;box-shadow:0 6px 18px rgba(30,60,160,.1)}
+.bot{position:absolute;left:30px;top:250px;width:600px;height:600px}
+.bot img{position:relative;width:100%;height:100%}
+.bot::after{content:"";position:absolute;left:90px;right:90px;bottom:6px;height:60px;border-radius:50%;background:radial-gradient(closest-side,rgba(20,40,110,.28),transparent)}
+.right{position:absolute;left:700px;top:46px;width:836px}
+h1{font-size:196px;line-height:1;letter-spacing:-.055em}
+h1 span{color:#2563EB}
+.right .sub{margin-top:14px;color:#4A5B87}
+.card{position:relative;margin-top:44px;padding:10px 32px}
+.row{display:flex;align-items:center;gap:22px;height:118px;border-bottom:2px solid #EEF2FB}
 .row:last-child{border:0}
-.row .a{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 21px Inter;flex:none}
-.row .n{width:230px;font:700 25px Inter;flex:none}
-.row .s{flex:1;font:500 23px Inter;color:#55658F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row .s b{color:#0B1A3F;font-weight:600}
-.tag{display:flex;align-items:center;gap:8px;background:#DCFCE7;color:#15803D;font:700 21px Inter;border-radius:999px;padding:9px 18px 9px 12px;flex:none}
-.t{font:500 20px Inter;color:#8A97B8;width:80px;text-align:right;flex:none}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font:700 26px/1.2 Inter}
+.row .t span{display:block;margin-top:5px;font:500 22px/1.3 Inter;color:#6A7898;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag.b{background:#DBEAFE;color:#1D4ED8}
 </style></head><body>
-<div class="side">
-  <div class="brand"><i><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></i>Mail</div>
-  <div class="compose"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Compose</div>
-  <div class="nav">
-    <div class="on"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 13h5l2 3h4l2-3h5M5 5h14l2 8v6H3v-6z"/></svg>Inbox<span>0</span></div>
-    <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9D5F5" stroke-width="2.2"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2L12 17.4 6.5 20.3l1-6.2L3 9.7l6.2-.9z"/></svg>Starred</div>
-    <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9D5F5" stroke-width="2.2"><path d="M4 12l16-8-6 16-3-6z"/></svg>Sent</div>
-    <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9D5F5" stroke-width="2.2"><path d="M5 4h10l4 4v12H5z"/></svg>Drafts</div>
-    <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9D5F5" stroke-width="2.2"><path d="M4 7h16M7 7v13h10V7M9 4h6"/></svg>Archive</div>
+<div class="name"><b>Inbox agent</b><span class="live">Sorting your email</span></div>
+<div class="bot"><img src="../../../assets/agents/white-inbox.png" alt=""></div>
+<div class="right">
+  <h1>Inbox: <span>0</span></h1>
+  <p class="sub">Every email read, sorted and answered for you.</p>
+  <div class="card">
+    <div class="row"><span class="av" style="background:#2563EB">EW</span><span class="t"><b>Emma Wilson</b><span>Booking for Friday? Is there still a spot…</span></span><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Replied</span></div>
+    <div class="row"><span class="av" style="background:#F59E0B">LT</span><span class="t"><b>Lina Tran</b><span>Could you resend last month’s invoice?</span></span><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Sent</span></div>
+    <div class="row"><span class="av" style="background:#8B5CF6">NL</span><span class="t"><b>Weekly newsletter</b><span>Top stories this week, and more…</span></span><span class="tag n"><i class="ic" data-i="archive" data-w="2.6"></i>Archived</span></div>
+    <div class="row"><span class="av" style="background:#10B981">MA</span><span class="t"><b>Marco Alves</b><span>Partnership idea, loved your last post…</span></span><span class="tag b"><i class="ic" data-i="flag" data-w="2.6"></i>For you</span></div>
   </div>
-  <div class="bot"><svg width="26" height="26" viewBox="0 0 24 24" fill="#60A5FA"><path d="M12 2l2.4 6.9L21 11l-6.6 2.1L12 20l-2.4-6.9L3 11l6.6-2.1z"/></svg>Auto-reply<div class="tog"></div></div>
 </div>
-<div class="main">
-  <svg class="env" viewBox="0 0 250 170">
-    <rect x="18" y="26" width="190" height="130" rx="18" fill="#BFD3FF"/>
-    <rect x="36" y="12" width="190" height="130" rx="18" fill="#fff" stroke="#9DB8F8" stroke-width="3"/>
-    <path d="M42 22l89 66 89-66" fill="none" stroke="#2563EB" stroke-width="6" stroke-linejoin="round"/>
-    <circle cx="206" cy="128" r="36" fill="#22C55E" stroke="#EEF3FF" stroke-width="7"/>
-    <path d="M189 128l11 11 22-22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-  <div class="hero">
-    <div class="ok"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-    <div><h1>All caught up.</h1><p class="sub">Every email answered for you today.</p></div>
-  </div>
-  <div class="list" id="l"></div>
-</div>
-<script>
-const rows=[
- ['#2563EB','EW','Emma Wilson','<b>Booking for Friday?</b> Hi! Is there still a spot open this…','9:41'],
- ['#DB2777','JR','Jake Romero','<b>Quick question</b> Do you offer gift cards for the…','9:12'],
- ['#F59E0B','LT','Lina Tran','<b>Invoice copy</b> Could you resend last month\'s…','8:57'],
- ['#10B981','MA','Marco Alves','<b>Partnership idea</b> Loved your last post, would you…','8:30'],
- ['#8B5CF6','HK','Hannah Kim','<b>Thank you!</b> The order arrived and it\'s perfect…','8:04'],
- ['#0EA5E9','DS','David Stone','<b>Reschedule</b> Can we move our chat to Tuesday…','7:48'],
-];
-document.getElementById('l').innerHTML=rows.map(r=>`<div class="row"><div class="a" style="background:${r[0]}">${r[1]}</div><div class="n">${r[2]}</div><div class="s">${r[3]}</div><div class="tag"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Replied</div><div class="t">${r[4]}</div></div>`).join('');
-</script>
+<script src="_agent.js"></script>
 </body></html>

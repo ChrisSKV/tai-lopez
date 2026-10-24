@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(150deg,#1A2C6B 0%,#0F1B45 65%,#0B1433 100%);color:#fff}
+body::before{content:"";position:absolute;right:-200px;top:-260px;width:1000px;height:1000px;border-radius:50%;background:radial-gradient(closest-side,rgba(96,165,250,.32),transparent)}
+.left{position:absolute;left:64px;top:60px;width:740px}
+.left h1{margin-top:70px}
+.left h1 em{font-style:normal;color:#93C5FD}
+.left .sub{margin-top:26px;width:560px;color:#C7D5F5}
+.prog{margin-top:56px;width:620px;--fill:#60A5FA;--track:rgba(255,255,255,.16)}
+.card{left:860px;top:60px;width:676px;height:880px;padding:34px 34px 0;color:#0F1B45}
+.hd b{display:block;font:800 36px/1 'Inter Tight';letter-spacing:-.02em}
+.hd small{display:block;margin-top:10px;font:500 21px/1 Inter;color:#6B7AA6}
+.ppl{display:flex;margin-top:22px}
+.ppl .av{width:56px;height:56px;font-size:19px;border:4px solid #fff;margin-left:-12px}
+.ppl .av:first-child{margin-left:0}
+.lines{margin:26px 0 8px;padding:22px 24px;border-radius:22px;background:#F2F5FD}
+.lines p{font:700 22px/1 Inter;color:#3B4C80;margin-bottom:16px}
+.lines i{display:block;height:14px;border-radius:7px;background:#DCE3F6;margin-top:12px}
+.it{display:flex;align-items:center;gap:20px;height:104px;padding:0 4px;border-bottom:2px solid #F0F3FB}
+.it:last-child{border:0}
+.it .t{flex:1}
+.it .t b{display:block;font:700 25px/1.2 Inter}
+.it .t small{display:block;margin-top:5px;font:500 20px/1.2 Inter;color:#6B7AA6}
+</style></head><body>
+<div class="left">
+  <div class="who">
+    <div class="face" data-shell="#60A5FA" data-rim="#1E40AF" data-eye="#DBEAFE" data-mood="round" data-icon="note" data-extra="antenna" data-led="#FDE68A" data-shadow=".35"></div>
+    <div><b>Meeting agent</b><span class="live" style="--pill:rgba(255,255,255,.14)">Writing the recap</span></div>
+  </div>
+  <h1>Notes sent.<br><em>To-dos shared.</em></h1>
+  <p class="sub">It joins your calls, takes the notes and follows up for you.</p>
+  <div class="prog"><span>Recap 80% done</span><span class="track"><i style="width:80%"></i></span></div>
+</div>
+<div class="card">
+  <div class="hd"><b>Monday team call</b><small>Today, 10:00 AM, 32 min</small></div>
+  <div class="ppl"><span class="av" style="background:#2563EB">JM</span><span class="av" style="background:#DB2777">SK</span><span class="av" style="background:#F59E0B">LT</span><span class="av" style="background:#10B981">DR</span></div>
+  <div class="lines"><p>Summary</p><i style="width:94%"></i><i style="width:82%"></i><i style="width:88%"></i><i style="width:56%"></i></div>
+  <div class="it"><span class="t"><b>Summary written</b><small>In plain words, for everyone</small></span><span class="ok"></span></div>
+  <div class="it"><span class="t"><b>4 to-dos assigned</b><small>Each person got theirs</small></span><span class="ok"></span></div>
+  <div class="it"><span class="t"><b>Follow-up booked</b><small>Thursday, 10:00 AM</small></span><span class="ok"></span></div>
+  <div class="it"><span class="t"><b>Sending the recap</b><small>To the whole team</small></span><i class="sp" data-c="#2563EB" data-t="#DBEAFE" data-p=".8"></i></div>
+</div>
+<script src="_agent.js"></script>
+</body></html>

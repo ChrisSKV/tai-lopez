@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(155deg,#FFF6EF 0%,#FFE4D6 100%);color:#2B1410}
+body::before{content:"";position:absolute;right:-40px;top:-120px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0))}
+.left{position:absolute;left:64px;top:64px;width:760px}
+.left b.n{display:block;font:800 60px/1 'Inter Tight';letter-spacing:-.035em}
+.left .live{--pill:#fff;box-shadow:0 6px 18px rgba(160,60,30,.1)}
+.left h1{margin-top:60px;font-size:88px}
+.left h1 em{font-style:normal;color:#E5372B}
+.oncall{display:flex;align-items:center;gap:22px;width:640px;margin-top:56px;padding:22px 26px;border-radius:30px;background:#2B1410;color:#fff;box-shadow:0 30px 60px -24px rgba(80,20,10,.5)}
+.oncall .ph{display:grid;place-items:center;flex:none;width:72px;height:72px;border-radius:50%;background:#E5372B}
+.oncall .ph i.ic{width:34px;height:34px}
+.oncall b{display:block;font:700 25px/1.2 Inter}
+.oncall small{display:block;margin-top:5px;font:500 21px/1.2 Inter;color:#F3C9BD}
+.wave{display:flex;align-items:center;gap:5px;height:56px;margin-left:auto}
+.wave i{width:6px;border-radius:3px;background:#FF8A70}
+.bot{position:absolute;left:930px;top:20px;width:480px;height:480px}
+.bot img{width:100%;height:100%}
+.bot::after{content:"";position:absolute;left:70px;right:70px;bottom:4px;height:50px;border-radius:50%;background:radial-gradient(closest-side,rgba(120,40,20,.26),transparent)}
+.card{left:840px;top:500px;width:696px;height:440px;padding:16px 32px}
+.row{display:flex;align-items:center;gap:20px;height:102px;border-bottom:2px solid #F7EDE8}
+.row:last-child{border:0}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font:700 25px/1.2 Inter}
+.row .t span{display:block;margin-top:5px;font:500 21px/1.3 Inter;color:#8A6B62}
+.tag.r{background:#FEE2E2;color:#B91C1C}
+</style></head><body>
+<div class="left">
+  <b class="n">Phone agent</b><span class="live">On a call now</span>
+  <h1>Answered 6 calls<br><em>while you were out.</em></h1>
+  <div class="oncall"><span class="ph"><i class="ic" data-i="phone" data-w="2.4"></i></span><span><b>Mia R.</b><small>Booking a table…</small></span><span class="wave" id="w"></span></div>
+</div>
+<div class="bot"><img src="../../../assets/agents/white-calls.png" alt=""></div>
+<div class="card">
+  <div class="row"><span class="av" style="background:#F97316">DL</span><span class="t"><b>Dr. Lee’s office</b><span>Appointment moved to Tuesday</span></span><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Confirmed</span></div>
+  <div class="row"><span class="av" style="background:#0EA5E9">TB</span><span class="t"><b>Tom B.</b><span>Message taken, sent to you</span></span><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Done</span></div>
+  <div class="row"><span class="av" style="background:#9CA3AF">?</span><span class="t"><b>Unknown number</b><span>Spam call</span></span><span class="tag r"><i class="ic" data-i="block" data-w="2.6"></i>Blocked</span></div>
+  <div class="row"><span class="av" style="background:#8B5CF6">JS</span><span class="t"><b>Jess S.</b><span>Wants a call back tomorrow</span></span><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Booked</span></div>
+</div>
+<script>
+let s='';for(let i=0;i<22;i++){const h=10+Math.abs(Math.sin(i*1.9)*30+Math.cos(i*.7)*12);s+=`<i style="height:${h.toFixed(0)}px"></i>`}document.getElementById('w').innerHTML=s;
+</script>
+<script src="_agent.js"></script>
+</body></html>

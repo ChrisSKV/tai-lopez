@@ -1,0 +1,49 @@
+/* Shared base for the agent-wall panels (1600x1000 each, rendered by ../render.cjs).
+   Every screen shows ONE AI agent at work: its face, its name, what it is doing right now,
+   and live-looking proof (chat bubbles, checks, progress). Plain words, no code, no money. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:1000px;overflow:hidden}
+body{position:relative;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg,#fff);color:var(--ink,#111)}
+.face{display:block;flex:none}
+i.ic{display:inline-grid;place-items:center;flex:none;font-style:normal}
+i.ic svg{width:100%;height:100%}
+
+/* agent identity: face + name + live status */
+.who{display:flex;align-items:center;gap:30px}
+.who .face{width:176px;height:176px}
+.who b{display:block;font:800 60px/1 'Inter Tight',Inter,sans-serif;letter-spacing:-.035em}
+.live{display:inline-flex;align-items:center;gap:13px;margin-top:16px;padding:11px 22px 11px 16px;border-radius:999px;font:700 25px/1 Inter,sans-serif;background:var(--pill,rgba(255,255,255,.18));color:var(--pill-ink,inherit)}
+.live::before{content:"";width:15px;height:15px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 6px rgba(34,197,94,.28)}
+
+h1{font:800 108px/.95 'Inter Tight',Inter,sans-serif;letter-spacing:-.048em}
+.sub{font:500 30px/1.36 Inter,sans-serif}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:22px;font:700 26px/1 Inter,sans-serif}
+.prog .track{position:relative;flex:1;height:18px;border-radius:9px;background:var(--track,rgba(255,255,255,.22));overflow:hidden}
+.prog .track i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:var(--fill,#fff)}
+
+/* states */
+.ok{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:#22C55E;color:#fff}
+.ok svg,.ok i.ic{width:58%;height:58%}
+.spin{flex:none;width:44px;height:44px}
+.tag{display:inline-flex;align-items:center;gap:9px;flex:none;padding:10px 18px 10px 13px;border-radius:999px;font:700 21px/1 Inter,sans-serif;white-space:nowrap}
+.tag svg,.tag i.ic{width:22px;height:22px}
+.tag.g{background:#DCFCE7;color:#15803D}
+.tag.w{background:#FEF3C7;color:#A16207}
+.tag.n{background:#EEF0F5;color:#6B7280}
+.typing{display:inline-flex;gap:9px;align-items:center}
+.typing i{width:13px;height:13px;border-radius:50%;background:currentColor;opacity:.45}
+.typing i:nth-child(2){opacity:.7}.typing i:nth-child(3){opacity:1}
+
+/* chat */
+.msg{max-width:560px;padding:20px 26px;border-radius:28px;font:500 26px/1.36 Inter,sans-serif}
+.msg.c{align-self:flex-start;background:#F1F3F7;color:#1B2030;border-bottom-left-radius:9px}
+.msg.a{align-self:flex-end;background:var(--a-bubble,#2563EB);color:#fff;border-bottom-right-radius:9px}
+.msg-row{display:flex;align-items:flex-end;gap:14px;align-self:flex-end}
+.msg-row .face{width:58px;height:58px}
+.meta{font:600 19px/1 Inter,sans-serif;color:#8A90A2}
+
+.card{position:absolute;background:#fff;color:#141824;border-radius:36px;box-shadow:0 40px 80px -20px rgba(10,10,40,.35)}
+.av{display:grid;place-items:center;flex:none;width:62px;height:62px;border-radius:50%;color:#fff;font:700 22px/1 Inter,sans-serif}
+i.sp{display:block;flex:none;width:44px;height:44px}

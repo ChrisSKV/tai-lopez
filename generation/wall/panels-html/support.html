@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(140deg,#14907F 0%,#0C5F57 60%,#0A4743 100%);color:#fff}
+body::before{content:"";position:absolute;left:-240px;bottom:-360px;width:1000px;height:1000px;border-radius:50%;background:radial-gradient(closest-side,rgba(94,234,212,.38),transparent)}
+.left{position:absolute;left:64px;top:60px;width:720px}
+.left h1{margin-top:70px}
+.left h1 em{font-style:normal;color:#7FF5DF}
+.left .sub{margin-top:26px;width:560px;color:#C9F5EC}
+.chips{display:flex;gap:14px;margin-top:48px}
+.chips>span{display:inline-flex;align-items:center;gap:10px;padding:13px 22px 13px 14px;border-radius:999px;background:rgba(255,255,255,.14);font:700 23px/1 Inter}
+.chips .ok{width:34px;height:34px}
+.card{left:836px;top:60px;width:700px;height:880px;overflow:hidden}
+.wh{display:flex;align-items:center;gap:18px;height:122px;padding:0 30px;background:#F0FDFA;border-bottom:2px solid #D5F5EE}
+.wh .face{width:82px;height:82px}
+.wh b{display:block;font:800 30px/1.1 'Inter Tight';letter-spacing:-.02em}
+.wh small{display:flex;align-items:center;gap:8px;margin-top:6px;font:600 20px/1 Inter;color:#0F9F8C}
+.wh small::before{content:"";width:11px;height:11px;border-radius:50%;background:#22C55E}
+.msgs{display:flex;flex-direction:column;gap:16px;padding:28px 30px 0}
+.msgs .msg{font-size:24px;max-width:500px}
+.msgs .msg-row .msg{--a-bubble:#0F766E}
+.msgs .msg-row .face{width:52px;height:52px}
+.bubble-typing{align-self:flex-end;display:flex;align-items:flex-end;gap:14px}
+.bubble-typing .typing{padding:24px 28px;border-radius:28px;border-bottom-right-radius:9px;background:#0F766E;color:#fff}
+</style></head><body>
+<div class="left">
+  <div class="who">
+    <div class="face" data-shell="#8FE3D2" data-rim="#0F766E" data-mood="look" data-icon="smile" data-extra="ears" data-shadow=".3"></div>
+    <div><b>Support agent</b><span class="live" style="--pill:rgba(255,255,255,.16)">Answering now</span></div>
+  </div>
+  <h1>Answered<br><em>48 customers.</em></h1>
+  <p class="sub">Today, in seconds, in your tone of voice.</p>
+  <div class="chips"><span><span class="ok"></span>Orders</span><span><span class="ok"></span>Returns</span><span><span class="ok"></span>Questions</span></div>
+</div>
+<div class="card">
+  <div class="wh"><div class="face" data-shell="#8FE3D2" data-rim="#0F766E" data-mood="look" data-icon="smile" data-extra="ears" data-shadow="0"></div><div><b>Support agent</b><small>Online, replies instantly</small></div></div>
+  <div class="msgs">
+    <p class="msg c">Hi! Can I still change my delivery address?</p>
+    <div class="msg-row"><p class="msg a">Of course, Anna! Done. It now goes to 42 Park Lane.</p><div class="face" data-shell="#8FE3D2" data-rim="#0F766E" data-mood="happy" data-shadow="0"></div></div>
+    <p class="msg c">Do you have it in blue too?</p>
+    <div class="msg-row"><p class="msg a">Yes! I swapped it to blue. Still arrives Thursday.</p><div class="face" data-shell="#8FE3D2" data-rim="#0F766E" data-mood="happy" data-shadow="0"></div></div>
+    <p class="msg c">You’re amazing, thank you!</p>
+    <div class="bubble-typing"><span class="typing"><i></i><i></i><i></i></span><div class="face" data-shell="#8FE3D2" data-rim="#0F766E" data-mood="round" data-shadow="0" style="width:52px;height:52px"></div></div>
+  </div>
+</div>
+<script src="_agent.js"></script>
+</body></html>

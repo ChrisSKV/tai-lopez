@@ -1,15 +1,18 @@
-# row col panel   (row 0 = top row, row 1 = eye level, row 2 = fading row)
-0 -3 inbox
-0 -2 social
-0 -1 calendar
+# row col panel   (row 0 = top row, row 1 = eye level, row 2+ = fading rows, auto-filled)
+# Col 0 sits behind Tai. The four screens next to him carry the client's key lines:
+# sales "Replying to 12 new leads", booking "Booked 3 calls for tomorrow",
+# inbox "Inbox: 0", support "Answered 48 customers". Light and dark screens alternate.
+0 -3 social
+0 -2 calls
+0 -1 sales
 0  0 travel
-0  1 restaurant
-0  2 newsletter
-0  3 coaching
-1 -3 fitness
-1 -2 meals
-1 -1 chat
-1  0 clips
-1  1 store
-1  2 bills
-1  3 realestate
+0  1 booking
+0  2 content
+0  3 finance
+1 -3 shop
+1 -2 life
+1 -1 inbox
+1  0 restaurant
+1  1 support
+1  2 research
+1  3 meeting

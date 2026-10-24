@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(150deg,#1B5A43 0%,#0E3A2C 70%,#0B2F24 100%);color:#fff}
+body::before{content:"";position:absolute;left:-120px;top:-160px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(134,239,172,.26),transparent)}
+.big{position:absolute;left:54px;top:46px;width:320px;height:320px}
+.name{position:absolute;left:400px;top:128px}
+.name b{display:block;font:800 60px/1 'Inter Tight';letter-spacing:-.035em}
+.name .live{--pill:rgba(255,255,255,.14)}
+h1{position:absolute;left:64px;top:440px;width:760px;font-size:116px}
+h1 em{font-style:normal;color:#86EFAC}
+.sub{position:absolute;left:64px;top:690px;width:600px;color:#C6E9D6}
+.card{left:860px;top:60px;width:676px;height:880px;padding:34px 34px 0;color:#0E2A20}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:0 4px 18px;border-bottom:2px solid #EEF5F0}
+.hd b{font:800 36px/1 'Inter Tight';letter-spacing:-.02em}
+.it{display:flex;align-items:center;gap:20px;height:146px;padding:0 4px;border-bottom:2px solid #F2F7F3}
+.it:last-child{border:0}
+.it .i{display:grid;place-items:center;flex:none;width:68px;height:68px;border-radius:22px}
+.it .i i.ic{width:34px;height:34px}
+.it .t{flex:1}
+.it .t b{display:block;font:700 27px/1.2 Inter}
+.it .t small{display:block;margin-top:6px;font:500 21px/1.2 Inter;color:#6B8577}
+.it .ok{width:48px;height:48px}
+</style></head><body>
+<div class="big face" data-shell="#A7F3D0" data-rim="#059669" data-eye="#BBF7D0" data-mood="happy" data-icon="heart" data-extra="ears" data-shadow=".4"></div>
+<div class="name"><b>Life agent</b><span class="live">Planning your week</span></div>
+<h1>Your week,<br><em>sorted.</em></h1>
+<p class="sub">Errands, bookings and birthdays, all handled.</p>
+<div class="card">
+  <div class="hd"><b>This week</b><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>5 done</span></div>
+  <div class="it"><span class="i" style="background:#E0F2FE;color:#0369A1"><i class="ic" data-i="tooth" data-w="2"></i></span><span class="t"><b>Dentist booked</b><small>Tuesday, 3 PM</small></span><span class="ok"></span></div>
+  <div class="it"><span class="i" style="background:#FEF3C7;color:#B45309"><i class="ic" data-i="cart" data-w="2"></i></span><span class="t"><b>Groceries ordered</b><small>Arrives Wednesday morning</small></span><span class="ok"></span></div>
+  <div class="it"><span class="i" style="background:#FCE7F3;color:#BE185D"><i class="ic" data-i="gift" data-w="2"></i></span><span class="t"><b>Mom’s birthday gift</b><small>Wrapped and on its way</small></span><span class="ok"></span></div>
+  <div class="it"><span class="i" style="background:#DCFCE7;color:#15803D"><i class="ic" data-i="run" data-w="2"></i></span><span class="t"><b>Gym, 7 AM</b><small>Monday to Friday</small></span><span class="ok"></span></div>
+  <div class="it"><span class="i" style="background:#EDE9FE;color:#6D28D9"><i class="ic" data-i="cal" data-w="2"></i></span><span class="t"><b>Dinner with friends</b><small>Saturday, table for 6</small></span><span class="ok"></span></div>
+</div>
+<script src="_agent.js"></script>
+</body></html>

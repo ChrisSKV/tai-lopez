@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(150deg,#EEFAF2 0%,#D3F1DE 100%);color:#0E3B26}
+body::before{content:"";position:absolute;left:-200px;top:-200px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,0))}
+.left{position:absolute;left:64px;top:60px;width:740px}
+.left .live{--pill:#fff;box-shadow:0 6px 18px rgba(20,90,50,.1)}
+.left h1{margin-top:70px}
+.left h1 em{font-style:normal;color:#16A34A}
+.left .sub{margin-top:26px;width:560px;color:#3E6B55}
+.chips{display:flex;gap:14px;margin-top:48px}
+.chips>span{display:inline-flex;align-items:center;gap:12px;padding:13px 22px 13px 14px;border-radius:999px;background:#fff;font:700 23px/1 Inter;box-shadow:0 6px 18px rgba(20,90,50,.08)}
+.chips .ok{width:34px;height:34px}
+.card{left:860px;top:60px;width:676px;height:880px;padding:34px 34px 0}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:0 4px 18px;border-bottom:2px solid #EEF5F0}
+.hd b{font:800 36px/1 'Inter Tight';letter-spacing:-.02em}
+.b{display:flex;align-items:center;gap:20px;height:128px;padding:0 4px;border-bottom:2px solid #F2F7F3}
+.b:last-child{border:0}
+.b .i{display:grid;place-items:center;flex:none;width:66px;height:66px;border-radius:20px}
+.b .i i.ic{width:32px;height:32px}
+.b .t{flex:1}
+.b .t b{display:block;font:700 26px/1.2 Inter}
+.b .t small{display:block;margin-top:5px;font:500 21px/1.2 Inter;color:#6B8577}
+.tag.s{background:#E0F2FE;color:#0369A1}
+</style></head><body>
+<div class="left">
+  <div class="who">
+    <div class="face" data-shell="#4ADE80" data-rim="#15803D" data-eye="#D9FBE6" data-mood="happy" data-icon="card" data-extra="ears" data-shadow=".22"></div>
+    <div><b>Finance agent</b><span class="live">Watching your bills</span></div>
+  </div>
+  <h1>All bills paid.<br><em>On time.</em></h1>
+  <p class="sub">Reminders, renewals and receipts handled before you even think about them.</p>
+  <div class="chips"><span><span class="ok"></span>Receipts sorted</span><span><span class="ok"></span>No late fees</span></div>
+</div>
+<div class="card">
+  <div class="hd"><b>This month</b><span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>All set</span></div>
+  <div class="b"><span class="i" style="background:#FEF9C3;color:#A16207"><i class="ic" data-i="bolt" data-w="2"></i></span><span class="t"><b>Electricity</b><small>Paid on the 3rd</small></span><span class="ok"></span></div>
+  <div class="b"><span class="i" style="background:#E0E7FF;color:#4338CA"><i class="ic" data-i="home" data-w="2"></i></span><span class="t"><b>Rent</b><small>Paid on the 1st</small></span><span class="ok"></span></div>
+  <div class="b"><span class="i" style="background:#FCE7F3;color:#BE185D"><i class="ic" data-i="phone" data-w="2"></i></span><span class="t"><b>Phone plan</b><small>Renewed, better plan found</small></span><span class="ok"></span></div>
+  <div class="b"><span class="i" style="background:#DCFCE7;color:#15803D"><i class="ic" data-i="doc" data-w="2"></i></span><span class="t"><b>Car insurance</b><small>Pays on Friday</small></span><span class="tag s"><i class="ic" data-i="clock" data-w="2.6"></i>Scheduled</span></div>
+  <div class="b"><span class="i" style="background:#E0F2FE;color:#0369A1"><i class="ic" data-i="bolt" data-w="2"></i></span><span class="t"><b>Internet</b><small>Paid on the 5th</small></span><span class="ok"></span></div>
+</div>
+<script src="_agent.js"></script>
+</body></html>

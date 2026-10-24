@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:linear-gradient(140deg,#F43F8E 0%,#C81E74 52%,#8C1261 100%);color:#fff}
+body::before{content:"";position:absolute;left:-260px;top:-300px;width:1100px;height:1100px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,190,225,.4),transparent)}
+.left{position:absolute;left:64px;top:60px;width:700px}
+.left h1{margin-top:70px}
+.left .sub{margin-top:26px;width:560px;color:#FFE1EF}
+.left .prog{margin-top:60px;width:620px;--fill:#fff}
+.card{left:820px;top:60px;width:716px;height:880px;padding:34px 34px 0}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:0 4px 18px;border-bottom:2px solid #F3EEF2}
+.hd b{font:800 36px/1 'Inter Tight';letter-spacing:-.02em}
+.row{display:flex;align-items:center;gap:20px;height:104px;padding:0 4px;border-bottom:2px solid #F6F2F5}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font:700 25px/1.2 Inter}
+.row .t span{display:block;margin-top:4px;font:500 21px/1.3 Inter;color:#7A7287;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.on{background:#FFF4F9;margin:0 -34px;padding:0 38px;border-color:transparent}
+.reply{display:flex;align-items:flex-end;gap:14px;justify-content:flex-end;padding:18px 0 0;background:#FFF4F9;margin:0 -34px;padding:0 38px 24px}
+.reply .msg{--a-bubble:#DB2777;max-width:540px;font-size:24px}
+.reply .face{width:56px;height:56px}
+</style></head><body>
+<div class="left">
+  <div class="who">
+    <div class="face" data-shell="#FFE4F1" data-rim="#FF5AA5" data-mood="happy" data-icon="chat" data-extra="antenna" data-led="#FFD34D" data-shadow=".28"></div>
+    <div><b>Sales agent</b><span class="live" style="--pill:rgba(255,255,255,.2)">Working now</span></div>
+  </div>
+  <h1>Replying to<br>12 new leads…</h1>
+  <p class="sub">Every new lead gets a friendly reply in minutes, day or night.</p>
+  <div class="prog"><span>9 of 12 answered</span><span class="track"><i style="width:75%"></i></span></div>
+</div>
+<div class="card">
+  <div class="hd"><b>New leads</b><span class="tag n">Today</span></div>
+  <div id="rows"></div>
+</div>
+<script>
+const ok='<span class="tag g">'+'<i class="ic" data-i="check" data-w="3.2" style="width:22px;height:22px"></i>Replied</span>';
+const R=[
+ ['#2563EB','SK','Sarah K.','Hi! Is this still available?',ok],
+ ['#F59E0B','DR','Daniel R.','Can I book a visit this week?',ok],
+ ['#10B981','PS','Priya S.','Do you ship to Canada?',ok],
+ ['#8B5CF6','LM','Leo M.','Hey, saw your post. How does it work?','<span class="tag w"><span class="typing"><i></i><i></i><i></i></span>Replying</span>','on'],
+ ['#0EA5E9','AP','Ana P.','Can someone call me back today?','<span class="tag n">Next</span>'],
+ ['#EF4444','CT','Chris T.','Interested! What is the next step?','<span class="tag n">Next</span>'],
+];
+document.getElementById('rows').innerHTML=R.map(r=>`<div class="row ${r[5]||''}"><span class="av" style="background:${r[0]}">${r[1]}</span><span class="t"><b>${r[2]}</b><span>${r[3]}</span></span>${r[4]}</div>`+(r[5]?`<div class="reply"><p class="msg a">Hi Leo! Happy to help. Want me to book you a quick call for tomorrow?</p><div class="face" data-shell="#FFE4F1" data-rim="#FF5AA5" data-mood="happy" data-shadow="0"></div></div>`:'')).join('');
+</script>
+<script src="_agent.js"></script>
+</body></html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_panel.css">
+<style>
+body{--bg:#170B2E;color:#fff}
+body::before{content:"";position:absolute;inset:0;background:radial-gradient(760px 640px at 82% 34%,rgba(168,85,247,.55),rgba(168,85,247,0) 70%),radial-gradient(640px 520px at 6% 100%,rgba(236,72,153,.36),rgba(236,72,153,0) 70%)}
+.left{position:absolute;left:64px;top:60px;width:700px}
+.left h1{margin-top:70px}
+.left h1 em{font-style:normal;background:linear-gradient(90deg,#F0ABFC,#FDE68A);-webkit-background-clip:text;color:transparent}
+.left .sub{margin-top:26px;width:560px;color:#D8CCF6}
+.sched{display:flex;gap:14px;margin-top:48px}
+.sched>span{display:inline-flex;align-items:center;gap:12px;padding:13px 22px 13px 14px;border-radius:999px;background:rgba(255,255,255,.12);font:700 23px/1 Inter}
+.sched .ok{width:34px;height:34px}
+.reel{position:absolute;top:60px;width:224px;height:520px;border-radius:30px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.reel .cap{position:absolute;left:16px;right:16px;bottom:56px;font:800 27px/1.15 'Inter Tight';letter-spacing:-.02em;text-align:center;text-shadow:0 3px 12px rgba(0,0,0,.35)}
+.reel .cap u{text-decoration:none;background:#FDE047;color:#1A0B2E;padding:0 6px;border-radius:6px}
+.reel .st{position:absolute;left:16px;top:16px}
+.reel .pr{position:absolute;left:18px;right:18px;bottom:28px;height:7px;border-radius:4px;background:rgba(255,255,255,.3)}
+.reel .pr::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p,100%);border-radius:4px;background:#fff}
+.reel .play{position:absolute;left:50%;top:44%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center}
+.reel .play i.ic{width:36px;height:36px;color:#fff}
+.reel .shape{position:absolute;border-radius:50%;opacity:.55}
+.post{position:absolute;left:820px;right:64px;bottom:64px;height:300px;border-radius:30px;background:rgba(255,255,255,.1);padding:28px 30px}
+.post b{display:block;font:800 30px/1 'Inter Tight';letter-spacing:-.02em}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.days div{height:176px;border-radius:22px;background:rgba(255,255,255,.08);padding:18px 20px;font:700 23px/1.2 Inter}
+.days div small{display:block;font:500 19px/1.2 Inter;color:#CBB8F5;margin-top:6px}
+.days div .ok{width:38px;height:38px;margin-top:22px}
+</style></head><body>
+<div class="left">
+  <div class="who">
+    <div class="face" data-shell="#C9B8FF" data-rim="#7C3AED" data-eye="#F5E8FF" data-mood="focus" data-icon="play" data-extra="antenna" data-led="#F472B6" data-shadow=".35"></div>
+    <div><b>Content agent</b><span class="live" style="--pill:rgba(255,255,255,.14)">Editing clip 3</span></div>
+  </div>
+  <h1>3 clips<br><em>ready to post.</em></h1>
+  <p class="sub">Best moments cut, captioned and sized for every app.</p>
+  <div class="sched"><span><span class="ok"></span>Captions</span><span><span class="ok"></span>Hooks</span><span><span class="ok"></span>Scheduled</span></div>
+</div>
+<div id="r"></div>
+<div class="post"><b>Posting this week</b><div class="days"><div>Tuesday<small>Clip 1, 6 PM</small><span class="ok"></span></div><div>Thursday<small>Clip 2, 6 PM</small><span class="ok"></span></div><div>Saturday<small>Clip 3, 11 AM</small><span class="ok"></span></div></div></div>
+<script>
+const R=[
+ [820,'linear-gradient(170deg,#F472B6,#7C3AED)','The <u>one habit</u> that changed my mornings','<span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Ready</span>','100%'],
+ [1066,'linear-gradient(170deg,#FBBF24,#F97316)','Stop doing <u>everything</u> yourself','<span class="tag g"><i class="ic" data-i="check" data-w="3.2"></i>Ready</span>','100%'],
+ [1312,'linear-gradient(170deg,#22D3EE,#6366F1)','My <u>favorite</u> question to ask','<span class="tag w"><span class="typing"><i></i><i></i><i></i></span>Captioning</span>','68%'],
+];
+document.getElementById('r').innerHTML=R.map(r=>`<div class="reel" style="left:${r[0]}px;background:${r[1]};--p:${r[4]}"><span class="shape" style="width:260px;height:260px;left:-60px;top:-80px;background:radial-gradient(closest-side,rgba(255,255,255,.5),transparent)"></span><span class="play"><i class="ic" data-i="play" data-w="2.4"></i></span><span class="st">${r[3]}</span><div class="cap">${r[2]}</div><div class="pr"></div></div>`).join('');
+</script>
+<script src="_agent.js"></script>
+</body></html>
