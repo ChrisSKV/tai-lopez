@@ -106,9 +106,10 @@ b,strong{font-weight:600}
 /* the floor: a thin violet horizon + a pool of light where Tai's waist melts into the page */
 .tai-floor{position:absolute;left:50%;bottom:0;width:calc(var(--tw) * 1.9);height:calc(var(--tw) * .46);transform:translate(-50%,50%);border-radius:50%;background:radial-gradient(closest-side,rgba(167,139,250,.34),rgba(139,92,246,.12) 55%,transparent 100%);pointer-events:none}
 .tai-floor::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(196,181,253,.4) 28%,rgba(221,214,254,.85) 50%,rgba(196,181,253,.4) 72%,transparent)}
-.tai-photo{position:relative;filter:drop-shadow(-5px -3px 14px rgba(167,139,250,.45)) drop-shadow(8px 0 22px rgba(99,102,241,.24))}
-/* fade length is in --tw units, so it is the same soft melt for the chest-up stand-in and the waist-up file */
-.tai-img{display:block;width:100%;height:auto;filter:url(#rim);-webkit-mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 9%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 9%,#000 86%,transparent 100%);mask-composite:intersect}
+.tai-photo{position:relative;filter:drop-shadow(-3px -4px 10px rgba(139,92,246,.55)) drop-shadow(6px 2px 22px rgba(99,102,241,.22))}
+/* bottom fade is in --tw units, so his waist melts into the floor the same way whatever the file's height;
+   the side fade is only a thin safety edge (the waist-up cutouts are not cut at the sides) */
+.tai-img{display:block;width:100%;height:auto;filter:url(#rim);-webkit-mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);mask-composite:intersect}
 .spark{position:absolute;width:var(--s,12px);height:var(--s,12px);color:var(--v-ink);opacity:.8;filter:drop-shadow(0 0 6px rgba(196,181,253,.9))}
 .spark svg{width:100%;height:100%}
 .sp1{left:-24%;top:calc(var(--tw) * .02);--s:13px}
@@ -520,17 +521,17 @@ html.modal-open{overflow:hidden}
   <defs>
     <!-- Violet rim light: lights the top-left edge of each Tai cutout from inside the silhouette -->
     <filter id="rim" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-      <feOffset in="SourceAlpha" dx="6" dy="5" result="o1"/>
+      <feOffset in="SourceAlpha" dx="3.5" dy="3" result="o1"/>
       <feComposite in="SourceAlpha" in2="o1" operator="out" result="e1"/>
-      <feGaussianBlur in="e1" stdDeviation="2.4" result="b1"/>
+      <feGaussianBlur in="e1" stdDeviation="1.6" result="b1"/>
       <feComposite in="b1" in2="SourceAlpha" operator="in" result="r1"/>
-      <feFlood flood-color="#C4B5FD" flood-opacity=".75"/>
+      <feFlood flood-color="#C4B5FD" flood-opacity=".6"/>
       <feComposite in2="r1" operator="in" result="rimA"/>
-      <feOffset in="SourceAlpha" dx="-5" dy="2" result="o2"/>
+      <feOffset in="SourceAlpha" dx="-3" dy="1.5" result="o2"/>
       <feComposite in="SourceAlpha" in2="o2" operator="out" result="e2"/>
-      <feGaussianBlur in="e2" stdDeviation="2.4" result="b2"/>
+      <feGaussianBlur in="e2" stdDeviation="1.6" result="b2"/>
       <feComposite in="b2" in2="SourceAlpha" operator="in" result="r2"/>
-      <feFlood flood-color="#818CF8" flood-opacity=".45"/>
+      <feFlood flood-color="#818CF8" flood-opacity=".4"/>
       <feComposite in2="r2" operator="in" result="rimB"/>
       <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="rimA"/><feMergeNode in="rimB"/></feMerge>
     </filter>
@@ -569,13 +570,14 @@ html.modal-open{overflow:hidden}
           <span class="spark sp2" aria-hidden="true" style="--d:1"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
           <span class="spark sp3" aria-hidden="true" style="--d:2"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
           <span class="spark sp4" aria-hidden="true" style="--d:3"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
-          <!-- TAI IMAGE SWAP (one line): the stage is built for a waist-up cutout (portrait ~1:2, facing camera).
-               When it is ready, replace the line below with:
-               <div class="tai-photo"><img class="tai-img" src="../../assets/tai/tai-waist.webp" alt="Tai Lopez" width="1000" height="2000" fetchpriority="high" decoding="async"></div>
-               (width/height only reserve the box before the file loads: set them to the file's pixel size.)
+          <!-- TAI IMAGE SWAP (one line): the stage is built for a waist-up cutout (portrait ~1:1.8-1:2, facing camera),
+               like Mo on movlogs.ai. It now uses tai-waist-violet.webp (black overshirt, violet back light, made for this page).
+               To try another waist-up file, change only the src below (and width/height to the file's pixel size;
+               they only reserve the box before the file loads), e.g. ../../assets/tai/tai-waist.webp (900x1760).
                Nothing else changes: ring, chips and sparks are pinned to his head, the fade and the pill to his waist,
-               and the box takes the new file's own proportions. Until then, tai-portrait.webp (chest-up) is the stand-in. -->
-          <div class="tai-photo"><img class="tai-img" src="../../assets/tai/tai-portrait.webp" alt="Tai Lopez" width="660" height="710" fetchpriority="high" decoding="async"></div>
+               and the box takes the file's own proportions.
+               Generated image (Nano Banana Pro, from Tai's official photos): get Tai's team to approve it before launch. -->
+          <div class="tai-photo"><img class="tai-img" src="../../assets/tai/tai-waist-violet.webp" alt="Tai Lopez" width="900" height="1589" fetchpriority="high" decoding="async"></div>
           <!-- Source: tailopez.com (Oct 2026). Confirm with Tai's team before launch. -->
           <p class="who">
             <span class="who-n">Tai Lopez</span>

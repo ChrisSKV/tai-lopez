@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="../../assets/tai/tai-smile.webp">
 <style>
 /* ==========================================================================
    06 · The video page (VSL-first)
@@ -102,10 +101,13 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .hero-sub{margin:10px auto 0;max-width:640px;color:var(--body);font-size:18px;line-height:1.5;text-wrap:balance}
 
 .stage{max-width:820px;margin:22px auto 0}
+@media (max-width:640px){.stage{max-width:520px}}
+@media (min-width:761px){.stage{max-width:max(560px,min(820px,calc((100vh - 420px) * 16 / 9)))}}
 
 /* ---------- Video player ---------- */
 .player{--ratio:16/9;--tai-h:100%;--tai-x:-3.5cqw;position:relative;width:100%;aspect-ratio:var(--ratio);border-radius:22px;overflow:hidden;background:#0D0C0B;container:vsl/inline-size;isolation:isolate;box-shadow:0 0 0 1px rgba(17,17,17,.10),0 60px 90px -50px rgba(17,17,17,.55),0 26px 44px -26px rgba(17,17,17,.38)}
-.poster{position:absolute;inset:0;transition:opacity .45s ease,visibility .45s,transform .6s var(--ease)}
+.poster{position:absolute;inset:0;transition:filter .7s ease,transform .9s var(--ease)}
+.poster-copy,.p-dur{transition:opacity .35s ease}
 .poster-bg{position:absolute;inset:0;background:
   radial-gradient(34cqw 34cqw at 71% 40%,rgba(255,206,160,.22),rgba(255,206,160,0) 72%),
   radial-gradient(52cqw 34cqw at 80% 104%,rgba(255,59,48,.62),rgba(255,59,48,0) 72%),
@@ -121,7 +123,16 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   mask-composite:intersect;
   filter:drop-shadow(-1cqw 0 2.4cqw rgba(255,59,48,.22)) drop-shadow(0 0 1.4cqw rgba(255,214,170,.18)) saturate(1.05) contrast(1.03);
   transform-origin:70% 100%;transition:transform 1.2s var(--ease)}
-.player.tai-tall{--tai-x:9cqw}
+/* Waist-up cutout (default): framed from the top so the poster edge crops him at the hips, like a
+   creator thumbnail. No box mask, so the red rim glow follows his silhouette. */
+.player.tai-tall{--tai-h:134%;--tai-x:5.5cqw;--tai-top:2.2cqw}
+.player.tai-tall .poster-tai{top:var(--tai-top);bottom:auto;-webkit-mask-image:none;mask-image:none;transform-origin:50% 30%}
+.player.tai-tall .poster-bg{background:
+  radial-gradient(30cqw 30cqw at 77% 30%,rgba(255,206,160,.24),rgba(255,206,160,0) 72%),
+  radial-gradient(52cqw 34cqw at 80% 104%,rgba(255,59,48,.62),rgba(255,59,48,0) 72%),
+  radial-gradient(40cqw 30cqw at 4% 108%,rgba(255,59,48,.20),rgba(255,59,48,0) 70%),
+  radial-gradient(120% 130% at 72% 30%,#2C2420 0%,#161312 48%,#0B0A09 100%)}
+.player.tai-tall .poster-ring{left:77%;top:36%}
 .poster-scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,9,.78) 0%,rgba(11,10,9,.45) 34%,rgba(11,10,9,0) 56%),linear-gradient(0deg,rgba(11,10,9,.55) 0%,rgba(11,10,9,0) 30%)}
 .poster-copy{position:absolute;left:5.6cqw;top:5.4cqw;bottom:5.4cqw;width:47cqw;display:flex;flex-direction:column;align-items:flex-start;color:#fff;pointer-events:none}
 .p-kicker{display:inline-flex;align-items:center;gap:1cqw;padding:.85cqw 1.4cqw .85cqw 1.1cqw;border-radius:99px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font:700 1.45cqw/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
@@ -147,14 +158,20 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   .player{--ratio:1/1;border-radius:18px}
   .player.is-playing{--ratio:16/9}
 }
-@container vsl (max-width:600px){
-  .player{--tai-h:88%;--tai-x:-17cqw}
-  .player.tai-tall{--tai-h:96%;--tai-x:20cqw}
+@media (max-width:640px){
+  /* same breakpoint as the square ratio above, so the square layout never meets a 16:9 player
+     (cqw units still size everything from the player, which is the container) */
+  .poster{--tai-h:95%;--tai-x:-15cqw}
+  .player.tai-tall .poster{--tai-h:124%;--tai-x:-4cqw;--tai-top:11cqw}
   .poster-bg{background:
     radial-gradient(50cqw 50cqw at 52% 34%,rgba(255,206,160,.22),rgba(255,206,160,0) 72%),
     radial-gradient(80cqw 50cqw at 70% 108%,rgba(255,59,48,.55),rgba(255,59,48,0) 72%),
     radial-gradient(130% 130% at 60% 25%,#2C2420 0%,#161312 50%,#0B0A09 100%)}
-  .poster-ring{left:54%;top:38%;width:86cqw}
+  .player.tai-tall .poster-bg{background:
+    radial-gradient(46cqw 46cqw at 63% 30%,rgba(255,206,160,.24),rgba(255,206,160,0) 72%),
+    radial-gradient(80cqw 50cqw at 70% 108%,rgba(255,59,48,.55),rgba(255,59,48,0) 72%),
+    radial-gradient(130% 130% at 60% 25%,#2C2420 0%,#161312 50%,#0B0A09 100%)}
+  .player.tai-tall .poster-ring,.poster-ring{left:54%;top:38%;width:86cqw}
   .poster-ring.r2{width:124cqw}
   .poster-scrim{background:linear-gradient(0deg,rgba(11,10,9,.94) 0%,rgba(11,10,9,.72) 24%,rgba(11,10,9,0) 50%),linear-gradient(180deg,rgba(11,10,9,.45) 0%,rgba(11,10,9,0) 22%)}
   .poster-copy{left:6cqw;right:6cqw;top:6cqw;bottom:6.4cqw;width:auto}
@@ -171,11 +188,12 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 
 /* playing state (placeholder) */
 .screen{position:absolute;inset:0;z-index:4;display:grid;place-items:center;color:#fff;background:
-  radial-gradient(60% 70% at 50% 120%,rgba(255,59,48,.35),rgba(255,59,48,0) 70%),
-  radial-gradient(90% 90% at 50% 40%,#211C19 0%,#0C0B0A 100%);opacity:0;transition:opacity .45s ease}
+  radial-gradient(60% 70% at 50% 120%,rgba(255,59,48,.30),rgba(255,59,48,0) 70%),
+  linear-gradient(180deg,rgba(10,9,8,.15),rgba(10,9,8,.45));opacity:0;transition:opacity .45s ease}
 .screen[hidden]{display:none}
 .player.is-playing .screen{opacity:1}
-.player.is-playing .poster{opacity:0;visibility:hidden;transform:scale(1.03)}
+.player.is-playing .poster{transform:scale(1.08);filter:blur(18px) brightness(.42) saturate(1.15)}
+.player.is-playing .poster-copy,.player.is-playing .p-dur{opacity:0}
 .screen-center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:0 24px 40px}
 .np{display:inline-flex;align-items:center;gap:10px;font:700 12px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .eq{display:inline-flex;align-items:flex-end;gap:3px;height:16px}
@@ -189,7 +207,8 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .screen-end{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;background:rgba(12,11,10,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .screen-end[hidden]{display:none}
 .screen-end .np{color:#fff}
-.screen-end h3{font:800 clamp(22px,3.6cqw,36px)/1.08 var(--font);letter-spacing:-.04em;max-width:520px}
+.screen-end h3{font:800 clamp(22px,3.6cqw,36px)/1.08 var(--font);letter-spacing:-.04em;max-width:520px;text-wrap:balance}
+.player.is-ended .screen-center{visibility:hidden}
 .screen-end .btn{margin-top:6px}
 .controls{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;gap:6px;padding:28px 12px 10px;background:linear-gradient(0deg,rgba(0,0,0,.7),rgba(0,0,0,0))}
 .ctl{width:44px;height:44px;flex:none;display:grid;place-items:center;border:0;border-radius:12px;background:transparent;color:#fff;cursor:pointer}
@@ -203,9 +222,14 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .track{position:relative;flex:1;height:22px;cursor:pointer;display:flex;align-items:center}
 .track::before{content:"";position:absolute;left:0;right:0;height:4px;border-radius:4px;background:rgba(255,255,255,.22)}
 .track i{position:absolute;left:0;right:0;height:4px;border-radius:4px;background:var(--red);transform-origin:left;transform:scaleX(0)}
-.track b{position:absolute;left:0;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(255,59,48,.25)}
+.track s{position:absolute;z-index:1;width:3px;height:4px;margin-left:-1.5px;background:rgba(12,11,10,.85)}
+.track b{position:absolute;z-index:2;left:0;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(255,59,48,.25)}
 @container vsl (max-width:600px){
   .screen-center{padding-bottom:40px;gap:6px}
+  .screen-end{gap:10px;padding:14px 16px 58px}
+  .screen-end .np{display:none}
+  .screen-end h3{font-size:18px;max-width:280px}
+  .screen-end .btn-lg{min-height:46px;padding:0 22px;font-size:15.5px;margin-top:0}
   .screen-note{font-size:12.5px}
   .controls{padding:20px 4px 2px;gap:0}
   .time{font-size:12px;padding:0 4px}
@@ -214,11 +238,17 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 /* under-the-video row: like a channel row, with the booking button where "subscribe" would be */
 .watch{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:18px}
 .watch-meta{display:flex;align-items:center;gap:14px;min-width:0}
-.watch-title{font:800 19px/1.25 var(--font);letter-spacing:-.025em;color:var(--ink)}
+.watch-title{font:800 19px/1.25 var(--font);letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
 .watch-by{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:4px;font-size:14px;color:var(--muted)}
 .watch-by b{color:var(--ink);font-weight:700}
 .watch-by .dot{width:3px;height:3px;border-radius:50%;background:#B3ADA2}
 .watch-cta{display:flex;flex-direction:column;align-items:flex-end;gap:9px;flex:none}
+/* desktop: the micro-trust line sits under the button but spans the row, so it never squeezes the title column on narrow laptop players */
+@media (min-width:761px){
+  .watch{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;row-gap:9px}
+  .watch-cta{display:contents}
+  .watch-cta .micro{grid-column:1/-1;justify-self:end}
+}
 .micro{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 14px;font-size:13.5px;font-weight:600;color:var(--muted)}
 .micro li{display:inline-flex;align-items:center;gap:6px}
 .micro svg{width:14px;height:14px;color:var(--red-ink)}
@@ -432,14 +462,15 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .foot-links{display:flex;flex-wrap:wrap;gap:4px 20px}
 .foot-links a{text-decoration:none;color:var(--body);padding:6px 0}
 .foot-links a:hover{text-decoration:underline;color:var(--ink)}
-.disclaimer{margin-top:24px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.6;max-width:880px}
+.disclaimer{margin-top:24px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.6}
+.disclaimer p{max-width:880px}
 .disclaimer p+p{margin-top:8px}
 .disclaimer b{color:var(--body)}
 .copy{margin-top:18px;font-size:12.5px}
 
 /* ---------- Sticky mobile CTA ---------- */
-.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(246,244,239,.92);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s var(--ease);display:none}
-.sticky-cta.show{transform:none}
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(246,244,239,.92);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);transform:translateY(110%);visibility:hidden;transition:transform .35s var(--ease),visibility 0s linear .35s;display:none}
+.sticky-cta.show{transform:none;visibility:visible;transition:transform .35s var(--ease),visibility 0s}
 .sticky-row{display:flex;align-items:center;gap:12px}
 .sticky-row .av{width:40px;height:40px}
 .sticky-txt{flex:1;min-width:0;line-height:1.25}
@@ -463,7 +494,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .modal-close:hover{background:var(--bg);color:var(--ink)}
 .modal-close svg{width:18px;height:18px}
 .progress{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:14px 22px 0}
-.progress li{display:flex;flex-direction:column;gap:7px;font:700 11.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:#8A857C}
+.progress li{display:flex;flex-direction:column;gap:7px;font:700 11.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .progress li::before{content:"";height:4px;border-radius:4px;background:var(--bg-2);transition:background-color .3s}
 .progress li.is-done::before,.progress li.is-current::before{background:var(--red)}
 .progress li.is-current{color:var(--ink)}
@@ -477,7 +508,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 .field label,.field legend{font-size:14px;font-weight:700;color:var(--ink);padding:0}
 .field legend{margin-bottom:8px}
 .input{width:100%;height:50px;padding:0 14px;border-radius:14px;border:1.5px solid rgba(17,17,17,.16);background:#fff;font:500 16px var(--font);color:var(--ink);transition:border-color .15s,box-shadow .15s}
-.input::placeholder{color:#8F8A81}
+.input::placeholder{color:#767168}
 .input:hover{border-color:rgba(17,17,17,.3)}
 .input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(17,17,17,.08)}
 .has-err .input{border-color:var(--red-btn)}
@@ -600,6 +631,8 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   .steps3 .sep{width:12px}
   .final .btn{width:100%}
   .sticky-cta{display:block}
+  .nav .btn{transition:opacity .25s ease,visibility .25s}
+  html.sticky-on .nav .btn{opacity:0;visibility:hidden}
   .foot{padding-bottom:110px}
   /* modal: bottom sheet */
   .modal{padding:0;align-items:flex-end}
@@ -608,6 +641,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   .progress{padding:12px 18px 0}
   .step-title{font-size:23px}
   .form{grid-template-columns:1fr;gap:12px;margin-top:14px}
+  .opt span{min-height:58px;font-size:14.5px;padding:8px 12px}
   .day{min-height:66px}
   .day .dd{font-size:18px}
 }
@@ -617,7 +651,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important}
-  .poster,.screen,.modal,.modal-panel,.sticky-cta,.poster-tai,.p-btn{transition:none!important}
+  .poster,.poster-copy,.p-dur,.screen,.modal,.modal-panel,.sticky-cta,.poster-tai,.p-btn{transition:none!important}
 }
 </style>
 </head>
@@ -666,18 +700,20 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
       </div>
 
       <div class="stage">
-        <div class="player" id="vsl">
+        <div class="player tai-tall" id="vsl">
           <!--
-            TAI IMAGE SWAP (one line): when the waist-up cutout lands, change the poster
-            <img> src below to "../../assets/tai/tai-waist.webp" (and its width/height to the
-            real file size). Nothing else to edit: the script detects a tall image and adds
-            .tai-tall to the player, which re-frames him on desktop and on the mobile poster.
+            TAI IMAGE SWAP (one line): Tai is the waist-up cutout (client feedback: a chest crop
+            makes him look too big). To try another waist-up cutout (tai-waist-pocket,
+            tai-waist-navy-smile...), change only the src/width/height of the poster <img> line below.
+            Nothing else to edit: the script reads the image ratio and keeps .tai-tall for a tall
+            (waist-up) image, or removes it for a chest-up cutout such as
+            src="../../assets/tai/tai-smile.webp" width="513" height="437".
           -->
-          <div class="poster" aria-hidden="false">
+          <div class="poster">
             <div class="poster-bg" aria-hidden="true"></div>
             <div class="poster-ring" aria-hidden="true"></div>
             <div class="poster-ring r2" aria-hidden="true"></div>
-            <img class="poster-tai" src="../../assets/tai/tai-smile.webp" width="513" height="437" alt="Tai Lopez" fetchpriority="high" decoding="async">
+            <img class="poster-tai" src="../../assets/tai/tai-waist.webp" width="900" height="1760" alt="Tai Lopez" fetchpriority="high" decoding="async">
             <div class="poster-scrim" aria-hidden="true"></div>
             <div class="poster-grain" aria-hidden="true"></div>
             <div class="poster-copy" aria-hidden="true">
@@ -781,7 +817,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
       <!-- PLACEHOLDER: chapter times, match them to the final video -->
       <ol class="ch-list reveal">
         <li><button class="ch-row" type="button" data-seek="18"><span class="ch-time"><svg aria-hidden="true"><use href="#i-play"/></svg>0:18</span><span class="ch-text"><b>Where AI agents can make you money.</b><span>The simple ways people use them today.</span></span><span class="ch-go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></button></li>
-        <li><button class="ch-row" type="button" data-seek="102"><span class="ch-time"><svg aria-hidden="true"><use href="#i-play"/></svg>1:42</span><span class="ch-text"><b>How to put your business on autopilot.</b><span>Leads answered, calls booked, follow-ups sent.</span></span><span class="ch-go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></button></li>
+        <li><button class="ch-row" type="button" data-seek="102"><span class="ch-time"><svg aria-hidden="true"><use href="#i-play"/></svg>1:42</span><span class="ch-text"><b>How to put your business on autopilot.</b><span>Leads answered and calls booked for you.</span></span><span class="ch-go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></button></li>
         <li><button class="ch-row" type="button" data-seek="185"><span class="ch-time"><svg aria-hidden="true"><use href="#i-play"/></svg>3:05</span><span class="ch-text"><b>How to get your evenings back.</b><span>Emails, bills and to-dos, handled for you.</span></span><span class="ch-go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></button></li>
       </ol>
     </div>
@@ -921,10 +957,10 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
               <path class="spark" d="M330 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#E0241A"/>
               <path class="spark" d="M186 120l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#111"/>
               <!-- envelopes (bottom to top) -->
-              <g transform="rotate(-4 256 150)"><g class="c-env-in c-e4"><rect x="212" y="120" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M218 128l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-              <g transform="rotate(3 256 140)"><g class="c-env-in c-e3"><rect x="212" y="110" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M218 118l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-              <g transform="rotate(-2 256 130)"><g class="c-env-in c-e2"><rect x="212" y="100" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M218 108l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
-              <g transform="rotate(4 256 120)"><g class="c-env-in c-e1"><rect x="212" y="90" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M218 98l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="296" cy="96" r="4" fill="#FF3B30"/></g></g>
+              <g transform="rotate(-11 248 150)"><g class="c-env-in c-e4"><rect x="202" y="108" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M208 116l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+              <g transform="rotate(9 262 140)"><g class="c-env-in c-e3"><rect x="218" y="104" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M224 112l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+              <g transform="rotate(-4 252 130)"><g class="c-env-in c-e2"><rect x="206" y="98" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M212 106l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+              <g transform="rotate(3 258 120)"><g class="c-env-in c-e1"><rect x="212" y="92" width="92" height="58" rx="8" fill="#fff" stroke="#111" stroke-width="2.5"/><path d="M218 100l40 26 40-26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="296" cy="98" r="4" fill="#FF3B30"/></g></g>
               <!-- tray -->
               <rect x="194" y="156" width="124" height="44" rx="11" fill="#fff" stroke="#111" stroke-width="2.6"/>
               <path d="M208 170H234Q238 182 252 182H260Q274 182 278 170H304" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1047,7 +1083,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
 <!-- Sticky mobile CTA -->
 <div class="sticky-cta" data-sticky aria-hidden="true">
   <div class="sticky-row">
-    <span class="av"><img src="../../assets/tai/tai-smile.webp" width="513" height="437" alt="" loading="lazy"></span>
+    <span class="av"><img src="../../assets/tai/tai-smile.webp" width="513" height="437" alt="Tai Lopez" loading="lazy"></span>
     <p class="sticky-txt"><b>Free 1-on-1 call</b><span>No tech skills needed</span></p>
     <button class="btn btn-red" type="button" data-book tabindex="-1">Book a free call</button>
   </div>
@@ -1178,12 +1214,18 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   var curEl = player.querySelector('[data-cur]');
   var npEl = player.querySelector('[data-np]');
   var DUR = 252; // 4:12, PLACEHOLDER: set to the real video length
+  // chapter markers on the progress bar, from the chapter buttons below
+  [].forEach.call(d.querySelectorAll('[data-seek]'), function(b){
+    var tick = d.createElement('s'); tick.style.left = (parseFloat(b.getAttribute('data-seek')) / DUR * 100) + '%'; track.appendChild(tick);
+  });
   var t = 0, playing = false, timer = null, started = false;
 
   // Tall (waist-up) cutout? Re-frame automatically so the swap stays a one-line change.
+  // (.tai-tall is also in the HTML so the default waist-up image never flashes in the chest framing.)
   var taiImg = player.querySelector('.poster-tai');
   function frameTai(){ if (taiImg.naturalWidth) player.classList.toggle('tai-tall', taiImg.naturalHeight / taiImg.naturalWidth > 1.35); }
-  if (taiImg.complete) frameTai(); else taiImg.addEventListener('load', frameTai);
+  taiImg.addEventListener('load', frameTai);
+  if (taiImg.complete) frameTai();
 
   function fmt(s){ s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
   function render(){
@@ -1203,7 +1245,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
     clearInterval(timer); timer = null;
     if (on) timer = setInterval(function(){
       t = Math.min(DUR, t + .25); render();
-      if (t >= DUR){ setPlaying(false); endCard.hidden = false; }
+      if (t >= DUR){ setPlaying(false); endCard.hidden = false; player.classList.add('is-ended'); }
     }, 250);
   }
   function startVideo(from){
@@ -1217,7 +1259,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
     }
     if (typeof from === 'number') t = from;
     if (t >= DUR) t = 0;
-    endCard.hidden = true;
+    endCard.hidden = true; player.classList.remove('is-ended');
     render(); setPlaying(true);
   }
   hit.addEventListener('click', function(){ startVideo(); toggleBtn.focus({preventScroll:true}); });
@@ -1234,7 +1276,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
   track.addEventListener('click', function(e){
     var r = track.getBoundingClientRect();
     t = Math.max(0, Math.min(DUR - 1, (e.clientX - r.left) / r.width * DUR));
-    endCard.hidden = true; render();
+    endCard.hidden = true; player.classList.remove('is-ended'); render();
   });
   d.addEventListener('visibilitychange', function(){ if (d.hidden && playing) setPlaying(false); });
 
@@ -1258,6 +1300,7 @@ h1 .hl::after{content:"";position:absolute;left:2px;right:2px;bottom:-.04em;heig
     sticky.classList.toggle('show', show);
     sticky.setAttribute('aria-hidden', show ? 'false' : 'true');
     sticky.querySelector('button').tabIndex = show ? 0 : -1;
+    root.classList.toggle('sticky-on', show);
   }
   if ('IntersectionObserver' in window){
     new IntersectionObserver(function(es){ heroCtaVisible = es[0].isIntersecting || es[0].boundingClientRect.top > 0; updSticky(); }).observe(heroCta);

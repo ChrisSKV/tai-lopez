@@ -55,18 +55,19 @@ button,input{font:inherit;color:inherit}
 /* ---------- Hero ---------- */
 /* The stage copies Mo on movlogs.ai: a wall of screens, and the creator standing in front of it at a
    human scale (head about 120px at 1440, body down to the waist, melting into black behind the
-   creator pill). It is built for the WAIST-UP cutout assets/tai/tai-waist.webp (1:2, facing camera):
-   the base .tai rule below sizes that file. Until it exists the hero uses a chest-up stand-in, and the
-   .tai:not([src*="tai-waist"]) rule shrinks it and seats its cut chest on the pill. Swapping the src
-   in the HTML (see the comment on the hero <img>) is the only change needed. */
+   creator pill). The hero uses the WAIST-UP cutout assets/tai/tai-waist.webp (900x1760, facing camera):
+   the base .tai rule below sizes it. Any other waist-up file (src containing "tai-waist", e.g.
+   tai-waist-navy-smile.webp) drops in with a one-line src change. A chest-up file still works as a
+   fallback: the .tai:not([src*="tai-waist"]) rule shrinks it and seats its cut chest on the pill. */
 .hero{
   --wall-w:max(1440px, min(100vw, 1680px));
   --stage-h:calc(var(--wall-w) * .275);     /* 396px at 1440: pill lands at y≈410, like Mo's */
   --fig-h:calc(var(--wall-w) * .33);        /* waist-up file: 475px tall, head ~25% of it = ~120px */
   --fig-top:calc(var(--wall-w) * .018);     /* hair 26px under the top of the wall */
-  --stand-h:calc(var(--wall-w) * .18);      /* chest-up stand-in: 259px tall, head ~140px */
-  --stand-sink:0px;                         /* stand-in's cut edge sits on the pill line (already faded out) */
-  --head-y:calc(var(--wall-w) * .085);      /* centre of the warm key light behind his head */
+  --fig-pad:56px;                           /* transparent room around the cutout so its glow is not clipped by the mask box */
+  --stand-h:calc(var(--wall-w) * .18);      /* chest-up fallback: 259px tall, head ~140px */
+  --stand-sink:0px;                         /* fallback's cut edge sits on the pill line (already faded out) */
+  --head-y:calc(var(--wall-w) * .062);      /* centre of the warm key light behind his head */
   --melt:72px;                              /* waist-up: how far above the pill line the body starts to melt */
   position:relative;overflow:hidden;text-align:center;padding:0 16px 34px}
 .hero:has(.tai:not([src*="tai-waist"])){--head-y:calc(var(--stage-h) + var(--stand-sink) - var(--stand-h) * .7)}
@@ -91,17 +92,22 @@ button,input{font:inherit;color:inherit}
   background:radial-gradient(closest-side,rgba(247,200,110,.15),rgba(247,200,110,.05) 55%,transparent);pointer-events:none;
   animation:glowIn 1.2s .35s ease-out both}
 @keyframes glowIn{from{opacity:0}}
-/* WAIST-UP (target): sized by height, hair near the top of the wall. The melt is pinned to the pill line
-   (not to the file), so the waist always disappears under the pill whatever the exact crop of the file. */
-.tai{position:absolute;z-index:2;left:50%;top:var(--fig-top);height:var(--fig-h);width:auto;max-width:none;transform:translateX(-50%);
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(var(--stage-h) - var(--fig-top) - var(--melt)),transparent calc(var(--stage-h) - var(--fig-top) + 4px));
-  mask-image:linear-gradient(to bottom,#000 calc(var(--stage-h) - var(--fig-top) - var(--melt)),transparent calc(var(--stage-h) - var(--fig-top) + 4px));
-  filter:drop-shadow(0 0 1px rgba(255,226,170,.38)) drop-shadow(0 0 22px rgba(247,200,110,.12)) drop-shadow(0 24px 40px rgba(0,0,0,.5));
+/* WAIST-UP: sized by height, hair near the top of the wall. The melt is pinned to the pill line
+   (not to the file), so the waist always disappears under the pill whatever the exact crop of the file.
+   The sleeves almost touch the file's side edges, and a mask clips everything outside the element box,
+   so the box gets transparent padding (--fig-pad): the warm rim glow fades out softly instead of
+   ending on a straight vertical line beside the arms. Mask stops are measured from the padded top.
+   No dark drop-shadow here: Chrome draws it with a hard step at the image edge; .stage::before
+   already pools the shadow behind his waist. */
+.tai{position:absolute;z-index:2;left:50%;top:calc(var(--fig-top) - var(--fig-pad));box-sizing:content-box;padding:var(--fig-pad) var(--fig-pad) 0;
+  height:var(--fig-h);width:auto;max-width:none;transform:translateX(-50%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(var(--stage-h) - var(--fig-top) + var(--fig-pad) - var(--melt)),transparent calc(var(--stage-h) - var(--fig-top) + var(--fig-pad) + 4px));
+  mask-image:linear-gradient(to bottom,#000 calc(var(--stage-h) - var(--fig-top) + var(--fig-pad) - var(--melt)),transparent calc(var(--stage-h) - var(--fig-top) + var(--fig-pad) + 4px));
+  filter:drop-shadow(0 0 1px rgba(255,226,170,.38)) drop-shadow(0 0 22px rgba(247,200,110,.12));
   animation:rise 1.1s .15s cubic-bezier(.2,.8,.2,1) both}
-/* CHEST-UP STAND-IN (any file that is not tai-waist): smaller, seated on the pill, the straight-cut
-   shoulders and chest fall off in an ellipse so no cut edge is ever visible. Stops applying by itself
-   once the src points to tai-waist.webp. */
-.tai:not([src*="tai-waist"]){top:auto;bottom:calc(var(--stand-sink) * -1);height:var(--stand-h);
+/* CHEST-UP FALLBACK (any file that is not a tai-waist* cutout): smaller, seated on the pill, the
+   straight-cut shoulders and chest fall off in an ellipse so no cut edge is ever visible. */
+.tai:not([src*="tai-waist"]){top:auto;bottom:calc(var(--stand-sink) * -1);padding:0;height:var(--stand-h);
   -webkit-mask-image:radial-gradient(64% 84% at 50% 36%,#000 64%,transparent 100%),linear-gradient(to bottom,#000 66%,transparent 94%),linear-gradient(to right,transparent 0,#000 15%,#000 85%,transparent 100%);
   -webkit-mask-composite:source-in;
   mask-image:radial-gradient(64% 84% at 50% 36%,#000 64%,transparent 100%),linear-gradient(to bottom,#000 66%,transparent 94%),linear-gradient(to right,transparent 0,#000 15%,#000 85%,transparent 100%);
@@ -241,6 +247,17 @@ button,input{font:inherit;color:inherit}
 .sticky .cta{width:100%;height:54px;font-size:16.5px}
 @media(min-width:700px){.sticky{display:none}}
 
+/* ---------- Short desktop screens ----------
+   Real laptop viewports are shorter than 900px (1440x~790, 1366x768, 1536x~730). There the whole stage
+   scales with the viewport height and the copy tightens a little, so Tai, the headline and the CTA all
+   stay in the first screen. 362px = pill overlap + headline + sub + CTA below the stage, 48px = bar. */
+@media(min-width:700px) and (max-height:860px){
+  .hero{--wall-w:max(1040px, min(max(1440px, min(100vw, 1680px)), calc((100vh - 418px) * 3.636)))}
+  .h1{margin-top:20px;font-size:52px}
+  .sub{margin-top:12px;font-size:18px}
+  .hero .cta{margin-top:22px}
+}
+
 /* ---------- Tablet ---------- */
 @media(max-width:1100px) and (min-width:700px){
   .h1{font-size:48px}
@@ -334,7 +351,7 @@ button,input{font:inherit;color:inherit}
 .fields{display:grid;gap:12px;margin-top:20px}
 .field label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
 .field input{width:100%;height:52px;padding:0 16px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:#19181B;font-size:16px;color:var(--ink);transition:border-color .2s,box-shadow .2s}
-.field input::placeholder{color:rgba(255,255,255,.4)}
+.field input::placeholder{color:rgba(255,255,255,.52)}
 .field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(237,190,82,.25)}
 .field input[aria-invalid="true"]{border-color:#FF7A6E}
 .err{display:none;margin-top:6px;font-size:13px;color:#FF9A90}
@@ -388,10 +405,10 @@ legend{padding:0;font-size:15px;font-weight:600;color:var(--ink)}
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
 </svg>
 
-<div class="bar" id="bar">
+<header class="bar" id="bar">
   <span class="live" aria-hidden="true"></span>
   <p>Free strategy calls are open <b>this week</b></p>
-</div>
+</header>
 
 <main id="main">
   <!-- ============ HERO ============ -->
@@ -401,13 +418,13 @@ legend{padding:0;font-size:15px;font-weight:600;color:var(--ink)}
         <source media="(max-width: 699px)" srcset="../../assets/scene/agent-wall-mobile.jpg" width="1200" height="1100">
         <img src="../../assets/scene/agent-wall.jpg" width="2400" height="960" alt="" fetchpriority="high" decoding="async">
       </picture>
-      <!-- TAI IMAGE SWAP (one-line change): this stage is built for a WAIST-UP cutout, like Mo on movlogs.ai.
-           When assets/tai/tai-waist.webp exists (1:2, facing camera), replace the line below with:
-           <img class="tai" src="../../assets/tai/tai-waist.webp" width="1400" height="2800" alt="Tai Lopez" fetchpriority="high" decoding="async">
-           Nothing else changes: the base .tai CSS rule sizes the waist-up file (head ~120px at 1440) and fades
-           the waist under the pill; the chest-up stand-in rule .tai:not([src*="tai-waist"]) stops applying by itself.
-           If the generated head is much bigger or smaller than ~24% of the file height, tune --fig-h on .hero. -->
-      <img class="tai" src="../../assets/tai/tai-portrait.webp" width="660" height="710" alt="Tai Lopez" fetchpriority="high" decoding="async">
+      <!-- TAI IMAGE (one-line change): waist-up cutout, like Mo on movlogs.ai. To try another generated
+           waist-up file, change only the src (and width/height) on the line below, e.g.
+           ../../assets/tai/tai-waist-navy-smile.webp (900x1710, navy blazer) or tai-waist-pocket.webp (900x1608).
+           The base .tai CSS rule sizes any file whose name contains "tai-waist" (head ~120px at 1440, ~65px on
+           phones) and melts the waist under the pill. If a new file's head is much bigger or smaller than ~25%
+           of its height, tune --fig-h on .hero. -->
+      <img class="tai" src="../../assets/tai/tai-waist-navy.webp" width="900" height="1769" alt="Tai Lopez" fetchpriority="high" decoding="async">
     </div>
 
     <div class="creator">
