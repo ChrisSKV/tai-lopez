@@ -129,7 +129,7 @@ ul,ol{ padding:0; list-style:none; }
 .brand-by b{ font-weight:800; color:#000; }
 
 /* ---------- Hero ---------- */
-.hero{ position:relative; padding:36px 0 30px; isolation:isolate; }
+.hero{ position:relative; padding:36px 0 30px; isolation:isolate; overflow-x:clip; }
 .hero-grid{ display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr); gap:56px; align-items:center; }
 .eyebrow{
   display:inline-flex; align-items:center; gap:9px;
@@ -245,29 +245,158 @@ ul,ol{ padding:0; list-style:none; }
 .out h3{ font:900 28px/.98 var(--sans); font-stretch:108%; text-transform:uppercase; letter-spacing:-.01em; text-wrap:balance; }
 .out p{ margin-top:12px; font-size:18px; color:var(--text-2); }
 
-/* ---------- Meet Tai ---------- */
-.about{ padding-top:24px; }
-.about-grid{ display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:72px; align-items:center; }
-.tai-circle{ --w:min(460px, 100%); --wpx:460px; position:relative; width:var(--w); margin:0 auto; padding-top:13%; }
-.tai-circle .disc{ position:relative; aspect-ratio:1; border-radius:50%; border:3px solid #000; background:
-  radial-gradient(circle at 50% 40%, rgba(255,255,255,.7), rgba(255,255,255,0) 50%),
-  repeating-conic-gradient(from 0deg at 50% 40%, var(--lime) 0deg 9deg, var(--lime-2) 9deg 18deg);
-  box-shadow:12px 12px 0 #000; }
-.tai-circle .cut{ position:absolute; left:0; right:0; bottom:0; top:0; overflow:hidden; border-radius:0 0 50% 50% / 0 0 calc(var(--wpx) / 2) calc(var(--wpx) / 2); }
-.tai-circle .cut img{ position:absolute; left:50%; bottom:0; width:126%; max-width:none; translate:-50% 0;
-  filter:drop-shadow(0 14px 22px rgba(0,0,0,.2)) saturate(1.04); }
-.tai-circle .rim{ position:absolute; left:0; right:0; bottom:0; aspect-ratio:1; border-radius:50%; border:3px solid #000; clip-path:inset(52% 0 0 0); pointer-events:none; }
-.st-hey{ left:-14px; top:20%; transform:rotate(-8deg); padding:12px 18px 11px; background:var(--pink); border:var(--b) solid #000; border-radius:999px; font:900 18px/1 var(--sans); font-stretch:115%; text-transform:uppercase; box-shadow:var(--sh-sm); white-space:nowrap; }
-.about-copy .h2{ margin-top:22px; font-size:clamp(38px, 4.4vw, 62px); }
-.about-copy .tagline{ display:inline-flex; }
+/* ---------- AI crew (illustrated, replaces the 2nd Tai photo) ---------- */
+.crew-sec{ padding-top:24px; }
+.crew-grid{ display:grid; grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr); grid-template-areas:"art copy" "art proof"; column-gap:76px; row-gap:30px; align-items:center; }
+.crew{ grid-area:art; }
+.crew-copy{ grid-area:copy; align-self:end; }
+.crew-proof{ grid-area:proof; align-self:start; }
+.crew-copy .h2{ margin-top:22px; font-size:clamp(38px, 4.4vw, 62px); }
 .bio{ margin-top:22px; font-size:20px; line-height:1.5; color:var(--text-2); max-width:30em; }
 .bio strong{ color:#000; font-weight:800; }
-.socials{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:34px; }
+
+/* the stage: a lime sunburst frame (sibling of the hero frame), agents pop out of it */
+.crew{ --pop:17%; position:relative; width:100%; max-width:600px; margin:0 auto; padding-top:var(--pop); container-type:inline-size; }
+.crew-panel{
+  position:relative; aspect-ratio:600/468;
+  border:3px solid #000; border-radius:var(--r-xl);
+  background:
+    radial-gradient(circle at 47% 40%, rgba(255,255,255,.82), rgba(255,255,255,0) 44%),
+    repeating-conic-gradient(from -4deg at 47% 40%, var(--lime) 0deg 8deg, var(--lime-2) 8deg 16deg);
+  box-shadow:12px 12px 0 #000;
+}
+.crew-cut{ position:absolute; inset:0; z-index:3; clip-path:inset(-60% 0 0 0 round 0 0 25px 25px); pointer-events:none; }
+.ag{ position:absolute; }
+.ag svg{ width:100%; height:auto; overflow:hidden; filter:drop-shadow(4px 4px 0 #000); }
+.ag-p{ width:37%; left:-1%; bottom:-6%; }
+.ag-k{ width:31%; right:1%; bottom:-1.5%; }
+
+/* to-do card + the agent peeking over it */
+.todo-wrap{ position:absolute; z-index:2; left:20%; top:11%; width:55%; transform:rotate(-2.5deg); }
+.ag-w{ width:40%; left:52%; bottom:87%; }
+.todo{ position:relative; background:#fff; border:var(--b) solid #000; border-radius:18px; box-shadow:6px 6px 0 #000; padding:6.5% 7.5% 8%; }
+.hand{ position:absolute; z-index:2; top:-12px; width:7%; aspect-ratio:1; border-radius:50%; background:#fff; border:var(--b) solid #000; }
+.hand.hd-l{ left:57.5%; } .hand.hd-r{ left:79.5%; }
+.todo-h{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:5%; border-bottom:var(--b) solid #000; font:900 17px/1 var(--sans); font-size:clamp(13px, 2.9cqw, 18px); font-stretch:112%; text-transform:uppercase; letter-spacing:-.005em; white-space:nowrap; }
+.todo ul{ display:grid; gap:.78em; margin-top:1.05em; font:750 16px/1.15 var(--sans); font-size:clamp(13px, 2.75cqw, 17px); }
+.todo li{ display:flex; align-items:center; gap:.62em; white-space:nowrap; }
+.box{ width:1.55em; height:1.55em; flex:none; display:grid; place-items:center; border:var(--b) solid #000; border-radius:.42em; background:var(--lime); }
+.box .ic{ width:68%; height:68%; }
+.tx{ position:relative; }
+.tx::after{ content:""; position:absolute; left:-.12em; right:-.14em; top:52%; height:.16em; min-height:3px; background:#000; border-radius:99px; transform:rotate(-2.5deg) scaleX(1); transform-origin:0 50%; }
+.stamp{
+  position:absolute; z-index:3; left:27%; bottom:-10%; transform:rotate(-7deg);
+  display:inline-flex; align-items:center; gap:.45em; padding:.6em .95em .55em .7em;
+  background:#000; color:var(--lime); border:var(--b) solid #000; border-radius:12px; box-shadow:4px 4px 0 #fff, 4px 4px 0 2.5px #000;
+  font:900 15px/1 var(--sans); font-size:clamp(12px, 2.6cqw, 16px); font-stretch:115%; text-transform:uppercase; letter-spacing:.01em; white-space:nowrap;
+}
+.stamp .ic{ width:1.15em; height:1.15em; }
+
+/* speech bubbles */
+.bub{
+  --r:0deg; position:absolute; z-index:5; margin:0;
+  display:inline-flex; align-items:center; gap:.5em; padding:.48em .95em .48em .48em;
+  background:#fff; color:#000; border:var(--b) solid #000; border-radius:14px;
+  font:800 15px/1.1 var(--sans); font-size:clamp(12px, 2.55cqw, 15.5px); white-space:nowrap;
+  filter:drop-shadow(3px 3px 0 #000); transform:rotate(var(--r)); transform-origin:var(--o, 30% 100%);
+}
+.bub::after{ content:""; position:absolute; width:.85em; height:.85em; left:var(--tx, 1.5em); bottom:calc(-.42em - 1.5px); background:inherit; border:solid #000; border-width:0 var(--b) var(--b) 0; transform:rotate(45deg); }
+.bub.tail-l::after{ left:calc(-.42em - 1.5px); bottom:auto; top:calc(50% - .42em); border-width:0 0 var(--b) var(--b); }
+.bub.tail-r::after{ left:auto; right:calc(-.42em - 1.5px); bottom:auto; top:calc(50% - .42em); border-width:var(--b) var(--b) 0 0; }
+.bub .ok{ width:1.85em; height:1.85em; flex:none; display:grid; place-items:center; border-radius:50%; border:2px solid #000; background:var(--lime); color:#000; }
+.bub .ok .ic{ width:55%; height:55%; }
+.bub.is-ink{ background:#000; color:#fff; }
+.bub.is-pink{ background:var(--pink); }
+.bub-1{ --r:-3deg; left:36.5%; top:73%; --o:0 50%; }
+.bub-2{ --r:3deg; right:-1%; top:-15%; --o:0 50%; }
+.bub-3{ --r:3deg; right:0; top:50%; --tx:38%; --o:40% 100%; }
+
+/* crew label sticker */
+.crew-tag{
+  position:absolute; z-index:6; left:-1%; top:-7%; transform:rotate(-6deg);
+  padding:.7em 1em .65em; background:#000; color:#fff; border-radius:14px;
+  box-shadow:4px 4px 0 var(--lime), 4px 4px 0 2.5px #000;
+  font-size:clamp(12px, 2.4cqw, 15px);
+}
+.crew-tag b{ display:block; font:900 1.45em/1 var(--sans); font-stretch:118%; text-transform:uppercase; color:var(--lime); letter-spacing:-.005em; }
+.crew-tag small{ display:flex; align-items:center; gap:.4em; margin-top:.4em; font:700 .9em/1 var(--sans); letter-spacing:.01em; }
+.crew-tag small svg{ width:1em; height:1em; color:var(--lime); }
+.crew .spark{ z-index:4; }
+.crew .sp-a{ width:26px; height:26px; left:31%; top:2%; }
+.crew .sp-b{ width:17px; height:17px; left:40%; top:9%; }
+
+/* small stage (phones): taller frame, bubbles kept inside the screen */
+@container (max-width:460px){
+  .crew-panel{ aspect-ratio:350/410; }
+  .todo-wrap{ left:7%; top:10%; width:74%; }
+  .ag-p{ width:40%; left:-1%; bottom:-5%; }
+  .ag-k{ width:34%; right:0; bottom:-1%; }
+  .stamp{ left:22%; bottom:-12%; }
+  .bub-1{ left:2%; top:59%; --o:20% 100%; }
+  .bub-1.tail-l::after{ left:24%; top:auto; bottom:calc(-.42em - 1.5px); border-width:0 var(--b) var(--b) 0; }
+  .bub-2{ left:0; right:auto; top:-12%; --r:-3deg; --o:100% 50%; }
+  .bub-2.tail-l::after{ left:auto; right:calc(-.42em - 1.5px); border-width:var(--b) var(--b) 0 0; }
+  .bub-3{ right:1%; top:60%; --tx:62%; }
+  .crew-tag{ display:none; }
+  .crew .sp-a{ left:84%; top:4%; width:22px; height:22px; }
+  .crew .sp-b{ left:93%; top:13%; width:14px; height:14px; }
+}
+
+/* sequence (JS adds .is-anim, then .s1 .s2 .s3 .s4, then .s-out). Without JS or with
+   reduced motion the base styles above are the finished, still-meaningful state. */
+.crew.is-anim .bub{ opacity:0; transform:translateY(10px) scale(.55) rotate(var(--r)); transition:opacity .18s, transform .5s cubic-bezier(.3,1.6,.5,1); }
+.crew.is-anim .box{ background:#fff; transition:background-color .25s; }
+.crew.is-anim .box .ic{ transform:scale(0); transition:transform .4s cubic-bezier(.3,1.7,.5,1) .12s; }
+.crew.is-anim .tx::after{ transform:rotate(-2.5deg) scaleX(0); transition:transform .5s cubic-bezier(.7,0,.25,1) .18s, opacity .3s; }
+.crew.is-anim .stamp{ opacity:0; transform:rotate(-7deg) scale(1.9); transition:opacity .12s, transform .38s cubic-bezier(.3,1.45,.5,1); }
+.crew.is-anim.s1 .bub-1, .crew.is-anim.s2 .bub-2, .crew.is-anim.s3 .bub-3{ opacity:1; transform:rotate(var(--r)); }
+.crew.is-anim.s1 .t1 .box, .crew.is-anim.s2 .t2 .box, .crew.is-anim.s3 .t3 .box{ background:var(--lime); }
+.crew.is-anim.s1 .t1 .box .ic, .crew.is-anim.s2 .t2 .box .ic, .crew.is-anim.s3 .t3 .box .ic{ transform:none; }
+.crew.is-anim.s1 .t1 .tx::after, .crew.is-anim.s2 .t2 .tx::after, .crew.is-anim.s3 .t3 .tx::after{ transform:rotate(-2.5deg) scaleX(1); }
+.crew.is-anim.s4 .stamp{ opacity:1; transform:rotate(-7deg); }
+.crew.is-anim.s1 .ag-p, .crew.is-anim.s2 .ag-w, .crew.is-anim.s3 .ag-k{ animation:hop .62s cubic-bezier(.3,.7,.4,1); }
+.crew.is-anim.s-out .bub, .crew.is-anim.s-out .stamp{ opacity:0; transition:opacity .4s; }
+.crew.is-anim.s-out .tx::after{ opacity:0; }
+.crew.is-anim.s-out .box{ background:#fff; }
+.crew.is-anim.s-out .box .ic{ transform:scale(0); transition-delay:0s; }
+.crew.is-reset *, .crew.is-reset *::after{ transition:none!important; }
+@keyframes hop{
+  0%{ transform:none; }
+  20%{ transform:translateY(3%) scale(1.05,.95); }
+  50%{ transform:translateY(-12%) scale(.97,1.04); }
+  78%{ transform:translateY(0) scale(1.03,.97); }
+  100%{ transform:none; }
+}
+.ag{ transform-origin:50% 100%; }
+@media (prefers-reduced-motion:no-preference){
+  .ag-bob{ animation:agbob 3.6s ease-in-out infinite; }
+  .ag-w .ag-bob{ animation-delay:-1.2s; }
+  .ag-k .ag-bob{ animation-delay:-2.4s; }
+  @keyframes agbob{ 50%{ transform:translateY(-3.5%); } }
+  .ag-eyes{ transform-box:fill-box; transform-origin:50% 50%; animation:blink 5.2s infinite; }
+  #ag-white-art .ag-eyes{ animation-delay:-1.7s; }
+  #ag-black-art .ag-eyes{ animation-delay:-3.4s; }
+  @keyframes blink{ 0%, 93%, 100%{ transform:none; } 96%{ transform:scaleY(.1); } }
+  .ag-phone{ transform-box:fill-box; transform-origin:50% 90%; animation:ring 3s ease-in-out infinite; }
+  @keyframes ring{ 0%, 62%, 100%{ transform:none; } 66%{ transform:rotate(-9deg); } 70%{ transform:rotate(8deg); } 74%{ transform:rotate(-7deg); } 78%{ transform:rotate(5deg); } 82%{ transform:rotate(0); } }
+  .ag-ring{ animation:ringfx 3s ease-in-out infinite; }
+  @keyframes ringfx{ 0%, 60%, 88%, 100%{ opacity:0; } 66%, 82%{ opacity:1; } }
+  .ag-bulb{ animation:bulb 1.8s ease-in-out infinite; }
+  @keyframes bulb{ 50%{ fill:#fff; } }
+}
+
+/* Tai proof, as text + stats (small avatar only) */
+.tai-pill{ display:inline-flex; align-items:center; gap:12px; padding:6px 20px 6px 6px; background:#fff; border:var(--b) solid #000; border-radius:999px; box-shadow:var(--sh-sm); }
+.tai-ava{ position:relative; width:44px; height:44px; flex:none; overflow:hidden; border-radius:50%; background:var(--lime); border:2.5px solid #000; }
+.tai-ava img{ position:absolute; width:108px; max-width:none; left:-37px; top:-8px; }
+.tai-pill b{ display:block; font:900 15px/1.1 var(--sans); font-stretch:112%; text-transform:uppercase; }
+.tai-pill small{ display:block; margin-top:3px; font-size:14.5px; font-weight:600; line-height:1.25; color:var(--text-2); }
+.socials{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:20px; }
 .soc{ display:flex; flex-direction:column; gap:12px; padding:16px 16px 16px; background:#fff; border:var(--b) solid #000; border-radius:var(--r); box-shadow:4px 4px 0 #000; }
 .soc:first-child{ background:var(--lime); }
 .soc .si{ width:36px; height:36px; display:grid; place-items:center; border-radius:10px; background:#000; }
 .soc .si svg{ width:18px; height:18px; fill:#fff; }
-.soc b{ display:block; font:900 32px/1 var(--sans); font-stretch:115%; letter-spacing:-.01em; }
+.soc b{ display:block; font:900 29px/1 var(--sans); font-stretch:115%; letter-spacing:-.01em; }
 .soc small{ display:block; margin-top:5px; font:800 12px/1 var(--sans); text-transform:uppercase; letter-spacing:.07em; color:#222; }
 
 /* ---------- Quotes ---------- */
@@ -286,13 +415,26 @@ ul,ol{ padding:0; list-style:none; }
 
 /* ---------- Final ---------- */
 .final{ padding:40px 0 96px; }
-.final-card{ position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr); align-items:center; min-height:520px; color:#fff; background:#000; border-radius:var(--r-xl); }
+.final-card{ position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; min-height:520px; color:#fff; background:#000; border-radius:var(--r-xl); }
 .final-card::before{ content:""; position:absolute; inset:0; z-index:-1; background-image:radial-gradient(var(--lime) 1.1px, transparent 1.5px); background-size:24px 24px; opacity:.16; -webkit-mask-image:linear-gradient(90deg, transparent 30%, #000); mask-image:linear-gradient(90deg, transparent 30%, #000); }
-.final-tai{ position:relative; align-self:stretch; min-height:420px; }
-.final-tai::before{ content:""; position:absolute; left:44%; bottom:30%; width:96%; aspect-ratio:1; translate:-50% 0; border-radius:50%; background:radial-gradient(circle, rgba(200,255,46,.62), rgba(200,255,46,.22) 38%, rgba(200,255,46,0) 66%); }
-.final-tai img{ position:absolute; left:-3%; bottom:0; width:min(124%, 600px); max-width:none;
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 9%, #000 70%, transparent 97%), linear-gradient(to right, transparent 0, #000 18%, #000 80%, transparent 99%);
-  -webkit-mask-composite:source-in; mask-image:linear-gradient(to bottom, transparent 0, #000 9%, #000 70%, transparent 97%), linear-gradient(to right, transparent 0, #000 18%, #000 80%, transparent 99%); mask-composite:intersect; }
+/* the crew, lined up and ready, rising in front of a lime sun */
+.final-crew{ position:relative; align-self:stretch; min-height:440px; container-type:inline-size; }
+.final-crew .sun{
+  position:absolute; left:50%; bottom:0; width:min(112%, 600px); aspect-ratio:1; translate:-50% 36%;
+  border-radius:50%; border:3px solid var(--lime);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.7), rgba(255,255,255,0) 52%),
+    repeating-conic-gradient(from -4deg at 50% 50%, var(--lime) 0deg 8deg, var(--lime-2) 8deg 16deg);
+}
+.fc{ position:absolute; bottom:-2px; height:auto; overflow:hidden; filter:drop-shadow(4px 4px 0 #000); }
+.fc-p{ --w:40%; width:var(--w); left:0; z-index:2; }
+.fc-k{ --w:42%; width:var(--w); left:29%; z-index:1; }
+.fc-w{ --w:36%; width:var(--w); right:1%; z-index:2; }
+.final-crew{ --kh:calc(42cqw * 1.125); --sunv:calc(min(112cqw, 600px) * .64); }
+.final-crew .bub{ left:31%; top:auto; bottom:calc(var(--kh) + 12px); --r:-3deg; --tx:42%; font-size:clamp(13px, 3.3cqw, 16px); }
+.final-crew .spark{ color:var(--lime); }
+.final-crew .sp-a{ width:24px; height:24px; left:12%; bottom:calc(var(--sunv) + 4px); }
+.final-crew .sp-b{ width:16px; height:16px; right:9%; bottom:calc(var(--sunv) - 34px); }
 .final-copy{ position:relative; z-index:1; padding:72px 64px 72px 24px; }
 .final .eyebrow{ background:#000; color:#fff; border-color:#fff; }
 .final h2{ margin-top:24px; font-size:clamp(44px, 5.2vw, 76px); text-wrap:balance; }
@@ -419,7 +561,7 @@ ul,ol{ padding:0; list-style:none; }
   .c-1{ right:-12px; }
   .c-2{ right:-10px; }
   .final-copy{ padding:60px 40px 60px 12px; }
-  .final-tai img{ width:min(114%, 600px); }
+  .crew-grid{ column-gap:56px; }
 }
 /* short laptop screens: keep the CTA above the fold */
 @media (min-width:981px) and (max-height:820px){
@@ -429,7 +571,7 @@ ul,ol{ padding:0; list-style:none; }
   .tai-stage{ max-width:min(520px, 62vh); }
 }
 @media (max-width:980px){
-  .h2, .about-copy .h2{ font-size:clamp(34px, 6.6vw, 54px); }
+  .h2, .crew-copy .h2{ font-size:clamp(34px, 6.6vw, 54px); }
   .hero{ padding:28px 0 22px; }
   .hero-grid{ gap:36px; }
   .h1{ font-size:clamp(40px, 6.3vw, 60px); margin-top:18px; }
@@ -443,15 +585,18 @@ ul,ol{ padding:0; list-style:none; }
   .c-2{ display:none; }
   .section{ padding:80px 0; }
   .out-grid{ grid-template-columns:minmax(0,1fr); gap:20px; max-width:620px; margin:0 auto; }
-  .about-grid{ grid-template-columns:minmax(0,1fr); gap:44px; }
-  .tai-circle{ --w:min(440px, 100%); }
+  .crew-grid{ grid-template-columns:minmax(0,1fr); grid-template-areas:"copy" "art" "proof"; row-gap:44px; max-width:640px; margin:0 auto; }
+  .crew-copy{ text-align:center; }
+  .crew-copy .bio{ margin-left:auto; margin-right:auto; }
+  .crew-proof{ display:flex; flex-direction:column; align-items:center; }
+  .crew-proof .socials{ width:100%; }
   .quotes{ grid-template-columns:minmax(0,1fr); gap:22px; max-width:620px; margin:0 auto; }
   .quote:nth-child(n){ transform:none; }
   .final-card{ grid-template-columns:minmax(0,1fr); min-height:0; text-align:center; }
-  .final-tai{ min-height:0; height:384px; }
-  .final-tai img{ left:50%; translate:-50% 0; width:min(330px, 88%); }
-  .final-tai::before{ left:50%; width:min(420px, 110%); bottom:18%; }
-  .final-copy{ padding:8px 32px 56px; }
+  .final-crew{ order:2; min-height:0; height:auto; width:min(100%, 440px); aspect-ratio:440/300; justify-self:center; --kh:calc(36cqw * 1.125); --sunv:calc(min(100cqw, 520px) * .6); }
+  .final-crew .sun{ width:min(100%, 520px); translate:-50% 40%; }
+  .fc-p{ --w:38%; left:1%; } .fc-k{ --w:36%; left:32%; } .fc-w{ --w:32%; right:2%; }
+  .final-copy{ padding:56px 32px 8px; }
   .steps, .final .micro{ justify-content:center; }
   .mbar{ display:block; position:fixed; left:0; right:0; bottom:0; z-index:40; padding:12px var(--gutter) calc(12px + env(safe-area-inset-bottom)); background:#fff; border-top:var(--b) solid #000; transform:translateY(110%); visibility:hidden; transition:transform .3s var(--ease), visibility 0s linear .3s; }
   .mbar.is-on{ transform:none; visibility:visible; transition:transform .3s var(--ease), visibility 0s; }
@@ -518,15 +663,18 @@ ul,ol{ padding:0; list-style:none; }
   .fan-icons span{ width:28px; height:28px; }
   .section{ padding:64px 0; }
   .sec-head{ margin-bottom:30px; }
-  .h2, .about-copy .h2{ font-size:clamp(31px, 9.2vw, 38px); font-stretch:100%; }
+  .h2, .crew-copy .h2{ font-size:clamp(31px, 9.2vw, 38px); font-stretch:100%; }
   .out{ padding:20px 20px 22px; display:grid; grid-template-columns:52px minmax(0,1fr); column-gap:16px; align-items:center; }
   .out-ico{ width:52px; height:52px; margin:0; border-radius:13px; grid-row:span 2; align-self:start; }
   .out-ico .ic{ width:26px; height:26px; }
   .out h3{ font-size:21px; }
   .out p{ margin-top:6px; font-size:16px; }
-  .about{ padding-top:8px; }
-  .st-hey{ left:-2px; top:14%; font-size:14px; padding:10px 14px 9px; }
+  .crew-sec{ padding-top:8px; }
+  .crew-grid{ row-gap:36px; }
+  .crew-copy .h2{ margin-top:16px; }
   .bio{ font-size:17.5px; margin-top:16px; }
+  .tai-pill{ padding-right:16px; }
+  .tai-pill small{ font-size:13.5px; }
   .socials{ gap:10px; margin-top:24px; }
   .soc{ flex-direction:row; align-items:center; gap:12px; padding:12px; }
   .soc .si{ width:34px; height:34px; }
@@ -537,11 +685,8 @@ ul,ol{ padding:0; list-style:none; }
   .final{ padding:12px 0 64px; }
   .final .wrap{ padding:0 12px; }
   .final-card{ border-radius:var(--r-lg); }
-  .final-tai{ height:350px; }
-  .final-tai img{ width:min(300px, 86%); }
-  .final-tai::before{ top:0; bottom:auto; width:min(330px, 96%); opacity:.8; }
   .final .micro{ font-size:11px; gap:6px 8px; letter-spacing:.02em; }
-  .final-copy{ padding:4px 18px 40px; }
+  .final-copy{ padding:44px 18px 4px; }
   .final h2{ font-size:clamp(32px, 10vw, 42px); font-stretch:100%; }
   .steps{ font-size:12.5px; gap:8px 12px; margin:22px 0 26px; letter-spacing:.02em; }
   .steps li{ gap:6px; }
@@ -613,6 +758,9 @@ ul,ol{ padding:0; list-style:none; }
     <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2 4.5 13.5h6.5L10 22l9.5-11.5H13z"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.7.4-1.2.9-1.2 1.7v.4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m3.5 7 8.5 6.5L20.5 7"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10.5" rx="2.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/></symbol>
     <!-- Social icons: Simple Icons (CC0), from assets/icons -->
     <symbol id="s-ig" viewBox="0 0 24 24"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></symbol>
@@ -748,20 +896,118 @@ ul,ol{ padding:0; list-style:none; }
     </div>
   </section>
 
-  <!-- ============ MEET TAI ============ -->
-  <section class="section about" id="about" aria-labelledby="about-title">
-    <div class="wrap about-grid">
-      <figure class="tai-circle rv" id="tai-circle">
-        <div class="disc" aria-hidden="true"></div>
-        <div class="cut"><img src="../../assets/tai/tai-smile.webp" width="513" height="437" alt="Tai Lopez" loading="lazy" decoding="async"></div>
-        <div class="rim" aria-hidden="true"></div>
-        <span class="sticker st-hey" aria-hidden="true">Hey, I'm Tai!</span>
+  <!-- ============ YOUR AI CREW (illustration, no photo: Tai is big only in the hero) ============ -->
+  <section class="section crew-sec" id="crew-sec" aria-labelledby="crew-title">
+    <div class="wrap crew-grid">
+      <div class="crew-copy rv">
+        <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Meet your AI crew</p>
+        <h2 class="display h2" id="crew-title">A little team that <span class="hl">does the work.</span></h2>
+        <p class="bio">Your AI agents answer leads, book calls and clear your inbox, day and night. Tai's team shows you how to get yours. <strong>No tech skills needed.</strong></p>
+      </div>
+
+      <figure class="crew rv d1" id="crew" role="img" aria-label="Illustration: three friendly AI agents tick off your to-do list. One answers a new lead, one books a call, one clears your inbox. Done for you.">
+        <div class="crew-panel">
+          <!-- to-do card, with the headset agent peeking over it -->
+          <div class="todo-wrap">
+            <div class="ag ag-w"><svg class="ag-bob" viewBox="0 0 160 180" aria-hidden="true">
+              <g id="ag-white-art" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M26 200V96c0-35 24-62 54-62s54 27 54 62v104" fill="#fff"/>
+                <path d="M19 99c0-40 27-70 61-70s61 30 61 70" stroke-width="7"/>
+                <rect x="9" y="80" width="22" height="40" rx="10" fill="#000"/>
+                <rect x="129" y="80" width="22" height="40" rx="10" fill="#000"/>
+                <rect x="13.5" y="89" width="7" height="22" rx="3.5" fill="#C8FF2E" stroke="none"/>
+                <rect x="139.5" y="89" width="7" height="22" rx="3.5" fill="#C8FF2E" stroke="none"/>
+                <path d="M20 119c0 19 12 27 31 25"/>
+                <circle cx="54" cy="143" r="6.5" fill="#C8FF2E" stroke-width="4"/>
+                <ellipse cx="42" cy="119" rx="7.5" ry="5" fill="#FF8AD0" stroke="none"/>
+                <ellipse cx="118" cy="119" rx="7.5" ry="5" fill="#FF8AD0" stroke="none"/>
+                <g class="ag-eyes" stroke-width="4.5">
+                  <ellipse cx="61" cy="89" rx="14" ry="17" fill="#fff"/><ellipse cx="99" cy="89" rx="14" ry="17" fill="#fff"/>
+                  <circle cx="62" cy="96" r="8" fill="#000" stroke="none"/><circle cx="100" cy="96" r="8" fill="#000" stroke="none"/>
+                  <circle cx="65" cy="92.5" r="2.6" fill="#fff" stroke="none"/><circle cx="103" cy="92.5" r="2.6" fill="#fff" stroke="none"/>
+                </g>
+                <path d="M68 123q12 4 24 0q-1 14-12 14t-12-14z" fill="#000" stroke-width="4"/>
+                <path d="M73.5 132.5q6.5-4.5 13 0q-2 4.5-6.5 4.5t-6.5-4.5z" fill="#FF8AD0" stroke="none"/>
+              </g>
+            </svg></div>
+            <div class="todo">
+              <p class="todo-h">My to-do list</p>
+              <ul>
+                <li class="t1"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span><span class="tx">Reply to new leads</span></li>
+                <li class="t2"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span><span class="tx">Book my calls</span></li>
+                <li class="t3"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span><span class="tx">Clean out my inbox</span></li>
+              </ul>
+              <span class="stamp"><svg class="ic"><use href="#i-check"/></svg>Done for you</span>
+            </div>
+            <span class="hand hd-l"></span><span class="hand hd-r"></span>
+          </div>
+
+          <!-- front agents, cut by the frame like Tai in the hero -->
+          <div class="crew-cut">
+            <div class="ag ag-p"><svg class="ag-bob" viewBox="0 0 200 180" aria-hidden="true">
+              <g id="ag-pink-art" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M31 146c-12 2-20 11-20 24" stroke-width="15"/><path d="M31 146c-12 2-20 11-20 24" stroke="#FF8AD0" stroke-width="6"/>
+                <path d="M127 142c19 0 31-14 31-36" stroke-width="15"/><path d="M127 142c19 0 31-14 31-36" stroke="#FF8AD0" stroke-width="6"/>
+                <path d="M80 34V18"/>
+                <path d="M26 200V96c0-35 24-62 54-62s54 27 54 62v104" fill="#FF8AD0"/>
+                <path d="M41 78c3-14 12-25 25-30" stroke="#fff" stroke-opacity=".75" stroke-width="5"/>
+                <circle class="ag-bulb" cx="80" cy="13" r="8" fill="#C8FF2E" stroke-width="4.5"/>
+                <g transform="rotate(14 160 80)"><g class="ag-phone">
+                  <rect x="145" y="50" width="32" height="56" rx="8" fill="#000"/>
+                  <rect x="150.5" y="58" width="21" height="36" rx="4" fill="#C8FF2E" stroke="none"/>
+                  <path d="M155.5 68h11M155.5 76h11M155.5 84h6" stroke-width="3.2"/>
+                </g></g>
+                <path class="ag-ring" d="M187 46c5 7 6 15 3 22M179 36c10 10 13 25 7 39" stroke-width="4"/>
+                <circle cx="158" cy="106" r="10.5" fill="#FF8AD0" stroke-width="4.5"/>
+                <path d="M49 63q10-7 21-3M90 60q11-4 21 3" stroke-width="4.5"/>
+                <ellipse cx="42" cy="119" rx="7.5" ry="5" fill="#fff" fill-opacity=".6" stroke="none"/>
+                <ellipse cx="118" cy="119" rx="7.5" ry="5" fill="#fff" fill-opacity=".6" stroke="none"/>
+                <g class="ag-eyes" stroke-width="4.5">
+                  <ellipse cx="61" cy="90" rx="14" ry="17" fill="#fff"/><ellipse cx="99" cy="90" rx="14" ry="17" fill="#fff"/>
+                  <circle cx="65" cy="85" r="8" fill="#000" stroke="none"/><circle cx="103" cy="85" r="8" fill="#000" stroke="none"/>
+                  <circle cx="68" cy="81.5" r="2.6" fill="#fff" stroke="none"/><circle cx="106" cy="81.5" r="2.6" fill="#fff" stroke="none"/>
+                </g>
+                <path d="M67 122q13 4 26 0q-1 15-13 15t-13-15z" fill="#000" stroke-width="4"/>
+                <path d="M73 132q7-5 14 0q-2 5-7 5t-7-5z" fill="#FF5FAE" stroke="none"/>
+              </g>
+            </svg></div>
+            <div class="ag ag-k"><svg class="ag-bob" viewBox="0 0 160 180" aria-hidden="true">
+              <g id="ag-black-art" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="12" y="82" width="17" height="30" rx="8.5" fill="#C8FF2E"/>
+                <rect x="131" y="82" width="17" height="30" rx="8.5" fill="#C8FF2E"/>
+                <path d="M26 200V96c0-35 24-62 54-62s54 27 54 62v104" fill="#000"/>
+                <path d="M41 78c3-14 12-25 25-30" stroke="#fff" stroke-opacity=".32" stroke-width="5"/>
+                <path d="M50 64q10-6 21-2M89 62q11-4 21 2" stroke="#C8FF2E" stroke-width="4.5"/>
+                <ellipse cx="42" cy="118" rx="7.5" ry="5" fill="#FF8AD0" stroke="none"/>
+                <ellipse cx="118" cy="118" rx="7.5" ry="5" fill="#FF8AD0" stroke="none"/>
+                <g class="ag-eyes" stroke-width="4.5">
+                  <ellipse cx="61" cy="90" rx="14" ry="17" fill="#fff"/><ellipse cx="99" cy="90" rx="14" ry="17" fill="#fff"/>
+                  <circle cx="57" cy="85" r="8" fill="#000" stroke="none"/><circle cx="95" cy="85" r="8" fill="#000" stroke="none"/>
+                  <circle cx="60" cy="81.5" r="2.6" fill="#fff" stroke="none"/><circle cx="98" cy="81.5" r="2.6" fill="#fff" stroke="none"/>
+                </g>
+                <path d="M68 116q12 4 24 0q-1 13-12 13t-12-13z" fill="#C8FF2E" stroke-width="4"/>
+                <path d="M73.5 124.5q6.5-4 13 0q-2 4-6.5 4t-6.5-4z" fill="#FF8AD0" stroke="none"/>
+                <rect x="40" y="134" width="80" height="54" rx="7" fill="#fff"/>
+                <path d="M43 137l37 25 37-25z" fill="#C8FF2E" stroke-width="4.5"/>
+                <circle cx="40" cy="152" r="10" fill="#C8FF2E" stroke-width="4.5"/>
+                <circle cx="120" cy="152" r="10" fill="#C8FF2E" stroke-width="4.5"/>
+              </g>
+            </svg></div>
+          </div>
+
+          <p class="bub bub-1 tail-l is-pink"><span class="ok"><svg class="ic"><use href="#i-phone"/></svg></span>New lead? On it!</p>
+          <p class="bub bub-2 tail-l"><span class="ok"><svg class="ic"><use href="#i-cal"/></svg></span>Call booked!</p>
+          <p class="bub bub-3 is-ink"><span class="ok"><svg class="ic"><use href="#i-mail"/></svg></span>Inbox: zero</p>
+
+          <p class="crew-tag"><b>Your AI crew</b><small><svg aria-hidden="true"><use href="#i-moon"/></svg>Works while you sleep</small></p>
+        </div>
+        <svg class="spark sp-a twinkle" aria-hidden="true"><use href="#i-spark"/></svg>
+        <svg class="spark sp-b twinkle t2" aria-hidden="true"><use href="#i-spark"/></svg>
       </figure>
-      <div class="about-copy rv d1">
-        <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Meet Tai</p>
-        <h2 class="display h2" id="about-title">Yes, the <span class="hl">“Here in my garage”</span> guy.</h2>
+
+      <div class="crew-proof rv d2">
         <!-- Source: tailopez.com (Oct 2026). Confirm with Tai's team before launch. -->
-        <p class="bio">Millions of people follow Tai Lopez to learn what works. Now his team shows people like you how to put AI agents to work. <strong>No tech skills needed.</strong></p>
+        <p class="tai-pill"><span class="tai-ava" aria-hidden="true"><img src="../../assets/tai/tai-laugh.webp" width="447" height="445" alt="" loading="lazy" decoding="async"></span><span><b>Tai Lopez</b><small>Yes, the “Here in my garage” guy.</small></span></p>
         <!-- Source: tailopez.com (Oct 2026). Confirm with Tai's team before launch. -->
         <ul class="socials" aria-label="Tai Lopez followers">
           <li class="soc"><span class="si" aria-hidden="true"><svg><use href="#s-fb"/></svg></span><span><b>6.5M</b><small>Facebook</small></span></li>
@@ -806,8 +1052,14 @@ ul,ol{ padding:0; list-style:none; }
   <section class="final" id="final" aria-labelledby="final-title">
     <div class="wrap">
       <div class="final-card rv">
-        <div class="final-tai">
-          <img src="../../assets/tai/tai-portrait.webp" width="660" height="710" alt="Tai Lopez" loading="lazy" decoding="async">
+        <div class="final-crew" aria-hidden="true">
+          <span class="sun"></span>
+          <svg class="spark sp-a twinkle"><use href="#i-spark"/></svg>
+          <svg class="spark sp-b twinkle t2"><use href="#i-spark"/></svg>
+          <svg class="fc fc-k" viewBox="0 0 160 180"><use href="#ag-black-art"/></svg>
+          <svg class="fc fc-p" viewBox="0 0 200 180"><use href="#ag-pink-art"/></svg>
+          <svg class="fc fc-w" viewBox="0 0 160 180"><use href="#ag-white-art"/></svg>
+          <p class="bub"><span class="ok"><svg class="ic"><use href="#i-check"/></svg></span>Ready when you are!</p>
         </div>
         <div class="final-copy">
           <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Your move</p>
@@ -965,11 +1217,29 @@ ul,ol{ padding:0; list-style:none; }
   function ready(){ stage.classList.add('is-ready'); }
   if (heroImg.complete) requestAnimationFrame(ready); else { heroImg.addEventListener('load', ready); heroImg.addEventListener('error', ready); setTimeout(ready, 1500); }
 
-  /* about circle: bottom-half radius needs the circle width in px */
-  var circle = $('#tai-circle');
-  function sizeCircle(){ circle.style.setProperty('--wpx', circle.querySelector('.disc').offsetWidth + 'px'); }
-  sizeCircle();
-  window.addEventListener('resize', sizeCircle, { passive:true });
+  /* AI crew: the agents tick off the to-do list one by one, then loop.
+     Plays only while visible. With reduced motion (or no JS) the finished state stays on screen. */
+  var crew = $('#crew');
+  if (crew && !reduce && 'IntersectionObserver' in window) {
+    var STEPS = [[700, 's1'], [2300, 's2'], [3900, 's3'], [5300, 's4'], [9600, 's-out']], LOOP = 10400;
+    var timers = [], playing = false;
+    var stopCrew = function(){ timers.forEach(clearTimeout); timers = []; playing = false; };
+    var playCrew = function(){
+      stopCrew(); playing = true;
+      crew.classList.add('is-reset');
+      crew.classList.remove('s1', 's2', 's3', 's4', 's-out');
+      void crew.offsetWidth;
+      crew.classList.remove('is-reset');
+      STEPS.forEach(function(s){ timers.push(setTimeout(function(){ crew.classList.add(s[1]); }, s[0])); });
+      timers.push(setTimeout(playCrew, LOOP));
+    };
+    crew.classList.add('is-reset', 'is-anim');
+    void crew.offsetWidth;
+    crew.classList.remove('is-reset');
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting) { if (!playing) playCrew(); } else stopCrew();
+    }, { threshold:0.3 }).observe(crew);
+  }
 
   /* reveal + highlighter */
   var revealables = $$('.rv, .hl, .strike');
