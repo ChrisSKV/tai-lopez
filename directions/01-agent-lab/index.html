@@ -188,7 +188,7 @@ button{cursor:pointer}
 .board-when{margin-left:auto;font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2)}
 .board-bar{height:4px;margin:14px 0 4px;border-radius:4px;background:var(--surface-2);overflow:hidden}
 .board-bar i{display:block;height:100%;width:calc(var(--p,1) * 100%);border-radius:inherit;background:var(--accent);transition:width .7s cubic-bezier(.4,0,.2,1)}
-.task{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.task{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
 .tick{width:22px;height:22px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line-strong);background:#fff;color:#fff;transition:background-color .3s ease,border-color .3s ease,box-shadow .3s ease}
 .tick svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .tick path{stroke-dasharray:14;stroke-dashoffset:14;transition:stroke-dashoffset .35s .12s ease}
@@ -197,11 +197,12 @@ button{cursor:pointer}
 .task-tx{font-size:14.5px;font-weight:500;letter-spacing:-.012em;color:var(--ink-2)}
 .task-by{width:28px;height:auto;margin-left:auto;overflow:visible}
 .board-foot{display:grid;padding-top:11px;font-size:13.5px;color:var(--muted)}
-.board-foot > span{grid-area:1 / 1;display:flex;align-items:center;gap:8px;transition:opacity .35s ease,transform .35s ease}
+.board-foot > span{grid-area:1 / 1;display:flex;align-items:center;gap:8px;transition:opacity .3s .16s ease,transform .3s .16s ease}
 .board-foot svg{width:16px;height:16px}
-.bf-done{color:var(--accent-ink);font-weight:500;opacity:0;transform:translateY(4px)}
-.crew.is-all .bf-work{opacity:0;transform:translateY(-4px)}
-.crew.is-all .bf-done{opacity:1;transform:none}
+/* cross-fade in two beats: the old line leaves fast, the new one arrives after it, so they never overlap */
+.board-foot .bf-done{color:var(--accent-ink);font-weight:500;opacity:0;transform:translateY(4px);transition-duration:.16s;transition-delay:0s}
+.crew.is-all .bf-work{opacity:0;transform:translateY(-4px);transition-duration:.16s;transition-delay:0s}
+.crew.is-all .bf-done{opacity:1;transform:none;transition-duration:.3s;transition-delay:.16s}
 .dots{display:inline-flex;gap:3px;margin-left:-2px}
 .dots i{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.35}
 
@@ -209,26 +210,27 @@ button{cursor:pointer}
 .agent{display:flex;flex-direction:column;align-items:center;min-width:0}
 .agent.a2{margin-top:14px}
 .agent-float{position:relative;display:flex;flex-direction:column;align-items:center}
-.bot{display:block;width:100px;height:auto;overflow:visible;transform-origin:50% 100%;filter:drop-shadow(0 10px 12px rgba(30,45,160,.16))}
+.bot{display:block;width:112px;height:auto;overflow:visible;transform-origin:50% 100%;filter:drop-shadow(0 10px 12px rgba(30,45,160,.16))}
 .bot .eyes-h{opacity:0}
 .bot .eyes-o,.bot .eyes-h{transition:opacity .08s ease}
 .agent.is-cheer .bot .eyes-o,.crew.is-party .bot .eyes-o{opacity:0}
 .agent.is-cheer .bot .eyes-h,.crew.is-party .bot .eyes-h{opacity:1}
 .burst{position:absolute;top:-6px;right:-2px;width:18px;height:18px;color:var(--accent);opacity:0;pointer-events:none}
-.sign{position:relative;margin-top:-18px;display:flex;align-items:center;gap:8px;padding:9px 18px 9px 8px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(10,11,13,.06),0 14px 26px -14px rgba(20,35,140,.4);text-align:left}
+.sign{position:relative;margin-top:-20px;display:flex;align-items:center;gap:8px;padding:9px 18px 9px 8px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(10,11,13,.06),0 14px 26px -14px rgba(20,35,140,.4);text-align:left}
 .sign-ic{width:26px;height:26px;flex-shrink:0;border-radius:8px;display:grid;place-items:center;background:var(--accent-tint);color:var(--accent)}
 .sign-ic svg{width:15px;height:15px}
 .sign-tx{font-size:13px;line-height:1.2;font-weight:600;letter-spacing:-.015em;color:var(--ink);white-space:nowrap}
 .hand{position:absolute;top:-7px;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#B9C6FF 0%,#5C77FF 42%,#2B4BFF 70%,#1B31C9 100%);box-shadow:0 2px 3px rgba(20,30,120,.3)}
 /* hands sit under the bot's body, so they are placed from the sign's centre, not its edges */
-.hand-l{left:calc(50% - 48px)}
-.hand-r{right:calc(50% - 48px)}
+.hand-l{left:calc(50% - 54px)}
+.hand-r{right:calc(50% - 54px)}
 .a2 .hand{background:radial-gradient(circle at 34% 30%,#FFFFFF 0%,#F1F3FA 45%,#D3D9E9 100%);box-shadow:0 2px 3px rgba(20,30,120,.22),inset 0 0 0 .5px rgba(20,30,80,.08)}
 .a3 .hand{background:radial-gradient(circle at 34% 30%,#E4E9FF 0%,#9CAEFF 45%,#6680FF 75%,#4C66F2 100%)}
-.sign-ok{position:absolute;right:-8px;bottom:-8px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;border:2px solid #fff;box-shadow:0 3px 8px -2px rgba(43,75,255,.6);transform:scale(0);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.sign-ok{position:absolute;right:-8px;bottom:-8px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;border:2px solid #fff;box-shadow:0 3px 8px -2px rgba(43,75,255,.6);transform:scale(0);transition:transform .2s ease}
 .sign-ok svg{width:10px;height:10px}
-.agent.is-done .sign-ok{transform:none}
-.agent-shadow{width:84px;height:12px;margin-top:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,110,.2),rgba(20,30,110,0))}
+.agent.is-done .sign-ok{transform:none;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.crew.is-off *{animation-play-state:paused !important}
+.agent-shadow{width:92px;height:12px;margin-top:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,110,.2),rgba(20,30,110,0))}
 
 /* ---------- Testimonials ---------- */
 .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:56px}
@@ -556,6 +558,8 @@ select.input option{color:var(--ink)}
   .btn-sm{padding:0 12px;font-size:13.5px}
   .agents{gap:4px}
   .sign-tx{font-size:11.5px}
+  .sign-ok{right:-5px;bottom:-6px;width:16px;height:16px;border-width:1.5px}
+  .sign-ok svg{width:9px;height:9px}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -732,7 +736,7 @@ select.input option{color:var(--ink)}
       <div class="team-head">
         <p class="label reveal">Your AI team</p>
         <h2 class="h2 reveal" id="team-title">Meet your new team. <span class="muted">It never takes a day&nbsp;off.</span></h2>
-        <p class="lead reveal">AI agents answer your leads, book your calls and clear your inbox. Tai's team shows you how to set yours up, no tech skills&nbsp;needed.</p>
+        <p class="lead reveal">Each agent takes one job off your plate. Tai's team shows you how to set yours up, no tech skills&nbsp;needed.</p>
       </div>
 
       <!-- Illustration: pure HTML/CSS/SVG. Static "all done" state under reduced motion or without JS. -->
@@ -1050,7 +1054,7 @@ select.input option{color:var(--ink)}
   var crew = d.querySelector('[data-crew]');
   if (crew && !reduce){
     var cTasks = crew.querySelectorAll('[data-task]'), cAgents = crew.querySelectorAll('[data-agent]');
-    var cState = 3, cTimer = null, cSeen = false;
+    var cState = 3, cTimer = null, cSeen = false, cLive = false;
     var HOLD = [1100, 1600, 1600, 4400]; // ms spent in state 0 (nothing done), 1, 2, 3 (all done)
     var crewSet = function(n, cheer){
       cState = n;
@@ -1072,14 +1076,15 @@ select.input option{color:var(--ink)}
     };
     var crewNext = function(){ cTimer = setTimeout(function(){ crewSet((cState + 1) % 4, true); crewNext(); }, HOLD[cState]); };
     var crewRun = function(){
+      crew.classList.toggle('is-off', !cLive || d.hidden); // freeze the float/blink loops while unseen
       var go = cSeen && !d.hidden;
       if (go && !cTimer) crewNext();
       else if (!go && cTimer){ clearTimeout(cTimer); cTimer = null; }
     };
     crewSet(0);
     if ('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ cSeen = es[0].isIntersecting; crewRun(); }, {threshold:0.3}).observe(crew);
-    } else { cSeen = true; crewRun(); }
+      new IntersectionObserver(function(es){ var e = es[0]; cLive = e.isIntersecting; cSeen = cLive && e.intersectionRatio >= 0.3; crewRun(); }, {threshold:[0, 0.3]}).observe(crew);
+    } else { cSeen = cLive = true; crewRun(); }
     d.addEventListener('visibilitychange', crewRun);
   }
 
