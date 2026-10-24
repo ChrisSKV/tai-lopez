@@ -99,3 +99,31 @@ Progress indicator. Bottom sheet on mobile. Step 1 must feel effortless.
   on Tai images ("Tai Lopez").
 - Motion: subtle and premium only.
 - Screenshot helper: `NODE_PATH=$(npm root -g) node tools/shoot.mjs directions/<dir>/index.html <outDir>`
+
+## Round 5 · Quality pass rules (client feedback, apply everywhere)
+- **Pixel-perfect finish.** Margins, alignment, empty space, sizes, responsiveness must look
+  hand-crafted, never "made by AI". Check 320, 360, 375, 390, 414, 768, 1024, 1280, 1440, 1920.
+  Centered CTA ⇒ its micro-trust line is centered too, item by item (also on mobile).
+- **Tai avatar in every pill / nametag / modal header / sticky bar:** `assets/tai/tai-avatar.jpg`
+  (single file; it will be replaced by his real Instagram profile photo). Never crop another image.
+- **Verified badge:** `assets/icons/verified.svg` (Instagram-style) right after "Tai Lopez" in pills.
+- **Smooth motion only.** Floating elements looked choppy, "pixel by pixel". Animate ONLY
+  `transform` (translate3d / rotate / scale) and `opacity` with CSS keyframes, `ease-in-out`,
+  3-8 s loops, small amplitude (6-12 px), `will-change: transform`, `backface-visibility: hidden`.
+  Never animate top/left/margin/width/height/box-shadow/filter/background-position; never use
+  `steps()`; no JS that sets positions every frame with rounding; no `filter: drop-shadow` or
+  `backdrop-filter` on the animated element itself (put shadows on a static layer or a
+  pre-blurred pseudo-element). Respect prefers-reduced-motion.
+- **Hover only on clickable things.** No lift/grow/glow on non-interactive cards.
+- **No clutter.** One focal point per section, the CTA must stand out at a glance.
+
+### New assets (Higgsfield, Nano Banana Pro — AI likeness, Tai's team approves before launch)
+- `assets/tai/tai-cobalt.webp` (1200×1607 photo, brown coat, cobalt studio backdrop, framed to
+  the waist) and `tai-cobalt-pocket.webp` (navy overshirt, hand in pocket). For 01.
+- `assets/tai/tai-yellow.webp` (black overshirt, yellow backdrop, smile) and
+  `tai-yellow-laugh.webp` (white shirt, laughing, arms crossed). 1200×1489 photos. For 03.
+- `assets/agents/violet-{calls,inbox,calendar}.webp`: 3D glass AI agents with LCD pixel eyes,
+  rendered on PURE BLACK (800×800). Use on dark pages with `mix-blend-mode: screen` or a radial
+  mask so the black disappears. For 04.
+- `assets/agents/white-{calls,inbox,calendar}.webp|png`: 3D white-ceramic + red AI agents with
+  black LCD faces, transparent background (800×800). For 06 (and 05 panels if useful).
