@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="../../assets/tai/tai-portrait.webp" fetchpriority="high">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 :root{
@@ -93,37 +92,49 @@ b,strong{font-weight:600}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;background-position:center -1px;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 22%,#000 20%,transparent 72%);mask-image:radial-gradient(ellipse 70% 55% at 50% 22%,#000 20%,transparent 72%)}
 .hero-in{display:grid;grid-template-columns:minmax(0,1fr)}
 
-/* Tai stage */
-.tai{--w:min(356px,91vw);position:relative;height:calc(var(--w) * .96 + 10px);margin:0 calc(var(--gutter) * -1)}
-.tai-box{position:absolute;top:22px;left:50%;width:var(--w);aspect-ratio:660/710;transform:translateX(-58%)}
-.tai-aura{position:absolute;left:44%;top:30%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(139,92,246,.62),rgba(124,58,237,.30) 38%,rgba(99,102,241,.10) 62%,transparent 80%)}
-.tai-ring{position:absolute;left:44%;top:31%;width:88%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(11,9,20,.0) 70%,rgba(139,92,246,.16) 96%,transparent 100%);box-shadow:inset 0 0 0 1px rgba(196,181,253,.22),0 0 90px -20px rgba(139,92,246,.75),inset 0 0 70px -10px rgba(139,92,246,.35)}
+/* Tai stage — designed for a WAIST-UP cutout (portrait, about 1:2, like Mo on movlogs.ai).
+   Everything is sized from --tw (the figure's width) and pinned either to the top of the image
+   box (head: ring, aura, sparks, chips) or to its bottom (waist: soft fade + creator pill).
+   The box height simply follows the file's real proportions, so swapping the image is ONE line:
+   the <img class="tai-img"> src in the hero markup. No other CSS or HTML needs to change. */
+/* phones: sized so a 1:2 waist-up figure + headline + CTA fit the first screen, even on short phones */
+.tai{--tw:clamp(124px,calc((100svh - 390px) / 2.3),176px);position:relative;display:flex;justify-content:center;margin:0;padding:calc(var(--tw) * .3) 0 22px}
+.fig{position:relative;width:var(--tw)}
+.tai-aura{position:absolute;left:47%;top:calc(var(--tw) * .44);width:calc(var(--tw) * 2.7);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(139,92,246,.56),rgba(124,58,237,.26) 36%,rgba(99,102,241,.08) 62%,transparent 80%)}
+.tai-ring{position:absolute;left:47%;top:calc(var(--tw) * .44);width:calc(var(--tw) * 1.44);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(11,9,20,0) 68%,rgba(139,92,246,.16) 96%,transparent 100%);box-shadow:inset 0 0 0 1px rgba(196,181,253,.22),0 0 80px -18px rgba(139,92,246,.75),inset 0 0 60px -10px rgba(139,92,246,.35)}
 .tai-ring::before{content:"";position:absolute;inset:-1px;border-radius:50%;padding:1.5px;background:conic-gradient(from 210deg,transparent 0 12%,rgba(221,214,254,.95) 24%,transparent 38%,transparent 62%,rgba(129,140,248,.7) 76%,transparent 88%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
-.tai-photo{position:absolute;inset:0;filter:drop-shadow(-6px -4px 18px rgba(167,139,250,.42)) drop-shadow(10px 0 26px rgba(99,102,241,.22))}
-.tai-img{width:100%;height:100%;filter:url(#rim);-webkit-mask-image:linear-gradient(to bottom,#000 54%,transparent 92%),linear-gradient(to right,transparent 0,#000 8%,#000 90%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 54%,transparent 92%),linear-gradient(to right,transparent 0,#000 8%,#000 90%,transparent 100%);mask-composite:intersect}
+/* the floor: a thin violet horizon + a pool of light where Tai's waist melts into the page */
+.tai-floor{position:absolute;left:50%;bottom:0;width:calc(var(--tw) * 1.9);height:calc(var(--tw) * .46);transform:translate(-50%,50%);border-radius:50%;background:radial-gradient(closest-side,rgba(167,139,250,.34),rgba(139,92,246,.12) 55%,transparent 100%);pointer-events:none}
+.tai-floor::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(196,181,253,.4) 28%,rgba(221,214,254,.85) 50%,rgba(196,181,253,.4) 72%,transparent)}
+.tai-photo{position:relative;filter:drop-shadow(-5px -3px 14px rgba(167,139,250,.45)) drop-shadow(8px 0 22px rgba(99,102,241,.24))}
+/* fade length is in --tw units, so it is the same soft melt for the chest-up stand-in and the waist-up file */
+.tai-img{display:block;width:100%;height:auto;filter:url(#rim);-webkit-mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 9%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to top,transparent 0,rgba(0,0,0,.18) calc(var(--tw) * .1),rgba(0,0,0,.62) calc(var(--tw) * .28),#000 calc(var(--tw) * .54)),linear-gradient(to right,transparent 0,#000 9%,#000 86%,transparent 100%);mask-composite:intersect}
 .spark{position:absolute;width:var(--s,12px);height:var(--s,12px);color:var(--v-ink);opacity:.8;filter:drop-shadow(0 0 6px rgba(196,181,253,.9))}
 .spark svg{width:100%;height:100%}
-.sp1{left:6%;top:9%;--s:14px}
-.sp2{left:86%;top:42%;--s:9px;opacity:.6}
-.sp3{left:16%;top:56%;--s:8px;opacity:.55}
-.sp4{left:78%;top:2%;--s:11px}
+.sp1{left:-24%;top:calc(var(--tw) * .02);--s:13px}
+.sp2{left:118%;top:calc(var(--tw) * .5);--s:9px;opacity:.6}
+.sp3{left:-32%;top:calc(var(--tw) * .78);--s:8px;opacity:.55}
+.sp4{left:104%;top:calc(var(--tw) * -.24);--s:11px}
 
-.who{position:absolute;z-index:3;left:8%;bottom:27%;display:flex;flex-direction:column;gap:5px;padding:11px 15px 12px;border-radius:14px;background:linear-gradient(180deg,rgba(28,25,44,.72),rgba(12,12,20,.7));-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.1),0 20px 40px -20px rgba(0,0,0,.9)}
-.who-n{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
-.who-s{display:flex;align-items:center;gap:8px;font-size:12.5px;line-height:1;color:var(--muted)}
+/* creator pill: sits on the waist line, like Mo's channel badge, and covers the end of the fade */
+.who{position:absolute;z-index:3;left:50%;bottom:-20px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;height:46px;padding:0 16px 0 18px;border-radius:999px;white-space:nowrap;background:linear-gradient(180deg,rgba(30,27,48,.82),rgba(12,12,20,.86));-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.12),0 22px 44px -18px rgba(0,0,0,.95),0 0 46px -14px rgba(139,92,246,.75)}
+.who-n{font-size:15px;font-weight:600;letter-spacing:-.012em;line-height:1}
+.who-s{display:flex;align-items:center;gap:8px;height:18px;padding-left:12px;border-left:1px solid var(--line-3);font-size:13px;line-height:1;color:var(--muted)}
 .who-s b{color:var(--text);font-weight:600}
-.who-ic{display:flex;gap:4px;color:var(--v-3)}
-.who-ic svg{width:12px;height:12px}
+.who-ic{display:flex;gap:5px;color:var(--v-3)}
+.who-ic svg{width:13px;height:13px}
 
 .chip{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:5px 13px 5px 5px;border-radius:999px;background:linear-gradient(180deg,rgba(30,27,48,.74),rgba(14,13,22,.7));-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.12),0 18px 40px -18px rgba(0,0,0,.9),0 0 44px -16px rgba(139,92,246,.7);font-size:12.5px;font-weight:500;line-height:1.2;color:var(--text);white-space:nowrap}
 .chip .t2{display:block}
+.c1{border-radius:16px}
 .ci{width:26px;height:26px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#B9A2FB,#7C3AED 60%,#4F46E5);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 0 16px rgba(139,92,246,.55)}
 .ci svg{width:14px;height:14px;color:#fff}
-.c1{right:-8%;top:12%;border-radius:16px}
-.c2{right:-8%;top:45.5%}
-@media (max-width:379px){.c2{top:42%}}
+/* chips are pinned to the head (top, in --tw units), so they stay put whatever the image's height */
+/* phones: chips hug the side gutters (the figure is centred, so its left edge is (100vw - --tw) / 2) */
+.c1{right:calc(var(--gutter) - (100vw - var(--tw)) / 2);top:calc(var(--tw) * -.06)}
+.c2{left:calc(var(--gutter) - (100vw - var(--tw)) / 2);bottom:40px}
 
-.hero-copy{position:relative;z-index:2;margin-top:-30px;text-align:center}
+.hero-copy{position:relative;z-index:2;margin-top:24px;text-align:center}
 @media (max-width:959px){.hero-copy .eyebrow{display:none}.hero-copy .h1{margin-top:0}}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 16px 0 4px;border-radius:999px;background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px var(--line-2);font-size:13.5px;color:var(--text);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .eb-tag{display:grid;place-items:center;width:26px;height:26px;border-radius:999px;background:var(--v-a20);box-shadow:inset 0 0 0 1px rgba(139,92,246,.5);color:var(--v-ink)}
@@ -138,7 +149,9 @@ b,strong{font-weight:600}
 .cta .btn{width:100%}
 
 @media (min-width:600px) and (max-width:959px){
-  .tai{--w:420px}
+  .tai{--tw:210px}
+  .c1{right:auto;left:76%;top:calc(var(--tw) * .02)}
+  .c2{left:auto;right:74%}
   .h1{font-size:54px}
   .sub{font-size:18px}
   .cta .btn{width:auto}
@@ -146,25 +159,23 @@ b,strong{font-weight:600}
 }
 @media (min-width:960px){
   .hero-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;min-height:clamp(600px,calc(100svh - 64px - 112px),780px)}
-  .tai{--w:min(640px,50vw,calc((100svh - 176px) * .92));height:auto;margin:0}
-  .tai-box{top:auto;bottom:0;transform:translateX(-52%)}
+  .tai{--tw:clamp(230px,20vw,290px);align-self:center;padding:calc(var(--tw) * .3) 0 52px}
   .hero-copy{align-self:center;margin:0;padding:24px 0 72px;text-align:left}
   .h1{margin-top:24px;font-size:clamp(44px,4.25vw,62px)}
   .sub{margin:22px 0 0;max-width:470px;font-size:18.5px;text-wrap:balance}
   .cta{margin-top:34px;align-items:flex-start}
   .cta .btn{width:auto}
-  .who{left:7%;top:76%;bottom:auto}
+  .who{height:50px;gap:14px;padding:0 20px 0 22px}
+  .who-n{font-size:16px}
   .chip{min-height:40px;padding:0 15px 0 6px;font-size:13.5px;line-height:1;gap:9px;border-radius:999px}
-  .chip .t2{display:inline}
+  .c1{padding:7px 16px 7px 6px;border-radius:18px;line-height:1.25}
   .ci{width:28px;height:28px}
-  .c1{right:auto;left:0;top:55%}
-  .c2{right:auto;left:61%;top:62%}
+  .c1{right:76%;top:calc(var(--tw) * .2)}
+  .c2{left:80%;top:calc(var(--tw) * .8);bottom:auto}
 }
 @media (min-width:960px) and (max-width:1199px){
-  .tai{--w:min(480px,calc((100svh - 176px) * .92))}
-  .tai-box{transform:translateX(-48%)}
-  .c2{left:50%;top:66%}
-  .who{top:80%}
+  .c1{right:70%}
+  .c2{left:66%}
 }
 
 /* proof strip */
@@ -383,7 +394,9 @@ b,strong{font-weight:600}
   .tai-img{animation:rise 1.2s var(--ease) both}
   .tai-aura{animation:breathe 7s ease-in-out infinite}
   .tai-ring::before{animation:spin 26s linear infinite}
-  .chip,.who{animation:pop .7s var(--ease) both,float 7s ease-in-out infinite;animation-delay:calc(.5s + var(--d,0) * .18s),calc(1.2s + var(--d,0) * .9s)}
+  .chip{animation:pop .7s var(--ease) both,float 7s ease-in-out infinite;animation-delay:calc(.5s + var(--d,0) * .18s),calc(1.2s + var(--d,0) * .9s)}
+  .who{animation:pop .7s var(--ease) both;animation-delay:.45s}
+  .tai-floor{animation:breathe 7s ease-in-out infinite}
   .spark{animation:twinkle 3.6s ease-in-out infinite;animation-delay:calc(var(--d,0) * .7s)}
 }
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
@@ -548,16 +561,23 @@ html.modal-open{overflow:hidden}
     <div class="hero-bg" aria-hidden="true"><div class="hero-glow"></div><div class="hero-grid"></div></div>
     <div class="wrap hero-in">
       <figure class="tai">
-        <div class="tai-box">
+        <div class="fig">
           <div class="tai-aura" aria-hidden="true"></div>
           <div class="tai-ring" aria-hidden="true"></div>
+          <div class="tai-floor" aria-hidden="true"></div>
           <span class="spark sp1" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
           <span class="spark sp2" aria-hidden="true" style="--d:1"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
           <span class="spark sp3" aria-hidden="true" style="--d:2"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
           <span class="spark sp4" aria-hidden="true" style="--d:3"><svg viewBox="0 0 24 24"><use href="#i-spark"/></svg></span>
+          <!-- TAI IMAGE SWAP (one line): the stage is built for a waist-up cutout (portrait ~1:2, facing camera).
+               When it is ready, replace the line below with:
+               <div class="tai-photo"><img class="tai-img" src="../../assets/tai/tai-waist.webp" alt="Tai Lopez" width="1000" height="2000" fetchpriority="high" decoding="async"></div>
+               (width/height only reserve the box before the file loads: set them to the file's pixel size.)
+               Nothing else changes: ring, chips and sparks are pinned to his head, the fade and the pill to his waist,
+               and the box takes the new file's own proportions. Until then, tai-portrait.webp (chest-up) is the stand-in. -->
           <div class="tai-photo"><img class="tai-img" src="../../assets/tai/tai-portrait.webp" alt="Tai Lopez" width="660" height="710" fetchpriority="high" decoding="async"></div>
           <!-- Source: tailopez.com (Oct 2026). Confirm with Tai's team before launch. -->
-          <p class="who" style="--d:0">
+          <p class="who">
             <span class="who-n">Tai Lopez</span>
             <span class="who-s"><span class="who-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-ig"/></svg><svg viewBox="0 0 24 24"><use href="#i-fb"/></svg><svg viewBox="0 0 24 24"><use href="#i-tt"/></svg><svg viewBox="0 0 24 24"><use href="#i-x"/></svg></span><span><b>11M+</b> followers</span></span>
           </p>
